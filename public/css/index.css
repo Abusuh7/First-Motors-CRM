@@ -1,0 +1,112 @@
+:root {
+    --primary-color: #71503f;
+  }
+
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Kaushan+Script&display=swap');
+
+#primarycolor{
+    background-color: var(--primary-color);
+}
+
+
+#search{
+    width: 100%;
+  border-width: 2px;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: #71503f;
+  border-right-width: 0;
+  padding-left: 3rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-right: 0.75rem;
+  border-top-left-radius: 0.375rem;
+  border-bottom-left-radius: 0.375rem;
+  outline: none;
+  display: flex;
+}
+
+#search:focus{
+    border-color: #71503f;
+    border-width: 3px;
+    /* outline: none; */
+}
+
+#searchbtn{
+    background-color: #71503f;
+  justify-content: center;
+  align-items: center;
+  border-width: 1px;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: #71503f;
+  color: #fff;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-top-right-radius: 0.375rem;
+  transition: all 0.3s ease;
+  display: none;
+  display: flex;
+}
+
+/* #firstmotor{
+    font-size: 2rem;
+    font-weight: 900;
+    font-family: 'Courgette', cursive;
+    margin-bottom: 8px;
+    text-transform: capitalize;
+    text-align: left;
+    margin-top: 0;
+    position: relative;
+    bottom: 60px;
+    padding: 0 5px;
+    background: linear-gradient(to right, #786962 50%, #41291D 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+} */
+
+#logotext {
+    font-size: 40px;
+    font-weight: 900;
+    font-family: 'Anton', sans-serif;
+    background: linear-gradient(to right, #786962 0%, #41291D 50%, #786962 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    left: 20px;
+  }
+
+  #logotextfooter{
+    font-size: 45px;
+    font-weight: 900;
+    font-family: 'Kaushan Script', cursive;
+    background: linear-gradient(to right, #786962 0%, #41291D 50%, #786962 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    /* left: 20px; */
+  }
+
+#baricon{
+    background-color: #71503f;
+
+}
+
+#background{
+    height: 700px;
+}
+
+#adVideoContainer, #adVideo{
+    height: 700px;
+    width: 100%;
+}
+
+#adVideoContainer{
+    background-color: rgb(0, 0, 0);
+}
+
+

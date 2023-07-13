@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[x-cloak] {
+    display: none;
+}
+
+
+.blur-background {
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#closeIcon {
+    /* position: relative;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    color: #999999; */
+    /* position: relative;
+    top: 0;
+    right: 0; */
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #999999;
+}
+
+.close-icon:hover {
+    color: #ff0000;
+}
+
+
+
+
+
+
+
+
