@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('first_name', 50);
             $table->string('last_name', 50);
             $table->string('phone_number', 10);
-            $table->string('email', 50)->nullable();
+            $table->string('email', 50)->nullable(); //Staff
             $table->enum('gender', ['male','female','other']);
             $table->date('dob');
             $table->integer('age');

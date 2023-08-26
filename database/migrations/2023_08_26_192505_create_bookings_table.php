@@ -19,11 +19,12 @@ return new class extends Migration
             $table->enum('booking_type', ['test_drive','purchase']);
             $table->date('booking_date');
             $table->time('booking_time');
-            $table->string('booking_status');
+            //booking status is enum type
+            $table->enum('booking_status', ['pending','completed', 'rejected', 'approved']);
             $table->double('booking_amount');
             //booking mode is enum type
             $table->enum('booking_mode', ['online','offline']);
-            $table->string('payment_reference_image');
+            $table->string('payment_reference_image')->nullable();
             $table->enum('booking_payment_status', ['paid','unpaid']);
 
             $table->timestamps();
