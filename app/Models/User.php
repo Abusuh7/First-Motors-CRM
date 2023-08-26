@@ -31,6 +31,9 @@ class User extends Authenticatable
         'role',
     ];
 
+    //user_details_id is the foreign key of user_details table
+    
+
     /**
      * The attributes that should be hidden for serialization.
      *

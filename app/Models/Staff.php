@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Staff extends Model
+{
+    use HasFactory;
+
+    protected $table = 'staff';
+    protected $fillable = [
+        'user_id',
+        'commission', //rate should be 0 by the starting of the month
+        'days_worked',
+    ];
+
+    public function users()
+    {
+        return $this->belongsTo(Users::class);
+    }
+}
