@@ -3,6 +3,7 @@
 use App\Http\Controllers\ShowCatagoryController;
 use App\Http\Controllers\ShowUserController;
 use App\Http\Controllers\ShowProductController;
+use App\Http\Controllers\VehiclesController;
 use App\Http\Controllers\ViewProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,10 +46,8 @@ Route::get('/admin/home', function () {
 //     return view('admin.users');
 // })->name('users');
 
-//VIEW WHEN ADMIN PRODUCTS CLICKED
-Route::get('/admin/products', function () {
-    return view('admin.products');
-})->name('productsview');
+//VIEW WHEN ADMIN VEHICLES CLICKED
+Route::get('/admin/vehicles', [VehiclesController::class, 'adminDashboard'])->name('adminVehiclesDashboard');
 
 
 

@@ -30,6 +30,9 @@ class Vehicle_Details extends Model
         'vehicle_cost_price',
         'vehicle_selling_price',
         'profit',
+        'availability', //Available or Sold
+
+
 
 
     ];

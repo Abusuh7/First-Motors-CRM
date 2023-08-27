@@ -42,6 +42,7 @@
             border-color: #e5e7eb
         }
 
+
         ::after,
         ::before {
             --tw-content: ''
@@ -887,6 +888,7 @@
 
     @livewireScripts
     <script src="/js/adminproducts.js"></script>
+    <script src="/js/adminVehicle.js"></script>
 </body>
 
 </html>

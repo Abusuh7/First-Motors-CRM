@@ -32,6 +32,18 @@
     color: #ff0000;
 }
 
+/* Hide the up and down arrows */
+.number-input::-webkit-inner-spin-button,
+.number-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide the arrows in Firefox */
+.number-input[type="number"] {
+    -moz-appearance: textfield;
+}
+
 
 
 

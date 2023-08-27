@@ -34,6 +34,7 @@ return new class extends Migration
             $table->decimal('vehicle_cost_price', 9, 2);
             $table->decimal('vehicle_selling_price', 9, 2);
             $table->decimal('profit', 9, 2);
+            $table->enum('availability', ['available','sold']);
 
             $table->timestamps();
 
