@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Staff;
 use App\Models\User;
 use App\Models\User_Details;
 use Illuminate\Http\Request;
@@ -73,6 +74,13 @@ class ShowUserController extends Controller
             "role" => $request->input('role'),
             "user_details_id" => $user_details->id,
         ]);
+
+        //if the user rolse is staff then store the user details in the staff table
+        if ($request->input('role') == "staff") {
+            $staff = Staff::create([
+                "user_id" => $user->id,
+            ]);
+        }
 
         return redirect()->back()->with('success', 'User has been added');
     }
