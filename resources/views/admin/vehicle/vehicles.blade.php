@@ -21,8 +21,16 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="vehicle_type">
                     Vehicle Type
                 </label>
-                <input name="vehicle_type" id="vehicle_type" type="text" placeholder="Vehicle Type"
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                {{-- <input name="vehicle_type" id="vehicle_type" type="text" placeholder="Vehicle Type"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"> --}}
+                    <select name="vehicle_type" id="vehicle_type" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="luxury">Luxury</option>
+                        <option value="Sedan">Sedan</option>
+                        <option value="convertible">Convertible</option>
+                        <option value="jdm">JDM</option>
+                        <option value="sports">Sports</option>
+                        <option value="suv">Hyper</option>
+                    </select>
                 @error('vehicle_type')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror

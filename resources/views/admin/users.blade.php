@@ -15,33 +15,354 @@
                         <span id="closeIcon" class="close-icon">&#10005;</span>
                     </div>
                     <h2 class="text-2xl mb-4">Create New User</h2>
-                    <form method="POST" action="{{ route('newuser') }}">
+                    {{-- <form method="POST" action="{{ route('newuser') }}">
                         @csrf
 
-                        <div class="mb-4">
-                            <x-label for="name" value="{{ __('Name') }}" />
-                            <x-input id="name" class="block mt-1 w-full" type="text" name="name" required
-                                autofocus />
+                        <div class="col-span-6 sm:col-span-4">
+                            <x-label for="first_name" value="{{ __('First Name') }}" />
+                            <x-input id="first_name" type="text" class="mt-1 block w-full"
+                                wire:model.defer="state.first_name" required />
+                            <x-input-error for="first_name" class="mt-2" />
                         </div>
-                        <div class="mb-4">
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <x-label for="last_name" value="{{ __('Last Name') }}" />
+                            <x-input id="last_name" type="text" class="mt-1 block w-full"
+                                wire:model.defer="state.last_name" required />
+                            <x-input-error for="last_name" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <x-label for="phone_number" value="{{ __('Phone Number') }}" />
+                            <x-input id="phone_number" type="number" class="mt-1 block w-full number-input"
+                                 required />
+                            <x-input-error for="phone_number" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
                             <x-label for="email" value="{{ __('Email') }}" />
-                            <x-input id="email" class="block mt-1 w-full" type="email" name="email" required />
+                            <x-input id="email" type="email" class="mt-1 block w-full"
+                                wire:model.defer="state.email" required />
+                            <x-input-error for="email" class="mt-2" />
                         </div>
-                        {{-- <div class="mb-4" data-te-input-wrapper-init>
-                            <x-label for="password_confirmation" value="{{ __('Role') }}" />
-                                <x-input id="password_confirmation" class="block mt-1 w-full" type="number"
-                                    name="role" required  />
-                        </div> --}}
-                        <div class="mb-4" data-te-input-wrapper-init>
-                            <x-label for="password" value="{{ __('Password') }}" />
-                            <x-input id="password" class="block mt-1 w-full" type="password" name="password"
-                                required />
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <x-label for="gender" value="{{ __('Gender') }}" />
+                            <select id="gender" name="gender" class="block w-full mt-1 rounded-md shadow-sm"
+                                wire:model.defer="state.gender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <x-input-error for="gender" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <x-label for="dob" value="{{ __('Date of Birth') }}" />
+                            <x-input id="dob" type="date" class="mt-1 block w-full"
+                                wire:model.defer="state.dob" required />
+                            <x-input-error for="dob" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <x-label for="age" value="{{ __('Age') }}" />
+                            <x-input id="age" type="number" class="mt-1 block w-full number-input"
+                                wire:model.defer="state.age" required />
+                            <x-input-error for="age" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <x-label for="occupation" value="{{ __('Occupation') }}" />
+                            <x-input id="occupation" type="text" class="mt-1 block w-full"
+                                wire:model.defer="state.occupation" required />
+                            <x-input-error for="occupation" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <x-label for="role" value="{{ __('Role') }}" />
+                            <select id="role" name="role" class="block w-full mt-1 rounded-md shadow-sm"
+                                wire:model.defer="state.role">
+                                <option value="admin">Admin</option>
+                                <option value="stuff">Stuff</option>
+                                <option value="user">User</option>
+
+                                <!-- Add more role options -->
+                            </select>
+                            <x-input-error for="role" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <x-label for="address" value="{{ __('Address') }}" />
+                            <x-input id="address" type="text" class="mt-1 block w-full"
+                                wire:model.defer="state.address" required />
+                            <x-input-error for="address" class="mt-2" />
+                        </div>
+
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <x-label for="city" value="{{ __('City') }}" />
+                            <select id="city" name="city" class="block w-full mt-1 rounded-md shadow-sm"
+                                wire:model.defer="state.city">
+                                <option value="colombo">Colombo</option>
+                                <option value="kandy">Kandy</option>
+                                <option value="galle">Galle</option>
+                                <option value="jaffna">Jaffna</option>
+                                <option value="negombo">Negombo</option>
+                                <option value="dehiwala">Dehiwala</option>
+                                <option value="moratuwa">Moratuwa</option>
+                                <option value="anuradhapura">Anuradhapura</option>
+                                <option value="matara">Matara</option>
+                                <option value="kurunegala">Kurunegala</option>
+                                <option value="kotte">Kotte</option>
+                                <option value="kegalle">Kegalle</option>
+                                <option value="ratnapura">Ratnapura</option>
+                                <option value="trincomalee">Trincomalee</option>
+                                <option value="batticaloa">Batticaloa</option>
+                                <option value="badulla">Badulla</option>
+                                <option value="gampaha">Gampaha</option>
+                                <option value="hambantota">Hambantota</option>
+                                <option value="ampara">Ampara</option>
+                                <option value="nuwara_eliya">Nuwara Eliya</option>
+                                <option value="kalutara">Kalutara</option>
+                                <option value="matale">Matale</option>
+                                <option value="chilaw">Chilaw</option>
+                                <option value="polonnaruwa">Polonnaruwa</option>
+                                <option value="panadura">Panadura</option>
+                                <option value="kelaniya">Kelaniya</option>
+                                <option value="dambulla">Dambulla</option>
+                                <option value="wattala">Wattala</option>
+                                <option value="puttalam">Puttalam</option>
+                                <option value="weligama">Weligama</option>
+                                <option value="kalpitiya">Kalpitiya</option>
+                                <option value="hikkaduwa">Hikkaduwa</option>
+                                <option value="marawila">Marawila</option>
+                                <option value="balangoda">Balangoda</option>
+                                <option value="narammala">Narammala</option>
+                                <option value="awissawella">Awissawella</option>
+                                <option value="ambalangoda">Ambalangoda</option>
+                                <option value="bandarawela">Bandarawela</option>
+                                <option value="kalmunai">Kalmunai</option>
+                                <option value="monaragala">Monaragala</option>
+                                <option value="gampola">Gampola</option>
+                                <!-- Add more city options -->
+                            </select>
+                            <x-input-error for="city" class="mt-2" />
+                        </div>
+
+
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <x-label for="state" value="{{ __('State') }}" />
+                            <select id="state" name="state" class="block w-full mt-1 rounded-md shadow-sm"
+                                wire:model.defer="state.state">
+                                <option value="">Select State</option>
+                                <option value="central">Central</option>
+                                <option value="eastern">Eastern</option>
+                                <option value="north_central">North Central</option>
+                                <option value="northern">Northern</option>
+                                <option value="north_western">North Western</option>
+                                <option value="sabaragamuwa">Sabaragamuwa</option>
+                                <option value="southern">Southern</option>
+                                <option value="uva">Uva</option>
+                                <option value="western">Western</option>
+                            </select>
+                            <x-input-error for="state" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <x-label for="zip_code" value="{{ __('Zip Code') }}" />
+                            <x-input id="zip_code" type="number"
+                                class="mt-1 block w-full number-input
+                            "
+                                wire:model.defer="state.zip_code" required />
+                            <x-input-error for="zip_code" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <x-label for="country" value="{{ __('Country') }}" />
+                            <select id="country" name="country" class="block w-full mt-1 rounded-md shadow-sm"
+                                wire:model.defer="state.country">
+                                <option value="srilanka">Sri Lanka</option>
+
+                                <!-- Add more country options -->
+                            </select>
+                            <x-input-error for="country" class="mt-2" />
                         </div>
 
                         <div>
-                            <x-button class="ml-4">
+                            <x-button class="ml-4 mt-3">
                                 {{ __('Register') }}
                             </x-button>
+                        </div>
+                    </form> --}}
+                    <form method="POST" action="{{ route('newuser') }}">
+                        @csrf
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <label for="first_name" class="block text-gray-700 text-sm font-bold mb-2">{{ __('First Name') }}</label>
+                            <input id="first_name" name="first_name" type="text" class="mt-1 block w-full"
+                                wire:model.defer="state.first_name" required>
+                            <x-input-error for="first_name" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <label for="last_name" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Last Name') }}</label>
+                            <input id="last_name" name="last_name" type="text" class="mt-1 block w-full"
+                                wire:model.defer="state.last_name" required>
+                            <x-input-error for="last_name" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <label for="phone_number" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Phone Number') }}</label>
+                            <input id="phone_number" name="phone_number" type="number" class="mt-1 block w-full number-input" required>
+                            <x-input-error for="phone_number" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <label for="email" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Email') }}</label>
+                            <input id="email" name="email" type="email" class="mt-1 block w-full"
+                                wire:model.defer="state.email" required>
+                            <x-input-error for="email" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <label for="gender" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Gender') }}</label>
+                            <select id="gender" name="gender" class="block w-full mt-1 rounded-md shadow-sm"
+                                wire:model.defer="state.gender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <x-input-error for="gender" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <label for="dob" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Date of Birth') }}</label>
+                            <input id="dob" name="dob" type="date" class="mt-1 block w-full"
+                                wire:model.defer="state.dob" required>
+                            <x-input-error for="dob" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <label for="age" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Age') }}</label>
+                            <input id="age" name="age" type="number" class="mt-1 block w-full number-input"
+                                wire:model.defer="state.age" required>
+                            <x-input-error for="age" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <label for="occupation" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Occupation') }}</label>
+                            <input id="occupation" name="occupation" type="text" class="mt-1 block w-full"
+                                wire:model.defer="state.occupation" required>
+                            <x-input-error for="occupation" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <label for="role" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Role') }}</label>
+                            <select id="role" name="role" class="block w-full mt-1 rounded-md shadow-sm"
+                                wire:model.defer="state.role">
+                                <option value="admin">Admin</option>
+                                <option value="stuff">Stuff</option>
+                                <option value="user">User</option>
+                                <!-- Add more role options if needed -->
+                            </select>
+                            <x-input-error for="role" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <label for="address" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Address') }}</label>
+                            <input id="address" name="address" type="text" class="mt-1 block w-full"
+                                wire:model.defer="state.address" required>
+                            <x-input-error for="address" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <label for="city" class="block text-gray-700 text-sm font-bold mb-2">{{ __('City') }}</label>
+                            <select id="city" name="city" class="block w-full mt-1 rounded-md shadow-sm" wire:model.defer="state.city">
+                                <option value="" disabled>Select City</option>
+                                <option value="colombo">Colombo</option>
+                                <option value="kandy">Kandy</option>
+                                <option value="galle">Galle</option>
+                                <option value="jaffna">Jaffna</option>
+                                <option value="negombo">Negombo</option>
+                                <option value="dehiwala">Dehiwala</option>
+                                <option value="moratuwa">Moratuwa</option>
+                                <option value="anuradhapura">Anuradhapura</option>
+                                <option value="matara">Matara</option>
+                                <option value="kurunegala">Kurunegala</option>
+                                <option value="kotte">Kotte</option>
+                                <option value="kegalle">Kegalle</option>
+                                <option value="ratnapura">Ratnapura</option>
+                                <option value="trincomalee">Trincomalee</option>
+                                <option value="batticaloa">Batticaloa</option>
+                                <option value="badulla">Badulla</option>
+                                <option value="gampaha">Gampaha</option>
+                                <option value="hambantota">Hambantota</option>
+                                <option value="ampara">Ampara</option>
+                                <option value="nuwara_eliya">Nuwara Eliya</option>
+                                <option value="kalutara">Kalutara</option>
+                                <option value="matale">Matale</option>
+                                <option value="chilaw">Chilaw</option>
+                                <option value="polonnaruwa">Polonnaruwa</option>
+                                <option value="panadura">Panadura</option>
+                                <option value="kelaniya">Kelaniya</option>
+                                <option value="dambulla">Dambulla</option>
+                                <option value="wattala">Wattala</option>
+                                <option value="puttalam">Puttalam</option>
+                                <option value="weligama">Weligama</option>
+                                <option value="kalpitiya">Kalpitiya</option>
+                                <option value="hikkaduwa">Hikkaduwa</option>
+                                <option value="marawila">Marawila</option>
+                                <option value="balangoda">Balangoda</option>
+                                <option value="narammala">Narammala</option>
+                                <option value="awissawella">Awissawella</option>
+                                <option value="ambalangoda">Ambalangoda</option>
+                                <option value="bandarawela">Bandarawela</option>
+                                <option value="kalmunai">Kalmunai</option>
+                                <option value="monaragala">Monaragala</option>
+                                <option value="gampola">Gampola</option>
+                                <!-- Add other city options -->
+                            </select>
+                            <x-input-error for="city" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <label for="state" class="block text-gray-700 text-sm font-bold mb-2">{{ __('State') }}</label>
+                            <select id="state" name="state" class="block w-full mt-1 rounded-md shadow-sm" wire:model.defer="state.state">
+                                <option value="" disabled>Select State</option>
+                                <option value="central">Central</option>
+                                <option value="eastern">Eastern</option>
+                                <option value="north_central">North Central</option>
+                                <option value="northern">Northern</option>
+                                <option value="north_western">North Western</option>
+                                <option value="sabaragamuwa">Sabaragamuwa</option>
+                                <option value="southern">Southern</option>
+                                <option value="uva">Uva</option>
+                                <option value="western">Western</option>
+                                <!-- Add other state options -->
+                            </select>
+                            <x-input-error for="state" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <label for="zip_code" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Zip Code') }}</label>
+                            <input id="zip_code" name="zip_code" type="number" class="mt-1 block w-full number-input"
+                                wire:model.defer="state.zip_code" required>
+                            <x-input-error for="zip_code" class="mt-2" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <label for="country" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Country') }}</label>
+                            <select id="country" name="country" class="block w-full mt-1 rounded-md shadow-sm"
+                                wire:model.defer="state.country">
+                                <option value="srilanka">Sri Lanka</option>
+                                <!-- Add other country options -->
+                            </select>
+                            <x-input-error for="country" class="mt-2" />
+                        </div>
+
+                        <div>
+                            <button type="submit" class="ml-4 mt-3">{{ __('Register') }}</button>
                         </div>
                     </form>
                 </div>
@@ -66,8 +387,8 @@
                     </thead>
 
 
-                    {{-- Iterating through the database --}}
-                    @foreach ($data as $data)
+                    {{-- Iterating through the database for admin --}}
+                    @foreach ($admin as $data)
                         <tbody class="divide-y divide-gray-100 border-t border-gray-100">
                             <tr class="hover:bg-gray-50">
                                 <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">

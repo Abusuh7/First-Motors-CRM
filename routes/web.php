@@ -47,7 +47,7 @@ Route::get('/admin/home', function () {
 // })->name('users');
 
 //VIEW WHEN ADMIN VEHICLES CLICKED
-Route::get('/admin/vehicles', [VehiclesController::class, 'adminDashboard'])->name('adminVehiclesDashboard');
+Route::get('/admin/vehicles', [VehiclesController::class, 'adminVehicles'])->name('adminVehiclesDashboard');
 
 
 

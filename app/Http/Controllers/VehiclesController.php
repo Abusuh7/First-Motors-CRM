@@ -9,7 +9,7 @@ class VehiclesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function adminDashboard()
+    public function adminVehicles()
     {
         return view('admin.vehicle.vehicles');
     }
