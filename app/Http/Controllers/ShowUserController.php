@@ -13,15 +13,17 @@ class ShowUserController extends Controller
     public function show()
     {
         //get all the data of users with role admin avoiding the first user
-        $admin = User::where('role', 'admin')->where('id', '!=', 1)->get();
+        $admin = User::where('role', 'admin')
+            ->where('id', '!=', 1)
+            ->paginate(5);
 
         //get all the data of users with role staff
-        $staff = User::where('role', 'staff')->get();
+        $staff = User::where('role', 'staff')->paginate(5);
 
         //get all the data of users with role user
-        $user = User::where('role', 'user')->get();
+        $customers = User::where('role', 'customer')->paginate(5);
 
-        return view('admin.users', compact('admin', 'staff', 'user'));
+        return view('admin.users', compact('admin', 'staff', 'customers'));
     }
 
     //write a public function to add a new user and store in database
@@ -83,6 +85,40 @@ class ShowUserController extends Controller
         }
 
         return redirect()->back()->with('success', 'User has been added');
+    }
+
+    //seach bar
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $searched = User::where('name', 'LIKE', "%$search%")
+            ->orWhere('email', 'LIKE', "%$search%")
+            ->paginate(5);
+
+        return view('admin.users', compact('searched'));
+    }
+
+    //activate a user
+    public function activate($id)
+    {
+        $user = User::find($id);
+        $user->status = "active";
+        $user->save();
+        //get the user name and pass in the success message
+        return redirect()->back()->with('success', $user->name . ' is activated successfully');
+        // return redirect()->back()->with('success', 'User has been activated');
+    }
+
+    //deactivate a user
+    public function deactivate($id)
+    {
+        $user = User::find($id);
+        $user->status = "inactive";
+        $user->save();
+        //get the user name and pass in the success message
+        return redirect()->back()->with('success', $user->name . ' is deactivated successfully');
+        // return redirect()->back()->with('success', 'User has been deactivated');
     }
 
     //write a function to delete a user from the database

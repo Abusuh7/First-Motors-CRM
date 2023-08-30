@@ -68,6 +68,15 @@ Route::put('/admin/users/{id}', [ShowUserController::class, 'update'])->name('up
 
 Route::get('/admin/users/{id}/edit', [ShowUserController::class, 'edit'])->name('edituser');
 
+//activate a user
+Route::get('/admin/users/{id}/activate', [ShowUserController::class, 'activate'])->name('activateuser');
+
+//deactivate a user
+Route::get('/admin/users/{id}/deactivate', [ShowUserController::class, 'deactivate'])->name('deactivateuser');
+
+//search user by name or email
+Route::get('/admin/users/search', [ShowUserController::class, 'search'])->name('searchuser');
+
 // Route::get('/admin/users/{id}/edit', [ShowUserController::class, 'edit'])->name('edituser');
 
 

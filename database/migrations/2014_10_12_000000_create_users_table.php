@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('user_details_id')->nullable();
             $table->string('name');
             $table->string('email')->unique();
-            $table->enum('role', ['admin', 'staff', 'user'])->default('user');
+            $table->enum('role', ['admin', 'staff', 'customer'])->default('customer');
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

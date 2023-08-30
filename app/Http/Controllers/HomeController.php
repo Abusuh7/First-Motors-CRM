@@ -21,7 +21,7 @@ class HomeController extends Controller
 
         if ($role == "admin") {
             return view('admin.home');
-        } elseif ($role == "marketing") {
+        } elseif ($role == "staff") {
             return view('dashboard');
         } else{
             return view('shop.logged-index');
