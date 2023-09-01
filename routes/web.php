@@ -80,11 +80,11 @@ Route::get('/admin/users/search', [ShowUserController::class, 'search'])->name('
 // Route::get('/admin/users/{id}/edit', [ShowUserController::class, 'edit'])->name('edituser');
 
 
-//CRUD FOR PRODUCTS MANAGEMENT
-// Route::post('/admin/products', 'ShowProductController@store')->name('addproduct');
-Route::get('/admin/products', [ShowProductController::class, 'show'])->name('products');
 
-Route::post('/admin/products', [ShowProductController::class, 'store'])->name('addproduct');
+
+
+//CRUD FOR VEHICLE MANAGEMENT
+Route::post('/admin/vehicles', [VehiclesController::class, 'store'])->name('addVehicle');
 
 Route::delete('/admin/products/{id}', [ShowProductController::class, 'destroy'])->name('deleteproduct');
 

@@ -23,14 +23,15 @@
                 </label>
                 {{-- <input name="vehicle_type" id="vehicle_type" type="text" placeholder="Vehicle Type"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"> --}}
-                    <select name="vehicle_type" id="vehicle_type" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        <option value="luxury">Luxury</option>
-                        <option value="Sedan">Sedan</option>
-                        <option value="convertible">Convertible</option>
-                        <option value="jdm">JDM</option>
-                        <option value="sports">Sports</option>
-                        <option value="suv">Hyper</option>
-                    </select>
+                <select name="vehicle_type" id="vehicle_type"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="luxury">Luxury</option>
+                    <option value="Sedan">Sedan</option>
+                    <option value="convertible">Convertible</option>
+                    <option value="jdm">JDM</option>
+                    <option value="sports">Sports</option>
+                    <option value="suv">Hyper</option>
+                </select>
                 @error('vehicle_type')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
@@ -41,36 +42,37 @@
                 </label>
                 {{-- <input name="vehicle_make" id="vehicle_make" type="text" placeholder="Vehicle Make"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"> --}}
-                    <select name="vehicle_make" id="vehicle_make" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        <option value="toyota">Toyota</option>
-                        <option value="nissan">Nissan</option>
-                        <option value="honda">Honda</option>
-                        <option value="mitsubishi">Mitsubishi</option>
-                        <option value="suzuki">Suzuki</option>
-                        <option value="mazda">Mazda</option>
-                        <option value="subaru">Subaru</option>
-                        <option value="volkswagen">Volkswagen</option>
-                        <option value="mercedes-benz">Mercedes-Benz</option>
-                        <option value="bmw">BMW</option>
-                        <option value="audi">Audi</option>
-                        <option value="lexus">Lexus</option>
-                        <option value="bugatti">Bugatti</option>
-                        <option value="ferrari">Ferrari</option>
-                        <option value="lamborghini">Lamborghini</option>
-                        <option value="maserati">Maserati</option>
-                        <option value="bentley">Bentley</option>
-                        <option value="rolls-royce">Rolls-Royce</option>
-                        <option value="aston-martin">Aston Martin</option>
-                        <option value="mclaren">McLaren</option>
-                        <option value="land-rover">Land Rover</option>
-                        <option value="jaguar">Jaguar</option>
-                        <option value="porsche">Porsche</option>
-                        <option value="jeep">Jeep</option>
-                        <option value="ford">Ford</option>
-                        <option value="chevrolet">Chevrolet</option>
-                        <option value="dodge">Dodge</option>
-                        <option value="tesla">Tesla</option>
-                    </select>
+                <select name="vehicle_make" id="vehicle_make"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="toyota">Toyota</option>
+                    <option value="nissan">Nissan</option>
+                    <option value="honda">Honda</option>
+                    <option value="mitsubishi">Mitsubishi</option>
+                    <option value="suzuki">Suzuki</option>
+                    <option value="mazda">Mazda</option>
+                    <option value="subaru">Subaru</option>
+                    <option value="volkswagen">Volkswagen</option>
+                    <option value="mercedes-benz">Mercedes-Benz</option>
+                    <option value="bmw">BMW</option>
+                    <option value="audi">Audi</option>
+                    <option value="lexus">Lexus</option>
+                    <option value="bugatti">Bugatti</option>
+                    <option value="ferrari">Ferrari</option>
+                    <option value="lamborghini">Lamborghini</option>
+                    <option value="maserati">Maserati</option>
+                    <option value="bentley">Bentley</option>
+                    <option value="rolls-royce">Rolls-Royce</option>
+                    <option value="aston-martin">Aston Martin</option>
+                    <option value="mclaren">McLaren</option>
+                    <option value="land-rover">Land Rover</option>
+                    <option value="jaguar">Jaguar</option>
+                    <option value="porsche">Porsche</option>
+                    <option value="jeep">Jeep</option>
+                    <option value="ford">Ford</option>
+                    <option value="chevrolet">Chevrolet</option>
+                    <option value="dodge">Dodge</option>
+                    <option value="tesla">Tesla</option>
+                </select>
                 @error('vehicle_make')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
@@ -113,11 +115,147 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="vehicle_ownership">
                     Vehicle Ownership
                 </label>
-                <input name="vehicle_ownership" id="vehicle_ownership" type="number" placeholder="Vehicle Ownership" max="4" maxlength="1"
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline number-input">
+                {{-- <input name="vehicle_ownership" id="vehicle_ownership" type="text" placeholder="vehicle_ownership"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"> --}}
+                <select name="vehicle_ownership" id="vehicle_ownership"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="new">Brand New</option>
+                    <option value="first">1st Owner</option>
+                    <option value="second">2nd Owner</option>
+                    <option value="third">3rd Owner</option>
+                    <option value="fourth">4th Owner</option>
+                </select>
                 @error('vehicle_ownership')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
+            </div>
+
+            <!-- Previous Owner Details Section if its not brand new -->
+            <div id="previousOwnerDetailsSection" class="mb-4">
+                <label class="block text-gray-700 text-base font-bold mb-2" for="previous_owner_details">
+                    Previous Owner Details
+                </label>
+
+                <!-- First Name -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="first_name">
+                        First Name
+                    </label>
+                    <input name="first_name" id="first_name" type="text" placeholder="First Name"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                <!-- Last Name -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="last_name">
+                        Last Name
+                    </label>
+                    <input name="last_name" id="last_name" type="text" placeholder="Last Name"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                <!-- Phone Number -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="phone_number">
+                        Phone Number
+                    </label>
+                    <input name="phone_number" id="phone_number" type="text" placeholder="Phone Number"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                <!-- Email (Optional) -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                        Email (Optional)
+                    </label>
+                    <input name="email" id="email" type="email" placeholder="Email"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                <!-- Gender -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="gender">
+                        Gender
+                    </label>
+                    <select name="gender" id="gender"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Date of Birth -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="dob">
+                        Date of Birth
+                    </label>
+                    <input name="dob" id="dob" type="date"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                <!-- Age -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="age">
+                        Age
+                    </label>
+                    <input name="age" id="age" type="number" placeholder="Age"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                <!-- Occupation -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="occupation">
+                        Occupation
+                    </label>
+                    <input name="occupation" id="occupation" type="text" placeholder="Occupation"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                <!-- Address -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="address">
+                        Address
+                    </label>
+                    <input name="address" id="address" type="text" placeholder="Address"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                <!-- City -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="city">
+                        City
+                    </label>
+                    <input name="city" id="city" type="text" placeholder="City"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                <!-- State -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="state">
+                        State
+                    </label>
+                    <input name="state" id="state" type="text" placeholder="State"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                <!-- Zip Code -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="zip_code">
+                        Zip Code
+                    </label>
+                    <input name="zip_code" id="zip_code" type="number" placeholder="Zip Code"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline number-input">
+                </div>
+
+                <!-- Country -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="country">
+                        Country
+                    </label>
+                    <input name="country" id="country" type="text" placeholder="Country"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
             </div>
 
             <div class="mb-4">
@@ -240,7 +378,8 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="vehicle_cost_price">
                     Vehicle Cost Price
                 </label>
-                <input name="vehicle_cost_price" id="vehicle_cost_price" type="number" placeholder="Vehicle Cost Price"
+                <input name="vehicle_cost_price" id="vehicle_cost_price" type="number"
+                    placeholder="Vehicle Cost Price"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline number-input">
                 @error('vehicle_cost_price')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
@@ -251,7 +390,8 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="vehicle_selling_price">
                     Vehicle Selling Price
                 </label>
-                <input name="vehicle_selling_price" id="vehicle_selling_price" type="number" placeholder="Vehicle Selling Price"
+                <input name="vehicle_selling_price" id="vehicle_selling_price" type="number"
+                    placeholder="Vehicle Selling Price"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline number-input">
                 @error('vehicle_selling_price')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
@@ -268,6 +408,9 @@
 
         </form>
     </div>
+
+    {{-- Search bar with filter option where you can filter by many options --}}
+
 
 
     {{-- Table for vehicles displaying the tumbnail image,make,model,colour,yom and action button view more,edit,delete --}}
@@ -301,7 +444,8 @@
                     <!-- Example data: replace this with actual vehicle data -->
                     <tr>
                         <td class="border">
-                            <img src="https://imageio.forbes.com/specials-images/imageserve/5d35eacaf1176b0008974b54/0x0.jpg?format=jpg&crop=4560,2565,x790,y784,safe&width=1200" alt="Thumbnail" class=" w-full h-48">
+                            <img src="https://imageio.forbes.com/specials-images/imageserve/5d35eacaf1176b0008974b54/0x0.jpg?format=jpg&crop=4560,2565,x790,y784,safe&width=1200"
+                                alt="Thumbnail" class=" w-full h-48">
                         </td>
                         <td class="border p-2">Toyota</td>
                         <td class="border p-2">Corolla</td>
@@ -320,6 +464,44 @@
             </table>
         </div>
     </div>
+
+    <h1>All Vehicles</h1>
+
+    <ul>
+        @foreach ($vehicles as $vehicle)
+            <li>
+                <h2>{{ $vehicle->vehicle_make }} {{ $vehicle->vehicle_model }}</h2>
+                <p>Vehicle Year: {{ $vehicle->vehicle_year_manufactured }}</p>
+
+                {{-- <!-- Display Thumbnail -->
+                <img src="/storage/{{ $vehicle->vehicle_thumbnail }}" alt="{{ $vehicle->vehicle_make }} Thumbnail" width="150">
+
+                <!-- Display Multiple Images -->
+                @if ($vehicle->vehicle_images)
+                    <div class="vehicle-images">
+                        @foreach (json_decode($vehicle->vehicle_images, true) as $image)
+                            <img src="/storage/{{ $image }}" alt="{{ $vehicle->vehicle_make }} Image" width="150">
+                        @endforeach
+                    </div>
+                @endif --}}
+
+                <img src="{{ asset('storage/' . $vehicle->vehicle_thumbnail) }}"
+                    alt="{{ $vehicle->vehicle_make }} Thumbnail" width="150">
+
+                <!-- Display Multiple Images -->
+                @if ($vehicle->vehicle_images)
+                    <div class="vehicle-images">
+                        @foreach (json_decode($vehicle->vehicle_images, true) as $image)
+                            <img src="{{ asset('storage/' . $image) }}" alt="{{ $vehicle->vehicle_make }} Image"
+                                width="150">
+                        @endforeach
+                    </div>
+                @endif
+
+                <!-- Add more vehicle details here -->
+            </li>
+        @endforeach
+    </ul>
 
 
 </x-app-layout>
