@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Vehicles') }}
+            {{ __('Vehicles Dashboard') }}
         </h2>
     </x-slot>
 
@@ -10,7 +10,7 @@
     {{-- Form for new vehicle  --}}
     <div id="vehicleFromContainer" class="max-w-2xl mx-auto py-8 hidden">
 
-        <form method="POST" action="" enctype="multipart/form-data"
+        <form method="POST" action="{{ route('addVehicle') }}" enctype="multipart/form-data"
             class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             @csrf
             <div id="closeVehicleForm" class=" w-full flex justify-end">
@@ -353,10 +353,10 @@
             </div>
 
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="vehicle_images">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="vehicle_images" accept="image/*">
                     Vehicle More Image
                 </label>
-                <input name="vehicle_images" id="vehicle_images" type="file" multiple
+                <input name="vehicle_images[]" id="vehicle_images" type="file" multiple accept="image/*"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 @error('vehicle_images')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
@@ -410,11 +410,41 @@
     </div>
 
     {{-- Search bar with filter option where you can filter by many options --}}
+    <form action="{{ route('searchVehicle') }}" method="GET">
+        <div class="mb-3 mt-5 flex justify-center flex-row">
+            <div class="relative mb-4 flex w-1/2 flex-wrap items-stretch">
+                <input type="search" name="search"
+                    class="relative m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-red-500 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-black dark:placeholder:text-black dark:focus:border-primary"
+                    placeholder="Search" aria-label="Search" aria-describedby="button-addon1" />
 
+                <!--Search button-->
+                <button type="submit"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                    Search
+                </button>
+            </div>
+
+            <select id="searchBy" name="searchBy"
+            class=" w-15 h-10 border-2 ml-5 border-solid border-neutral-300 focus:outline-none focus:border-sky-500 text-black rounded px-2 md:px-3 py-0 md:py-1 tracking-wider">
+            <option value="all" selected="">All</option>
+            <option value="make">Make</option>
+            <option value="model">Model</option>
+            <option value="ownership">Ownership</option>
+            <option value="color">Color</option>
+            <option value="year">Year Manufactured</option>
+            <option value="license_plate">Plate</option>
+            <option value="availability">Availability</option>
+            <option value="transmission">Transmission</option>
+        </select>
+        </div>
+    </form>
 
 
     {{-- Table for vehicles displaying the tumbnail image,make,model,colour,yom and action button view more,edit,delete --}}
-    <div class="max-w-6xl mx-auto py-8">
+    <div class="max-w-7xl mx-auto py-8">
+
+
+        @if (empty($vehiclesSearch))
 
         <div class="flex flex-row justify-between">
             <h2 class="text-xl font-semibold mb-4">Vehicle List</h2>
@@ -426,6 +456,89 @@
         </div>
 
         <div class="overflow-x-auto">
+            @if (count($vehicles) > 0)
+                <table class="w-full border border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="border p-2">Thumbnail</th>
+                            <th class="border p-2">Make</th>
+                            <th class="border p-2">Model</th>
+                            <th class="border p-2">Color</th>
+                            <th class="border p-2">YOM</th>
+                            <th class="border p-2">Ownership</th>
+                            <th class="border p-2">Availability</th>
+                            <th class="border p-2">Actions</th>
+                        </tr>
+                    </thead>
+                    @foreach ($vehicles->chunk(5) as $chunk)
+                        <tbody>
+                            @foreach ($chunk as $vehicle)
+                        <tbody>
+                            <!-- Loop through your vehicle data and generate rows -->
+                            <!-- Example data: replace this with actual vehicle data -->
+                            <tr>
+                                <td class="border">
+                                    <img src="{{ asset('storage/' . $vehicle->vehicle_thumbnail) }}" alt="Thumbnail"
+                                        class=" w-full h-48">
+                                </td>
+                                <td class="border p-2">{{ ucwords($vehicle->vehicle_make) }}</td>
+                                <td class="border p-2">{{ ucwords($vehicle->vehicle_model) }}</td>
+                                <td class="border p-2">{{ ucwords($vehicle->vehicle_color) }}</td>
+                                <td class="border p-2">{{ $vehicle->vehicle_year_manufactured }}</td>
+
+                                <td class="border p-2">
+                                    @if ($vehicle->vehicle_ownership === 'new')
+                                        Brand New
+                                    @elseif ($vehicle->vehicle_ownership === 'first')
+                                        1st Owner
+                                    @elseif ($vehicle->vehicle_ownership === 'second')
+                                        2nd Owner
+                                    @elseif ($vehicle->vehicle_ownership === 'third')
+                                        3rd Owner
+                                    @elseif ($vehicle->vehicle_ownership === 'fourth')
+                                        4th Owner
+                                    @else
+                                        {{ $vehicle->vehicle_ownership }} <!-- Handle other cases as needed -->
+                                    @endif
+                                </td>
+
+
+                                {{-- <td class="border p-2">1</td> --}}
+                                <td class="border p-2">{{ ucwords($vehicle->availability) }}</td>
+                                <td class="border p-2">
+                                    <button class="text-blue-500 mr-2">View More</button>
+                                    <button class="text-green-500 mr-2">Edit</button>
+                                    <button class="text-red-500">Delete</button>
+                                </td>
+                            </tr>
+                            <!-- Repeat the above row for each vehicle entry -->
+                        </tbody>
+                    @endforeach
+                    </tbody>
+            @endforeach
+            </table>
+            {{ $vehicles->links() }} <!-- Pagination links -->
+        @else
+            <div class=" border p-4 mx-auto max-w-sm text-center">
+                <p class="text-xl">No vehicles available.</p>
+            </div>
+            @endif
+        </div>
+    </div>
+
+    @else
+
+    <div class="flex flex-col justify-between">
+        <h2 class="text-xl font-semibold mb-4">Vehicle Search</h2>
+
+        <div class="px-6 py-4">
+            <a href="{{ route('adminVehiclesDashboard') }}" class="text-blue-700 hover:text-blue-800">Reset Search</a>
+        </div>
+
+    </div>
+
+    <div class="overflow-x-auto">
+        @if (count($vehiclesSearch) > 0)
             <table class="w-full border border-collapse">
                 <thead>
                     <tr>
@@ -439,69 +552,76 @@
                         <th class="border p-2">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- Loop through your vehicle data and generate rows -->
-                    <!-- Example data: replace this with actual vehicle data -->
-                    <tr>
-                        <td class="border">
-                            <img src="https://imageio.forbes.com/specials-images/imageserve/5d35eacaf1176b0008974b54/0x0.jpg?format=jpg&crop=4560,2565,x790,y784,safe&width=1200"
-                                alt="Thumbnail" class=" w-full h-48">
-                        </td>
-                        <td class="border p-2">Toyota</td>
-                        <td class="border p-2">Corolla</td>
-                        <td class="border p-2">Blue</td>
-                        <td class="border p-2">2023</td>
-                        <td class="border p-2">1</td>
-                        <td class="border p-2">Available</td>
-                        <td class="border p-2">
-                            <button class="text-blue-500 mr-2">View More</button>
-                            <button class="text-green-500 mr-2">Edit</button>
-                            <button class="text-red-500">Delete</button>
-                        </td>
-                    </tr>
-                    <!-- Repeat the above row for each vehicle entry -->
+                @foreach ($vehiclesSearch->chunk(5) as $chunk)
+                    <tbody>
+                        @foreach ($chunk as $vehicle)
+                    <tbody>
+                        <!-- Loop through your vehicle data and generate rows -->
+                        <!-- Example data: replace this with actual vehicle data -->
+                        <tr>
+                            <td class="border">
+                                <img src="{{ asset('storage/' . $vehicle->vehicle_thumbnail) }}" alt="Thumbnail"
+                                    class=" w-full h-48">
+                            </td>
+                            <td class="border p-2">{{ ucwords($vehicle->vehicle_make) }}</td>
+                            <td class="border p-2">{{ ucwords($vehicle->vehicle_model) }}</td>
+                            <td class="border p-2">{{ ucwords($vehicle->vehicle_color) }}</td>
+                            <td class="border p-2">{{ $vehicle->vehicle_year_manufactured }}</td>
+
+                            <td class="border p-2">
+                                @if ($vehicle->vehicle_ownership === 'new')
+                                    Brand New
+                                @elseif ($vehicle->vehicle_ownership === 'first')
+                                    1st Owner
+                                @elseif ($vehicle->vehicle_ownership === 'second')
+                                    2nd Owner
+                                @elseif ($vehicle->vehicle_ownership === 'third')
+                                    3rd Owner
+                                @elseif ($vehicle->vehicle_ownership === 'fourth')
+                                    4th Owner
+                                @else
+                                    {{ $vehicle->vehicle_ownership }} <!-- Handle other cases as needed -->
+                                @endif
+                            </td>
+
+
+                            {{-- <td class="border p-2">1</td> --}}
+                            <td class="border p-2">{{ ucwords($vehicle->availability) }}</td>
+                            <td class="border p-2">
+                                <button class="text-blue-500 mr-2">View More</button>
+                                <button class="text-green-500 mr-2">Edit</button>
+                                <button class="text-red-500">Delete</button>
+                            </td>
+                        </tr>
+                        <!-- Repeat the above row for each vehicle entry -->
+                    </tbody>
+                @endforeach
                 </tbody>
-            </table>
+        @endforeach
+        </table>
+        {{ $vehiclesSearch->links() }} <!-- Pagination links -->
+    @else
+        <div class=" border p-4 mx-auto max-w-sm text-center">
+            <p class="text-xl">No Searched vehicles available.</p>
         </div>
+        @endif
     </div>
+</div>
 
-    <h1>All Vehicles</h1>
+@endif
 
-    <ul>
-        @foreach ($vehicles as $vehicle)
-            <li>
-                <h2>{{ $vehicle->vehicle_make }} {{ $vehicle->vehicle_model }}</h2>
-                <p>Vehicle Year: {{ $vehicle->vehicle_year_manufactured }}</p>
 
-                {{-- <!-- Display Thumbnail -->
-                <img src="/storage/{{ $vehicle->vehicle_thumbnail }}" alt="{{ $vehicle->vehicle_make }} Thumbnail" width="150">
 
-                <!-- Display Multiple Images -->
-                @if ($vehicle->vehicle_images)
-                    <div class="vehicle-images">
-                        @foreach (json_decode($vehicle->vehicle_images, true) as $image)
-                            <img src="/storage/{{ $image }}" alt="{{ $vehicle->vehicle_make }} Image" width="150">
-                        @endforeach
-                    </div>
-                @endif --}}
-
-                <img src="{{ asset('storage/' . $vehicle->vehicle_thumbnail) }}"
-                    alt="{{ $vehicle->vehicle_make }} Thumbnail" width="150">
-
-                <!-- Display Multiple Images -->
-                @if ($vehicle->vehicle_images)
+    <!-- Display Multiple Images -->
+    {{-- @if ($vehicle->vehicle_images)
                     <div class="vehicle-images">
                         @foreach (json_decode($vehicle->vehicle_images, true) as $image)
                             <img src="{{ asset('storage/' . $image) }}" alt="{{ $vehicle->vehicle_make }} Image"
                                 width="150">
                         @endforeach
                     </div>
-                @endif
+                @endif --}}
 
-                <!-- Add more vehicle details here -->
-            </li>
-        @endforeach
-    </ul>
 
 
 </x-app-layout>

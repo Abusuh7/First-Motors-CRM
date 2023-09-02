@@ -13,7 +13,9 @@ class VehiclesController extends Controller
      */
     public function adminVehicles()
     {
-        $vehicles = Vehicle_Details::all(); // Retrieve all vehicles from the database
+        // $vehicles = Vehicle_Details::all()->paginate(5); // Retrieve all vehicles from the database
+        // retrive all the vehicle data and paginate it
+        $vehicles = Vehicle_Details::paginate(5);
         return view('admin.vehicle.vehicles', compact('vehicles'));
     }
 
@@ -134,7 +136,7 @@ class VehiclesController extends Controller
             $imagePaths = [];
 
             foreach ($request->file('vehicle_images') as $image) {
-                dd($image);
+                // dd($image);
                 $imagePath = $image->store('more_images', 'public');
                 $imagePaths[] = $imagePath;
             }
@@ -145,6 +147,52 @@ class VehiclesController extends Controller
         // dd($vehicleDetail);
         // Redirect or respond as needed
         return redirect()->back()->with('success', 'Vehicle added successfully');
+    }
+
+    //Search for a vehicle
+    public function search(Request $request)
+    {
+        // dd($request->all());
+        $search = $request->input('search');
+        $filter = $request->input('searchBy');
+        // $vehicles = Vehicle_Details::where('vehicle_make', 'like', '%' . $search . '%')->paginate(5);
+        // if the filter is make then search by make else if the filter is model then search by model else if the filter is year then search by year else if the filter is color then search by color else if the filter is license plate then search by license plate else if the filter is availability then search by availability else if the filter is ownership then search by ownership else if the filter is transmission then search by transmission else if the filter is fuel type then search by fuel type else if the filter is condition then search by condition else if the filter is all then search by all
+        if ($filter == "make") {
+            $vehiclesSearch = Vehicle_Details::where('vehicle_make', 'like', '%' . $search . '%')->paginate(5);
+        } else if ($filter == "model") {
+            $vehiclesSearch = Vehicle_Details::where('vehicle_model', 'like', '%' . $search . '%')->paginate(5);
+        } else if ($filter == "year") {
+            $vehiclesSearch = Vehicle_Details::where('vehicle_year_manufactured', 'like', '%' . $search . '%')->paginate(5);
+        } else if ($filter == "color") {
+            $vehiclesSearch = Vehicle_Details::where('vehicle_color', 'like', '%' . $search . '%')->paginate(5);
+        } else if ($filter == "license_plate") {
+            $vehiclesSearch = Vehicle_Details::where('vehicle_license_plate', 'like', '%' . $search . '%')->paginate(5);
+        } else if ($filter == "availability") {
+            $vehiclesSearch = Vehicle_Details::where('availability', 'like', '%' . $search . '%')->paginate(5);
+        } else if ($filter == "ownership") {
+            $vehiclesSearch = Vehicle_Details::where('vehicle_ownership', 'like', '%' . $search . '%')->paginate(5);
+        } else if ($filter == "transmission") {
+            $vehiclesSearch = Vehicle_Details::where('vehicle_transmission', 'like', '%' . $search . '%')->paginate(5);
+        } else if ($filter == "fuel_type") {
+            $vehiclesSearch = Vehicle_Details::where('vehicle_fuel_type', 'like', '%' . $search . '%')->paginate(5);
+        } else if ($filter == "condition") {
+            $vehiclesSearch = Vehicle_Details::where('vehicle_condition', 'like', '%' . $search . '%')->paginate(5);
+        } else if ($filter == "all") {
+            $vehiclesSearch = Vehicle_Details::where('vehicle_make', 'like', '%' . $search . '%')
+                ->orWhere('vehicle_model', 'like', '%' . $search . '%')
+                ->orWhere('vehicle_year_manufactured', 'like', '%' . $search . '%')
+                ->orWhere('vehicle_color', 'like', '%' . $search . '%')
+                ->orWhere('vehicle_license_plate', 'like', '%' . $search . '%')
+                ->orWhere('availability', 'like', '%' . $search . '%')
+                
+                ->orWhere('vehicle_transmission', 'like', '%' . $search . '%')
+                ->orWhere('vehicle_fuel_type', 'like', '%' . $search . '%')
+                ->orWhere('vehicle_condition', 'like', '%' . $search . '%')
+                ->paginate(5);
+        }
+
+
+        return view('admin.vehicle.vehicles', compact('vehiclesSearch'));
     }
 
     /**

@@ -86,6 +86,9 @@ Route::get('/admin/users/search', [ShowUserController::class, 'search'])->name('
 //CRUD FOR VEHICLE MANAGEMENT
 Route::post('/admin/vehicles', [VehiclesController::class, 'store'])->name('addVehicle');
 
+//Search Vehicle
+Route::get('/admin/vehicles/search', [VehiclesController::class, 'search'])->name('searchVehicle');
+
 Route::delete('/admin/products/{id}', [ShowProductController::class, 'destroy'])->name('deleteproduct');
 
 Route::put('/admin/products/{id}', [ShowProductController::class, 'update'])->name('updateproduct');
