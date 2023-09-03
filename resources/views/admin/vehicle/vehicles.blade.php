@@ -425,114 +425,135 @@
             </div>
 
             <select id="searchBy" name="searchBy"
-            class=" w-15 h-10 border-2 ml-5 border-solid border-neutral-300 focus:outline-none focus:border-sky-500 text-black rounded px-2 md:px-3 py-0 md:py-1 tracking-wider">
-            <option value="all" selected="">All</option>
-            <option value="make">Make</option>
-            <option value="model">Model</option>
-            <option value="ownership">Ownership</option>
-            <option value="color">Color</option>
-            <option value="year">Year Manufactured</option>
-            <option value="license_plate">Plate</option>
-            <option value="availability">Availability</option>
-            <option value="transmission">Transmission</option>
-        </select>
+                class=" w-15 h-10 border-2 ml-5 border-solid border-neutral-300 focus:outline-none focus:border-sky-500 text-black rounded px-2 md:px-3 py-0 md:py-1 tracking-wider">
+                <option value="all" selected="">All</option>
+                <option value="make">Make</option>
+                <option value="model">Model</option>
+                <option value="ownership">Ownership</option>
+                <option value="color">Color</option>
+                <option value="year">Year Manufactured</option>
+                <option value="license_plate">Plate</option>
+                <option value="availability">Availability</option>
+                <option value="transmission">Transmission</option>
+            </select>
         </div>
     </form>
+
 
 
     {{-- Table for vehicles displaying the tumbnail image,make,model,colour,yom and action button view more,edit,delete --}}
     <div class="max-w-7xl mx-auto py-8">
 
+        @if ($errors->any())
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md mb-4">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-md mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
+
 
         @if (empty($vehiclesSearch))
 
-        <div class="flex flex-row justify-between">
-            <h2 class="text-xl font-semibold mb-4">Vehicle List</h2>
+            <div class="flex flex-row justify-between">
+                <h2 class="text-xl font-semibold mb-4">Vehicle List</h2>
 
-            <button id="showVehicleFormButton"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                Create Vehicle
-            </button>
-        </div>
-
-        <div class="overflow-x-auto">
-            @if (count($vehicles) > 0)
-                <table class="w-full border border-collapse">
-                    <thead>
-                        <tr>
-                            <th class="border p-2">Thumbnail</th>
-                            <th class="border p-2">Make</th>
-                            <th class="border p-2">Model</th>
-                            <th class="border p-2">Color</th>
-                            <th class="border p-2">YOM</th>
-                            <th class="border p-2">Ownership</th>
-                            <th class="border p-2">Availability</th>
-                            <th class="border p-2">Actions</th>
-                        </tr>
-                    </thead>
-                    @foreach ($vehicles->chunk(5) as $chunk)
-                        <tbody>
-                            @foreach ($chunk as $vehicle)
-                        <tbody>
-                            <!-- Loop through your vehicle data and generate rows -->
-                            <!-- Example data: replace this with actual vehicle data -->
-                            <tr>
-                                <td class="border">
-                                    <img src="{{ asset('storage/' . $vehicle->vehicle_thumbnail) }}" alt="Thumbnail"
-                                        class=" w-full h-48">
-                                </td>
-                                <td class="border p-2">{{ ucwords($vehicle->vehicle_make) }}</td>
-                                <td class="border p-2">{{ ucwords($vehicle->vehicle_model) }}</td>
-                                <td class="border p-2">{{ ucwords($vehicle->vehicle_color) }}</td>
-                                <td class="border p-2">{{ $vehicle->vehicle_year_manufactured }}</td>
-
-                                <td class="border p-2">
-                                    @if ($vehicle->vehicle_ownership === 'new')
-                                        Brand New
-                                    @elseif ($vehicle->vehicle_ownership === 'first')
-                                        1st Owner
-                                    @elseif ($vehicle->vehicle_ownership === 'second')
-                                        2nd Owner
-                                    @elseif ($vehicle->vehicle_ownership === 'third')
-                                        3rd Owner
-                                    @elseif ($vehicle->vehicle_ownership === 'fourth')
-                                        4th Owner
-                                    @else
-                                        {{ $vehicle->vehicle_ownership }} <!-- Handle other cases as needed -->
-                                    @endif
-                                </td>
-
-
-                                {{-- <td class="border p-2">1</td> --}}
-                                <td class="border p-2">{{ ucwords($vehicle->availability) }}</td>
-                                <td class="border p-2">
-                                    <button class="text-blue-500 mr-2">View More</button>
-                                    <button class="text-green-500 mr-2">Edit</button>
-                                    <button class="text-red-500">Delete</button>
-                                </td>
-                            </tr>
-                            <!-- Repeat the above row for each vehicle entry -->
-                        </tbody>
-                    @endforeach
-                    </tbody>
-            @endforeach
-            </table>
-            {{ $vehicles->links() }} <!-- Pagination links -->
-        @else
-            <div class=" border p-4 mx-auto max-w-sm text-center">
-                <p class="text-xl">No vehicles available.</p>
+                <button id="showVehicleFormButton"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Create Vehicle
+                </button>
             </div>
-            @endif
-        </div>
+
+            <div class="overflow-x-auto">
+                @if (count($vehicles) > 0)
+                    <table class="w-full border border-collapse">
+                        <thead>
+                            <tr>
+                                <th class="border p-2">Thumbnail</th>
+                                <th class="border p-2">Make</th>
+                                <th class="border p-2">Model</th>
+                                <th class="border p-2">Color</th>
+                                <th class="border p-2">YOM</th>
+                                <th class="border p-2">Ownership</th>
+                                <th class="border p-2">Availability</th>
+                                <th class="border p-2">Actions</th>
+                            </tr>
+                        </thead>
+                        @foreach ($vehicles->chunk(5) as $chunk)
+                            <tbody>
+                                @foreach ($chunk as $vehicle)
+                            <tbody>
+                                <!-- Loop through your vehicle data and generate rows -->
+                                <!-- Example data: replace this with actual vehicle data -->
+                                <tr>
+                                    <td class="border">
+                                        <img src="{{ asset('storage/' . $vehicle->vehicle_thumbnail) }}"
+                                            alt="Thumbnail" class=" w-full h-48">
+                                    </td>
+                                    <td class="border p-2">{{ ucwords($vehicle->vehicle_make) }}</td>
+                                    <td class="border p-2">{{ ucwords($vehicle->vehicle_model) }}</td>
+                                    <td class="border p-2">{{ ucwords($vehicle->vehicle_color) }}</td>
+                                    <td class="border p-2">{{ $vehicle->vehicle_year_manufactured }}</td>
+
+                                    <td class="border p-2">
+                                        @if ($vehicle->vehicle_ownership === 'new')
+                                            Brand New
+                                        @elseif ($vehicle->vehicle_ownership === 'first')
+                                            1st Owner
+                                        @elseif ($vehicle->vehicle_ownership === 'second')
+                                            2nd Owner
+                                        @elseif ($vehicle->vehicle_ownership === 'third')
+                                            3rd Owner
+                                        @elseif ($vehicle->vehicle_ownership === 'fourth')
+                                            4th Owner
+                                        @else
+                                            {{ $vehicle->vehicle_ownership }} <!-- Handle other cases as needed -->
+                                        @endif
+                                    </td>
+
+
+                                    {{-- <td class="border p-2">1</td> --}}
+                                    <td class="border p-2">{{ ucwords($vehicle->availability) }}</td>
+                                    <td class="border p-2">
+                                        <button class="text-blue-500 mr-2">View More</button>
+                                        <a href="{{ route('editvehicle', $vehicle->id) }}"><button class="text-green-500 mr-2">Edit</button></a>
+                                        <form action="{{ route('deletevehicle', $vehicle->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-500">Delete</button>
+                                        </form>
+
+                                    </td>
+                                </tr>
+                                <!-- Repeat the above row for each vehicle entry -->
+                            </tbody>
+                        @endforeach
+                        </tbody>
+                @endforeach
+                </table>
+                {{ $vehicles->links() }} <!-- Pagination links -->
+            @else
+                <div class=" border p-4 mx-auto max-w-sm text-center">
+                    <p class="text-xl">No vehicles available.</p>
+                </div>
+        @endif
     </div>
-
-    @else
-
+    </div>
+@else
     <div class="flex flex-col justify-between">
         <h2 class="text-xl font-semibold mb-4">Vehicle Search</h2>
 
         <div class="px-6 py-4">
-            <a href="{{ route('adminVehiclesDashboard') }}" class="text-blue-700 hover:text-blue-800">Reset Search</a>
+            <a href="{{ route('adminVehiclesDashboard') }}" class="text-blue-700 hover:text-blue-800">Reset
+                Search</a>
         </div>
 
     </div>
@@ -589,8 +610,12 @@
                             <td class="border p-2">{{ ucwords($vehicle->availability) }}</td>
                             <td class="border p-2">
                                 <button class="text-blue-500 mr-2">View More</button>
-                                <button class="text-green-500 mr-2">Edit</button>
-                                <button class="text-red-500">Delete</button>
+                                <a href="{{ route('editvehicle', $vehicle->id) }}"><button class="text-green-500 mr-2">Edit</button></a>
+                                <form action="{{ route('deletevehicle', $vehicle->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-500">Delete</button>
+                                </form>
                             </td>
                         </tr>
                         <!-- Repeat the above row for each vehicle entry -->
@@ -606,9 +631,9 @@
         </div>
         @endif
     </div>
-</div>
+    </div>
 
-@endif
+    @endif
 
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Previous_Owner_Details;
 use App\Models\Vehicle_Details;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class VehiclesController extends Controller
 {
@@ -184,7 +185,7 @@ class VehiclesController extends Controller
                 ->orWhere('vehicle_color', 'like', '%' . $search . '%')
                 ->orWhere('vehicle_license_plate', 'like', '%' . $search . '%')
                 ->orWhere('availability', 'like', '%' . $search . '%')
-                
+
                 ->orWhere('vehicle_transmission', 'like', '%' . $search . '%')
                 ->orWhere('vehicle_fuel_type', 'like', '%' . $search . '%')
                 ->orWhere('vehicle_condition', 'like', '%' . $search . '%')
@@ -208,15 +209,144 @@ class VehiclesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        //get the vehicle details and the previous owner details if any and the images from the data base and the storage
+        $vehicle = Vehicle_Details::find($id);
+        // dd($vehicle);
+        //get the previous owner details if any
+        if ($vehicle->previous_owner_id) {
+            $previousOwner = Previous_Owner_Details::find($vehicle->previous_owner_id);
+        } else {
+            $previousOwner = null;
+        }
+        // dd($previousOwner);
+        return view('admin.vehicle.editVehicle', compact('vehicle', 'previousOwner'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        // Validate the request data
+        $request->validate([
+            'vehicle_type' => 'required',
+            'vehicle_make' => 'required',
+            'vehicle_model' => 'required',
+            'vehicle_year_manufactured' => 'required|integer',
+            'vehicle_year_registered' => 'required|integer',
+            'vehicle_ownership' => 'required',
+            'vehicle_color' => 'required',
+            'vehicle_mileage' => 'required|integer',
+            'vehicle_transmission' => 'required',
+            'vehicle_fuel_type' => 'required',
+            'vehicle_condition' => 'required',
+            'vehicle_license_plate' => 'required',
+            'vehicle_description' => 'nullable',
+            'vehicle_cost_price' => 'required|numeric',
+            'vehicle_selling_price' => 'required|numeric',
+            'vehicle_availability' => 'required',
+            'vehicle_thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'vehicle_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Retrieve the existing vehicle and previous owner details
+        $vehicleDetail = Vehicle_Details::find($id);
+
+        if (!$vehicleDetail) {
+            return redirect()->back()->with('error', 'Vehicle not found');
+        }
+
+        // Update vehicle details
+        $vehicleDetail->vehicle_type = $request->input('vehicle_type');
+        $vehicleDetail->vehicle_make = $request->input('vehicle_make');
+        $vehicleDetail->vehicle_model = $request->input('vehicle_model');
+        $vehicleDetail->vehicle_year_manufactured = $request->input('vehicle_year_manufactured');
+        $vehicleDetail->vehicle_year_registered = $request->input('vehicle_year_registered');
+        $vehicleDetail->vehicle_ownership = $request->input('vehicle_ownership');
+        $vehicleDetail->vehicle_color = $request->input('vehicle_color');
+        $vehicleDetail->vehicle_mileage = $request->input('vehicle_mileage');
+        $vehicleDetail->vehicle_transmission = $request->input('vehicle_transmission');
+        $vehicleDetail->vehicle_fuel_type = $request->input('vehicle_fuel_type');
+        $vehicleDetail->vehicle_condition = $request->input('vehicle_condition');
+        $vehicleDetail->vehicle_license_plate = $request->input('vehicle_license_plate');
+        $vehicleDetail->vehicle_description = $request->input('vehicle_description');
+        $vehicleDetail->vehicle_cost_price = $request->input('vehicle_cost_price');
+        $vehicleDetail->vehicle_selling_price = $request->input('vehicle_selling_price');
+        $vehicleDetail->profit = $request->input('vehicle_selling_price') - $request->input('vehicle_cost_price');
+        $vehicleDetail->availability = $request->input('vehicle_availability');
+
+        // Save the vehicle details
+        $vehicleDetail->save();
+
+        // Check if ownership is not "new" (i.e., there is a previous owner)
+        if ($request->input('vehicle_ownership') !== 'new') {
+            // Validate previous owner details
+            $request->validate([
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'phone_number' => 'required',
+                'email' => 'required|email',
+                'gender' => 'required',
+                'dob' => 'required|date',
+                'age' => 'required|integer',
+                'occupation' => 'required',
+                'address' => 'required',
+                'city' => 'required',
+                'state' => 'required',
+                'zip_code' => 'required|integer',
+                'country' => 'required',
+            ]);
+
+            // Update or create previous owner details
+            $previousOwnerDetail = $vehicleDetail->previousOwnerDetail ?: new Previous_Owner_Details();
+            $previousOwnerDetail->first_name = $request->input('first_name');
+            $previousOwnerDetail->last_name = $request->input('last_name');
+            $previousOwnerDetail->phone_number = $request->input('phone_number');
+            $previousOwnerDetail->email = $request->input('email');
+            $previousOwnerDetail->gender = $request->input('gender');
+            $previousOwnerDetail->dob = $request->input('dob');
+            $previousOwnerDetail->age = $request->input('age');
+            $previousOwnerDetail->occupation = $request->input('occupation');
+            $previousOwnerDetail->address = $request->input('address');
+            $previousOwnerDetail->city = $request->input('city');
+            $previousOwnerDetail->state = $request->input('state');
+            $previousOwnerDetail->zip_code = $request->input('zip_code');
+            $previousOwnerDetail->country = $request->input('country');
+
+            // Save the previous owner details
+            $previousOwnerDetail->save();
+
+            // Update the relationship between vehicle and previous owner
+            $vehicleDetail->previousOwnerDetail()->associate($previousOwnerDetail);
+            $vehicleDetail->save();
+        } else {
+            // If ownership is "new," you may want to clear previous owner details
+            $vehicleDetail->previous_owner_id = null;
+            $vehicleDetail->save();
+        }
+
+        // Handle vehicle thumbnail upload
+        if ($request->hasFile('vehicle_thumbnail')) {
+            $thumbnailPath = $request->file('vehicle_thumbnail')->store('thumbnails', 'public');
+            $vehicleDetail->vehicle_thumbnail = $thumbnailPath;
+            $vehicleDetail->save();
+        }
+
+        // Handle vehicle images upload
+        if ($request->hasFile('vehicle_images')) {
+            $imagePaths = [];
+
+            foreach ($request->file('vehicle_images') as $image) {
+                $imagePath = $image->store('more_images', 'public');
+                $imagePaths[] = $imagePath;
+            }
+
+            $vehicleDetail->vehicle_images = json_encode($imagePaths);
+            $vehicleDetail->save();
+        }
+
+        // Redirect to the vehicle dashboard with a success message
+        return redirect()->back()->with('success', 'Vehicle updated successfully');
     }
 
     /**
@@ -224,6 +354,29 @@ class VehiclesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //delete the vehicle details and the previous owner details if any and the images from the data base and the storage
+        $vehicle = Vehicle_Details::find($id);
+        // dd($vehicle);
+        //delete the vehicle images from the storage
+        if ($vehicle->vehicle_images) {
+            $vehicleImages = json_decode($vehicle->vehicle_images);
+            foreach ($vehicleImages as $image) {
+                // dd($image);
+                Storage::delete('public/' . $image);
+            }
+        }
+        //delete the vehicle thumbnail from the storage
+        if ($vehicle->vehicle_thumbnail) {
+            Storage::delete('public/' . $vehicle->vehicle_thumbnail);
+        }
+        //delete the vehicle details from the database
+        $vehicle->delete();
+        //delete the previous owner details from the database
+        if ($vehicle->previous_owner_id) {
+            $previousOwner = Previous_Owner_Details::find($vehicle->previous_owner_id);
+            $previousOwner->delete();
+        }
+        //redirect to the admin vehicles page
+        return redirect()->back()->with('success', 'Vehicle deleted successfully');
     }
 }

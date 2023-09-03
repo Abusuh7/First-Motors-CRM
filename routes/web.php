@@ -89,11 +89,11 @@ Route::post('/admin/vehicles', [VehiclesController::class, 'store'])->name('addV
 //Search Vehicle
 Route::get('/admin/vehicles/search', [VehiclesController::class, 'search'])->name('searchVehicle');
 
-Route::delete('/admin/products/{id}', [ShowProductController::class, 'destroy'])->name('deleteproduct');
+Route::delete('/admin/vehicles/{id}', [VehiclesController::class, 'destroy'])->name('deletevehicle');
 
-Route::put('/admin/products/{id}', [ShowProductController::class, 'update'])->name('updateproduct');
+Route::put('/admin/vehicles/{id}', [VehiclesController::class, 'update'])->name('updatevehicle');
 
-Route::get('/admin/products/{id}/edit', [ShowProductController::class, 'edit'])->name('editproduct');
+Route::get('/admin/vehicle/{id}/edit', [VehiclesController::class, 'edit'])->name('editvehicle');
 
 //route for search
 // Route::get('/admin/products', [ShowProductController::class, 'search'])->name('search');
