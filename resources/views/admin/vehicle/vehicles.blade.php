@@ -523,7 +523,7 @@
                                     {{-- <td class="border p-2">1</td> --}}
                                     <td class="border p-2">{{ ucwords($vehicle->availability) }}</td>
                                     <td class="border p-2">
-                                        <button class="text-blue-500 mr-2">View More</button>
+                                        <a href="{{ route('viewvehicle', $vehicle->id) }}"><button class="text-blue-500 mr-2">View More</button></a>
                                         <a href="{{ route('editvehicle', $vehicle->id) }}"><button class="text-green-500 mr-2">Edit</button></a>
                                         <form action="{{ route('deletevehicle', $vehicle->id) }}" method="POST">
                                             @csrf
@@ -609,7 +609,7 @@
                             {{-- <td class="border p-2">1</td> --}}
                             <td class="border p-2">{{ ucwords($vehicle->availability) }}</td>
                             <td class="border p-2">
-                                <button class="text-blue-500 mr-2">View More</button>
+                                <a href="{{ route('viewvehicle', $vehicle->id) }}"><button class="text-blue-500 mr-2">View More</button></a>
                                 <a href="{{ route('editvehicle', $vehicle->id) }}"><button class="text-green-500 mr-2">Edit</button></a>
                                 <form action="{{ route('deletevehicle', $vehicle->id) }}" method="POST">
                                     @csrf

@@ -890,6 +890,7 @@
     @livewireScripts
     <script src="/js/adminproducts.js"></script>
     <script src="/js/adminVehicle.js"></script>
+    <script src="/js/adminVehicleView.js"></script>
 </body>
 
 </html>

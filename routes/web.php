@@ -95,6 +95,9 @@ Route::put('/admin/vehicles/{id}', [VehiclesController::class, 'update'])->name(
 
 Route::get('/admin/vehicle/{id}/edit', [VehiclesController::class, 'edit'])->name('editvehicle');
 
+//Vehicle Info
+Route::get('/admin/vehicle/{id}/view', [VehiclesController::class, 'showVehicle'])->name('viewvehicle');
+
 //route for search
 // Route::get('/admin/products', [ShowProductController::class, 'search'])->name('search');
 

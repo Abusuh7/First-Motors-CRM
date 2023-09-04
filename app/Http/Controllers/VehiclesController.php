@@ -20,6 +20,15 @@ class VehiclesController extends Controller
         return view('admin.vehicle.vehicles', compact('vehicles'));
     }
 
+    //displaying the vehicle details
+    public function showVehicle($id)
+    {
+        //get all the vehicle details from the database and if it has a previous owner id get the previous owner details
+        $vehicles = Vehicle_Details::find($id);
+        $previousOwners = Previous_Owner_Details::find($vehicles->previous_owner_id);
+        return view('admin.vehicle.viewVehicle', compact('vehicles', 'previousOwners'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -50,8 +59,8 @@ class VehiclesController extends Controller
             'vehicle_condition' => 'required',
             'vehicle_license_plate' => 'required',
             'vehicle_description' => 'nullable',
-            'vehicle_cost_price' => 'required|numeric',
-            'vehicle_selling_price' => 'required|numeric',
+            'vehicle_cost_price' => 'required|numeric|min:0|max:100000000',
+            'vehicle_selling_price' => 'required|numeric|min:0|max:100000000',
             'vehicle_thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust image validation rules
             //vehicle images is an array of images
             'vehicle_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust image validation rules
@@ -242,8 +251,8 @@ class VehiclesController extends Controller
             'vehicle_condition' => 'required',
             'vehicle_license_plate' => 'required',
             'vehicle_description' => 'nullable',
-            'vehicle_cost_price' => 'required|numeric',
-            'vehicle_selling_price' => 'required|numeric',
+            'vehicle_cost_price' => 'required|numeric|min:0|max:100000000',
+            'vehicle_selling_price' => 'required|numeric|min:0|max:100000000',
             'vehicle_availability' => 'required',
             'vehicle_thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'vehicle_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

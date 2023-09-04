@@ -19,6 +19,9 @@ closeVehicleFormBtn.addEventListener("click", () => {
 
 
 
+
+
+
 // vehicleOwnershipSelect.addEventListener("change", function () {
 //     const selectedValue = vehicleOwnershipSelect.value;
 

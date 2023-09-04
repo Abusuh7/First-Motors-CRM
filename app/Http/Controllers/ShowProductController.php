@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Previous_Owner_Details;
 use App\Models\products;
+use App\Models\Vehicle_Details;
 use Illuminate\Http\Request;
 
 class ShowProductController extends Controller
@@ -106,6 +108,9 @@ class ShowProductController extends Controller
         $product=products::find($id);
         return view('admin.editProduct', compact('product'));
     }
+
+    
+
 
 
     //search for a particular product using the search
