@@ -30,10 +30,10 @@ return new class extends Migration
             $table->mediumText('vehicle_images', 1000)->nullable();
             // $table->string('vehicle_thumbnail', 50);
             // $table->string('vehicle_images', 50);
-            $table->string('vehicle_description', 150)->nullable();
-            $table->decimal('vehicle_cost_price', 11, 2);
-            $table->decimal('vehicle_selling_price', 11, 2);
-            $table->decimal('profit', 11, 2);
+            $table->string('vehicle_description', 600)->nullable();
+            $table->decimal('vehicle_cost_price', 12, 2);
+            $table->decimal('vehicle_selling_price', 12, 2);
+            $table->decimal('profit', 12, 2);
             $table->enum('availability', ['available','sold']);
 
             $table->timestamps();
