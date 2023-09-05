@@ -49,7 +49,7 @@
                     </div>
 
                     <div><strong>Color:</strong> {{ $vehicles->vehicle_color }}</div>
-                    <div><strong>Mileage:</strong> {{ number_format($vehicles->vehicle_mileage) }} miles</div>
+                    <div><strong>Mileage:</strong> {{ number_format($vehicles->vehicle_mileage) }} Km</div>
                     <div><strong>Transmission:</strong> {{ ucwords($vehicles->vehicle_transmission) }}</div>
                     <div><strong>Fuel Type:</strong> {{ ucwords($vehicles->vehicle_fuel_type) }}</div>
                     <div><strong>Condition:</strong> {{ ucwords($vehicles->vehicle_condition) }}</div>

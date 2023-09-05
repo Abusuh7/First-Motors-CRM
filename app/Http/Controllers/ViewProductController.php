@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\products;
+use App\Models\Vehicle_Details;
 use Illuminate\Http\Request;
 
 class ViewProductController extends Controller
 {
     public function view($id)
     {
-        $viewproduct=products::find($id);
+        $viewproduct=Vehicle_Details::find($id);
         // return view('shop.productview', compact('viewproduct'));
 
 
@@ -22,34 +23,34 @@ class ViewProductController extends Controller
         // $data = products::where('product_category', 'luxury')->get();
         // return view('shop.productview', compact('viewproduct'));
 
-        if ($viewproduct->product_category == "sedan")
+        if ($viewproduct->vehicle_type == "sedan")
         {
-            $recommended = products::where('product_category', 'sedan')->get();
+            $recommended = Vehicle_Details::where('vehicle_type', 'sedan')->get();
             return view('shop.productview', compact('viewproduct', 'recommended'));
         }
-        elseif ($viewproduct->product_category == "luxury")
+        elseif ($viewproduct->vehicle_type == "luxury")
         {
-            $recommended = products::where('product_category', 'luxury')->get();
+            $recommended = Vehicle_Details::where('vehicle_type', 'luxury')->get();
             return view('shop.productview', compact('viewproduct', 'recommended'));
         }
-        elseif ($viewproduct->product_category == "convertible")
+        elseif ($viewproduct->vehicle_type == "convertible")
         {
-            $recommended = products::where('product_category', 'convertible')->get();
+            $recommended = Vehicle_Details::where('vehicle_type', 'convertible')->get();
             return view('shop.productview', compact('viewproduct', 'recommended'));
         }
-        elseif ($viewproduct->product_category == "jdm")
+        elseif ($viewproduct->vehicle_type == "jdm")
         {
-            $recommended = products::where('product_category', 'jdm')->get();
+            $recommended = Vehicle_Details::where('vehicle_type', 'jdm')->get();
             return view('shop.productview', compact('viewproduct', 'recommended'));
         }
-        elseif ($viewproduct->product_category == "sports")
+        elseif ($viewproduct->vehicle_type == "sports")
         {
-            $recommended = products::where('product_category', 'sports')->get();
+            $recommended = Vehicle_Details::where('vehicle_type', 'sports')->get();
             return view('shop.productview', compact('viewproduct', 'recommended'));
         }
         else
         {
-            $recommended = products::where('product_category', 'hyper')->get();
+            $recommended = Vehicle_Details::where('vehicle_type', 'hyper')->get();
             return view('shop.productview', compact('viewproduct', 'recommended'));
         }
 
