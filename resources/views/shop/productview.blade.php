@@ -4,7 +4,7 @@
 
     <!-- product-detail -->
     <div class="container grid grid-cols-2 gap-6 pt-5">
-        {{-- Image Grid--}}
+        {{-- Image Grid --}}
         <div>
             <div class="grid gap-4 max-w-3xl">
                 <div id="mainImageContainer">
@@ -35,6 +35,14 @@
                     <span>Make: </span>
                     <span class="text-gray-600">{{ strtoupper($viewproduct->vehicle_make) }}</span>
                 </p>
+                <p class="space-x-2">
+                    <span class="text-gray-800 font-semibold">YOM: </span>
+                    <span class="text-gray-600">{{ ucwords($viewproduct->vehicle_year_manufactured) }}</span>
+                </p>
+                <p class="space-x-2">
+                    <span class="text-gray-800 font-semibold">YOR: </span>
+                    <span class="text-gray-600">{{ ucwords($viewproduct->vehicle_year_registered) }}</span>
+                </p>
                 {{-- Display the condition BRand new if the vehicle_condition is new else show the ownership --}}
                 <p class="space-x-2">
                     <span class="text-gray-800 font-semibold">Ownership: </span>
@@ -52,12 +60,21 @@
                         @endif
                     </span>
                 </p>
-                {{-- Vehicle Transmission --}}
-                
-
+                <p class="space-x-2">
+                    <span class="text-gray-800 font-semibold">Transmission: </span>
+                    <span class="text-gray-600">{{ ucwords($viewproduct->vehicle_transmission) }}</span>
+                </p>
+                <p class="space-x-2">
+                    <span class="text-gray-800 font-semibold">Fuel Type: </span>
+                    <span class="text-gray-600">{{ ucwords($viewproduct->vehicle_fuel_type) }}</span>
+                </p>
                 <p class="space-x-2">
                     <span class="text-gray-800 font-semibold">Color: </span>
                     <span class="text-gray-600">{{ $viewproduct->vehicle_color }}</span>
+                </p>
+                <p class="space-x-2">
+                    <span class="text-gray-800 font-semibold">License Plate: </span>
+                    <span class="text-gray-600">{{ ucwords($viewproduct->vehicle_license_plate) }}</span>
                 </p>
                 <p class="space-x-2">
                     <span class="text-gray-800 font-semibold">Mileage: </span>
@@ -66,86 +83,41 @@
 
 
             </div>
+
+            {{-- <p class="mt-4 text-gray-600">{{ $viewproduct->vehicle_description }}</p> --}}
+            @if ($viewproduct->vehicle_description != null)
+                <div class=" py-2">
+                    <button id="viewDescriptionBtn"
+                        class="bg-primary border border-primary text-white px-8 py-1  font-medium rounded uppercase flex items-center gap-1 hover:bg-transparent hover:text-primary transition">
+                        View Description
+                    </button>
+                    <p class="space-x-2 hidden" id="descriptionShow">
+                        <span class="text-gray-800 font-semibold">Description: </span>
+                        <span class="text-gray-600">{{ $viewproduct->vehicle_description }}</span>
+                    </p>
+                </div>
+            @endif
+
+
             <div class="flex items-baseline mb-1 space-x-2 font-roboto mt-4">
-                <p class="text-xl text-primary font-semibold">{{ $viewproduct->product_price }}</p>
-                <p class="text-base text-gray-400 line-through">{{ $viewproduct->product_price }}</p>
+                <p class="text-xl text-primary font-semibold">Rs
+                    {{ number_format($viewproduct->vehicle_selling_price) }}
+                </p>
+                {{-- <p class="text-base text-gray-400 line-through">{{ $viewproduct->product_price }}</p> --}}
             </div>
 
-            <p class="mt-4 text-gray-600">{{ $viewproduct->product_description }}</p>
 
-            {{-- <div class="pt-4">
-                <h3 class="text-sm text-gray-800 uppercase mb-1">Size</h3>
-                <div class="flex items-center gap-2">
-                    <div class="size-selector">
-                        <input type="radio" name="size" id="size-xs" class="hidden">
-                        <label for="size-xs"
-                            class="text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600">XS</label>
-                    </div>
-                    <div class="size-selector">
-                        <input type="radio" name="size" id="size-sm" class="hidden">
-                        <label for="size-sm"
-                            class="text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600">S</label>
-                    </div>
-                    <div class="size-selector">
-                        <input type="radio" name="size" id="size-m" class="hidden">
-                        <label for="size-m"
-                            class="text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600">M</label>
-                    </div>
-                    <div class="size-selector">
-                        <input type="radio" name="size" id="size-l" class="hidden">
-                        <label for="size-l"
-                            class="text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600">L</label>
-                    </div>
-                    <div class="size-selector">
-                        <input type="radio" name="size" id="size-xl" class="hidden">
-                        <label for="size-xl"
-                            class="text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600">XL</label>
-                    </div>
-                </div>
-            </div> --}}
 
-            <div class="pt-4">
-                <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Color</h3>
-                <div class="flex items-center gap-2">
-                    <div class="color-selector">
-                        <input type="radio" name="color" id="red" class="hidden">
-                        <label for="red"
-                            class="border border-gray-200 rounded-sm h-6 w-6  cursor-pointer shadow-sm block"
-                            style="background-color: #fc3d57;"></label>
-                    </div>
-                    <div class="color-selector">
-                        <input type="radio" name="color" id="black" class="hidden">
-                        <label for="black"
-                            class="border border-gray-200 rounded-sm h-6 w-6  cursor-pointer shadow-sm block"
-                            style="background-color: #000;"></label>
-                    </div>
-                    <div class="color-selector">
-                        <input type="radio" name="color" id="white" class="hidden">
-                        <label for="white"
-                            class="border border-gray-200 rounded-sm h-6 w-6  cursor-pointer shadow-sm block"
-                            style="background-color: #fff;"></label>
-                    </div>
 
-                </div>
-            </div>
-
-            {{-- <div class="mt-4">
-                <h3 class="text-sm text-gray-800 uppercase mb-1">Quantity</h3>
-                <div class="flex border border-gray-300 text-gray-600 divide-x divide-gray-300 w-max">
-                    <div class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">-</div>
-                    <div class="h-8 w-8 text-base flex items-center justify-center">4</div>
-                    <div class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">+</div>
-                </div>
-            </div> --}}
 
             <div class="mt-6 flex gap-3 border-b border-gray-200 pb-5 pt-5">
                 <a href="#"
                     class="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition">
-                    <i class="fa-solid fa-bag-shopping"></i> Add to cart
+                    <i class="fa-solid fa-bag-shopping"></i> Purchase
                 </a>
                 <a href="#"
                     class="border border-gray-300 text-gray-600 px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:text-primary transition">
-                    <i class="fa-solid fa-heart"></i> Wishlist
+                    <i class="fas fa-car"></i> Test Drive
                 </a>
             </div>
 

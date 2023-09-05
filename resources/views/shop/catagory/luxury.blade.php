@@ -31,7 +31,7 @@
                     </a>
                     <div class="flex-grow"></div>
                     <div class="flex items-baseline mb-1 space-x-2">
-                        <p class="text-xl text-primary font-semibold">$ {{ number_format($luxury->vehicle_selling_price) }}</p>
+                        <p class="text-xl text-primary font-semibold">Rs {{ number_format($luxury->vehicle_selling_price) }}</p>
                         {{-- For Discount remove the below comment --}}
                         {{-- <p class="text-sm text-gray-400 line-through">$55.90</p> --}}
                     </div>

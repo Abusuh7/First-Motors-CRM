@@ -55,8 +55,8 @@
                     <div><strong>Condition:</strong> {{ ucwords($vehicles->vehicle_condition) }}</div>
                     <div><strong>License Plate:</strong> {{ $vehicles->vehicle_license_plate }}</div>
                     <div><strong>Description:</strong> {{ $vehicles->vehicle_description }}</div>
-                    <div><strong>Cost Price:</strong> ${{ number_format($vehicles->vehicle_cost_price) }}</div>
-                    <div><strong>Selling Price:</strong> ${{ number_format($vehicles->vehicle_selling_price) }}</div>
+                    <div><strong>Cost Price:</strong> Rs {{ number_format($vehicles->vehicle_cost_price) }}</div>
+                    <div><strong>Selling Price:</strong> Rs {{ number_format($vehicles->vehicle_selling_price) }}</div>
                     <div><strong>Availability:</strong>
                         @if ($vehicles->availability == 'available')
                             <b><span class="text-green-500">Available</span></b>

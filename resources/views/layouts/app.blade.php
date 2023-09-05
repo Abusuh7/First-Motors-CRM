@@ -891,6 +891,8 @@
     <script src="/js/adminproducts.js"></script>
     <script src="/js/adminVehicle.js"></script>
     <script src="/js/adminVehicleView.js"></script>
+
+    <script src="/js/userProductView.js"></script>
 </body>
 
 </html>
