@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ShowCatagoryController;
 use App\Http\Controllers\ShowUserController;
 use App\Http\Controllers\ShowProductController;
@@ -48,6 +49,9 @@ Route::get('/admin/home', function () {
 
 //VIEW WHEN ADMIN VEHICLES CLICKED
 Route::get('/admin/vehicles', [VehiclesController::class, 'adminVehicles'])->name('adminVehiclesDashboard');
+
+//VIEW WHEN ADMIN BOOKINGS CLICKED
+Route::get('/admin/booking', [BookingController::class, 'index'])->name('adminBookingDashboard');
 
 
 
@@ -98,8 +102,10 @@ Route::get('/admin/vehicle/{id}/edit', [VehiclesController::class, 'edit'])->nam
 //Vehicle Info
 Route::get('/admin/vehicle/{id}/view', [VehiclesController::class, 'showVehicle'])->name('viewvehicle');
 
-//route for search
-// Route::get('/admin/products', [ShowProductController::class, 'search'])->name('search');
+
+
+
+//CRUD FOR BOOKING MANAGEMENT
 
 
 //Screen routes

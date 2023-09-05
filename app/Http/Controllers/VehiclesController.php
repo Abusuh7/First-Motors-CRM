@@ -83,7 +83,7 @@ class VehiclesController extends Controller
             'vehicle_description' => $request->input('vehicle_description'),
             'vehicle_cost_price' => $request->input('vehicle_cost_price'),
             'vehicle_selling_price' => $request->input('vehicle_selling_price'),
-            'profit' => 0.00, // You can calculate profit as needed
+            'profit' => $request->input('vehicle_selling_price') - $request->input('vehicle_cost_price'),
             'availability' => 'available', // Adjust as needed
         ]);
 
@@ -155,6 +155,8 @@ class VehiclesController extends Controller
             $vehicleDetail->save();
         }
         // dd($vehicleDetail);
+
+
         // Redirect or respond as needed
         return redirect()->back()->with('success', 'Vehicle added successfully');
     }

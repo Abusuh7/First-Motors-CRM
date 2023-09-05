@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\products;
+use App\Models\Vehicle_Details;
 use Illuminate\Http\Request;
 
 class ShowCatagoryController extends Controller
@@ -14,7 +15,7 @@ class ShowCatagoryController extends Controller
         // return view('shop.catagory.luxury', compact('data'));
 
         //display only luxury category
-         $data = products::where('product_category', 'luxury')->get();
+         $data = Vehicle_Details::where('vehicle_type', 'luxury')->get();
          return view('shop.catagory.luxury', compact('data'));
     }
 
@@ -25,7 +26,7 @@ class ShowCatagoryController extends Controller
         // return view('shop.catagory.luxury', compact('data'));
 
         //display only sedan category
-         $data = products::where('product_category', 'sedan')->get();
+         $data = Vehicle_Details::where('vehicle_type', 'sedan')->get();
          return view('shop.catagory.sedan', compact('data'));
     }
 
@@ -36,7 +37,7 @@ class ShowCatagoryController extends Controller
         // return view('shop.catagory.luxury', compact('data'));
 
         //display only convertible category
-         $data = products::where('product_category', 'convertible')->get();
+         $data = Vehicle_Details::where('vehicle_type', 'convertible')->get();
          return view('shop.catagory.convertible', compact('data'));
     }
 
@@ -47,7 +48,7 @@ class ShowCatagoryController extends Controller
         // return view('shop.catagory.luxury', compact('data'));
 
         //display only jdm category
-         $data = products::where('product_category', 'jdm')->get();
+         $data = Vehicle_Details::where('vehicle_type', 'jdm')->get();
          return view('shop.catagory.jdm', compact('data'));
     }
 
@@ -58,7 +59,7 @@ class ShowCatagoryController extends Controller
         // return view('shop.catagory.luxury', compact('data'));
 
         //display only sports category
-         $data = products::where('product_category', 'sports')->get();
+         $data = Vehicle_Details::where('vehicle_type', 'sports')->get();
          return view('shop.catagory.sports', compact('data'));
     }
 
@@ -69,7 +70,7 @@ class ShowCatagoryController extends Controller
         // return view('shop.catagory.luxury', compact('data'));
 
         //display only hyper category
-         $data = products::where('product_category', 'hyper')->get();
+         $data = Vehicle_Details::where('vehicle_type', 'hyper')->get();
          return view('shop.catagory.hyper', compact('data'));
     }
 }
