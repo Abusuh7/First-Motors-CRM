@@ -107,16 +107,7 @@ Route::get('/admin/vehicle/{id}/view', [VehiclesController::class, 'showVehicle'
 
 //CRUD FOR BOOKING MANAGEMENT
 
-
-//Screen routes
-// Route::get('/product', function () {
-//     return view('shop.products.product1');
-// })->name('product');
-
-
-
 //Category View
-
 Route::get('/category/luxury', [ShowCatagoryController::class, 'luxury'])->name('luxury');
 
 Route::get('/category/sedan', [ShowCatagoryController::class, 'sedan'])->name('sedan');
@@ -130,7 +121,9 @@ Route::get('/category/sports', [ShowCatagoryController::class, 'sports'])->name(
 Route::get('/category/hyper', [ShowCatagoryController::class, 'hyper'])->name('hyper');
 
 
-//View Product
+//View individual Product
+Route::get('/vehicle/{id}/view', [ViewProductController::class, 'view'])->name('viewproduct');
 
-Route::get('/products/{id}/view', [ViewProductController::class, 'view'])->name('viewproduct');
+//Purchase Booking
+Route::get('/vehicle/{id}/purchase', [BookingController::class, 'userPurchaseBooking'])->name('purchasebooking');
 

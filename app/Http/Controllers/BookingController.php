@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vehicle_Details;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -17,9 +18,11 @@ class BookingController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function userPurchaseBooking($id)
     {
-        //
+        //get the vehicle details
+        $viewproduct=Vehicle_Details::find($id);
+        return view('shop.purchase.purchase', compact('viewproduct'));
     }
 
     /**

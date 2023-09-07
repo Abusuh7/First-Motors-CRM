@@ -23,7 +23,7 @@
         </div>
 
         {{-- Details --}}
-        <div>
+        <div >
             <h2 class="text-3xl font-medium uppercase mb-2">{{ $viewproduct->vehicle_model }}</h2>
 
             <div class="space-y-2">
@@ -80,7 +80,14 @@
                     <span class="text-gray-800 font-semibold">Mileage: </span>
                     <span class="text-gray-600">{{ number_format($viewproduct->vehicle_mileage) }} Km</span>
                 </p>
-
+                <p class="space-x-2">
+                    <span class="text-gray-800 font-semibold">Availability: </span>
+                    <b>
+                        <span class="{{ $viewproduct->availability == 'available' ? 'text-green-600' : 'text-red-600' }}">
+                            {{ ucwords($viewproduct->availability) }}
+                        </span>
+                    </b>
+                </p>
 
             </div>
 
@@ -111,14 +118,20 @@
 
 
             <div class="mt-6 flex gap-3 border-b border-gray-200 pb-5 pt-5">
-                <a href="#"
-                    class="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition">
-                    <i class="fa-solid fa-bag-shopping"></i> Purchase
-                </a>
-                <a href="#"
-                    class="border border-gray-300 text-gray-600 px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:text-primary transition">
-                    <i class="fas fa-car"></i> Test Drive
-                </a>
+                @if ($viewproduct->availability === 'available')
+                    <a href="{{ route('purchasebooking', $viewproduct->id) }}"
+                        class="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition">
+                        <i class="fa-solid fa-bag-shopping"></i> Purchase
+                    </a>
+                    <a href="#"
+                        class="border border-gray-300 text-gray-600 px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:text-primary transition">
+                        <i class="fas fa-car"></i> Test Drive
+                    </a>
+                @else
+                    <button class="bg-gray-300 text-gray-600 px-8 py-2 font-medium rounded uppercase flex items-center gap-2 cursor-not-allowed">
+                        <i class="fa-solid fa-ban"></i> Not Available
+                    </button>
+                @endif
             </div>
 
             <div class="flex gap-3 mt-4">
@@ -170,7 +183,7 @@
                         </a>
                         <div class="flex-grow"></div>
                         <div class="flex items-baseline mb-1 space-x-2">
-                            <p class="text-xl text-primary font-semibold">$
+                            <p class="text-xl text-primary font-semibold">Rs
                                 {{ number_format($recommended->vehicle_selling_price) }}</p>
                             {{-- For Discount remove the below comment --}}
                             {{-- <p class="text-sm text-gray-400 line-through">$55.90</p> --}}
