@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShowCatagoryController;
 use App\Http\Controllers\ShowUserController;
 use App\Http\Controllers\ShowProductController;
@@ -38,9 +39,7 @@ Route::middleware([
 Route::get('redirects','App\Http\Controllers\HomeController@index');
 
 //VIEW WHEN ADMIN HOME/DASHBOARD CLICKED
-Route::get('/admin/home', function () {
-    return view('admin.home');
-})->name('adminhome');
+Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('adminHome');
 
 //VIEW WHEN ADMIN USERS CLICKED
 // Route::get('/admin/users', function () {
