@@ -278,14 +278,20 @@
             <!-- Lead Management -->
             <div class="bg-white rounded-lg shadow-md p-4">
                 <h2 class="text-lg font-semibold mb-2">Total Users</h2>
-                <p>Total Users: {{ $usersCount }}</p>
+                {{-- <p>Total Users: {{ $usersCount }}</p> --}}
+                <span class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">
+                    {{ $usersCount }}
+                  </span>
                 <!-- Add more lead metrics here -->
             </div>
 
             <!-- Customer Analytics -->
             <div class="bg-white rounded-lg shadow-md p-4">
                 <h2 class="text-lg font-semibold mb-2">New Users</h2>
-                <p>New Users: {{ $newUsersCount }}</p>
+                {{-- <p>New Users: {{ $newUsersCount }}</p> --}}
+                <span class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">
+                    {{ $newUsersCount }}
+                  </span>
                 <!-- Add more customer metrics here -->
             </div>
 
@@ -306,28 +312,40 @@
             <!-- Test-Drive Bookings -->
             <div class="bg-white rounded-lg shadow-md p-4">
                 <h2 class="text-lg font-semibold mb-2">Notifications</h2>
-                <p>Notifications: </p>
+                {{-- <p>Notifications: </p> --}}
+                <span class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">
+                    2
+                  </span>
                 <!-- Add more customer metrics here -->
             </div>
 
             {{-- Total Admins --}}
             <div class="bg-white rounded-lg shadow-md p-4">
                 <h2 class="text-lg font-semibold mb-2">Total Admins</h2>
-                <p>Total Admins: {{ $adminCount }}</p>
+                {{-- <p>Total Admins: {{ $adminCount }}</p> --}}
+                <span class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">
+                    {{ $adminCount }}
+                  </span>
                 <!-- Add more customer metrics here -->
             </div>
 
             {{-- Total Customers --}}
             <div class="bg-white rounded-lg shadow-md p-4">
                 <h2 class="text-lg font-semibold mb-2">Total Customers</h2>
-                <p>Total Customers: {{ $customerCount }}</p>
+                {{-- <p>Total Customers: {{ $customerCount }}</p> --}}
+                <span class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">
+                    {{ $customerCount }}
+                  </span>
                 <!-- Add more customer metrics here -->
             </div>
 
             {{-- Total Staffs --}}
             <div class="bg-white rounded-lg shadow-md p-4">
                 <h2 class="text-lg font-semibold mb-2">Total Staffs</h2>
-                <p>Total Staffs: {{ $staffCount }}</p>
+                {{-- <p>Total Staffs: {{ $staffCount }}</p> --}}
+                <span class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">
+                    {{ $staffCount }}
+                  </span>
                 <!-- Add more customer metrics here -->
             </div>
 

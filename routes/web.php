@@ -126,3 +126,6 @@ Route::get('/vehicle/{id}/view', [ViewProductController::class, 'view'])->name('
 //Purchase Booking
 Route::get('/vehicle/{id}/purchase', [BookingController::class, 'userPurchaseBooking'])->name('purchasebooking');
 
+//Process Purchase
+Route::post('/vehicle/{id}/purchase/success', [BookingController::class, 'purchaseProcess'])->name('purchaseprocess');
+

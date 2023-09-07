@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('vehicle_id')->constrained('vehicle_details');
             //booking type is enum type
             $table->enum('booking_type', ['test_drive','purchase']);
-            $table->date('booking_date');
-            $table->time('booking_time');
+            $table->date('booking_date')->nullable();
+            $table->time('booking_time')->nullable();
             //booking status is enum type
             $table->enum('booking_status', ['pending','completed', 'rejected', 'approved']);
             $table->double('booking_amount');

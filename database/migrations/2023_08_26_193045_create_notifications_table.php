@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('booking_id')->constrained('bookings');
             $table->enum('notification_type', ['test_drive','purchase']);
-            $table->string('notification_message', 150);
+            $table->string('notification_message', 250);
             $table->enum('notification_status', ['read','unread']);
             $table->timestamps();
 

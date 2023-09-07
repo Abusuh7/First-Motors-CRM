@@ -893,6 +893,7 @@
     <script src="/js/adminVehicleView.js"></script>
 
     <script src="/js/userProductView.js"></script>
+    <script src="/js/checkout.js"></script>
 </body>
 
 </html>
