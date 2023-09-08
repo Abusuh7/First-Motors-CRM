@@ -17,6 +17,17 @@ class BookingController extends Controller
         return view('admin.booking.bookingDashboard');
     }
 
+    public function userBooking()
+    {
+        //get the current useer
+        $user_id = auth()->user()->id;
+        //get the user booking details
+        $user_booking_details = Bookings::where('user_id', $user_id)->get();
+        //get the user booking count of booking status pending and approved
+        $user_booking_count = Bookings::where('user_id', $user_id)->where('booking_status', 'pending')->orWhere('booking_status', 'approved')->count();
+        return view('shop.booking.booking', compact('user_booking_details', 'user_booking_count'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -63,6 +74,15 @@ class BookingController extends Controller
 
         // Return a success response
         return response()->json(['success' => true, 'message' => 'Reservation successful']);
+    }
+
+
+    public function userTestdriveBooking($id)
+    {
+    }
+
+    public function testdriveProcess($id)
+    {
     }
 
     /**

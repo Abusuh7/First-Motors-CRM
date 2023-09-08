@@ -223,11 +223,19 @@
             <div class="flex items-center space-x-6 capitalize">
                 <a href="/shop"><button id=""
                         class="text-gray-200 hover:text-white transition font-semibold">Home</button></a>
-                <a href=""><button id="" class="text-gray-200 hover:text-white transition font-semibold">Shop</button></a>
-                <button id=""
-                    class="text-gray-200 hover:text-white transition font-semibold">Booking</button>
-                <button id="" class="text-gray-200 hover:text-white transition font-semibold">Contact
-                    us</button>
+                <a href=""><button id=""
+                        class="text-gray-200 hover:text-white transition font-semibold">Shop</button></a>
+
+                <a href="{{ route('userBooking') }}"><button id="" class="relative text-gray-200 hover:text-white transition font-semibold">
+                    Bookings
+                    <span
+                        class="absolute top-0 right-0  transform translate-x-2 -translate-y-2 inline-flex items-center justify-center w-4 h-4 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
+                        {{ $user_booking_count }}
+                    </span>
+                </button></a>
+
+               <a href=""> <button id="" class="text-gray-200 hover:text-white transition font-semibold">Contact
+                    us</button></a>
             </div>
 
         </div>

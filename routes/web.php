@@ -60,7 +60,7 @@ Route::get('/shop', function () {
 
 
 
-//CRUD FOR USERS MANAGEMENT
+//CRUD FOR USERS MANAGEMENT ADMIN
 Route::get('/admin/users', [ShowUserController::class, 'show'])->name('users');
 
 Route::post('/admin/users', [ShowUserController::class, 'store'])->name('newuser');
@@ -86,7 +86,7 @@ Route::get('/admin/users/search', [ShowUserController::class, 'search'])->name('
 
 
 
-//CRUD FOR VEHICLE MANAGEMENT
+//CRUD FOR VEHICLE MANAGEMENT ADMIN
 Route::post('/admin/vehicles', [VehiclesController::class, 'store'])->name('addVehicle');
 
 //Search Vehicle
@@ -104,7 +104,10 @@ Route::get('/admin/vehicle/{id}/view', [VehiclesController::class, 'showVehicle'
 
 
 
-//CRUD FOR BOOKING MANAGEMENT
+//CRUD FOR USERS
+
+//When user booking is clicked
+Route::get('/user/booking', [BookingController::class, 'userBooking'])->name('userBooking');
 
 //Category View
 Route::get('/category/luxury', [ShowCatagoryController::class, 'luxury'])->name('luxury');
