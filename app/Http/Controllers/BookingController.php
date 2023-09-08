@@ -23,9 +23,17 @@ class BookingController extends Controller
         $user_id = auth()->user()->id;
         //get the user booking details
         $user_booking_details = Bookings::where('user_id', $user_id)->get();
-        //get the user booking count of booking status pending and approved
-        $user_booking_count = Bookings::where('user_id', $user_id)->where('booking_status', 'pending')->orWhere('booking_status', 'approved')->count();
-        return view('shop.booking.booking', compact('user_booking_details', 'user_booking_count'));
+        //get the booking status only
+        $user_booking_status = Bookings::where('user_id', $user_id)->value('booking_status');
+        //get the vehicle id
+        $vehicle_id = Bookings::where('user_id', $user_id)->value('vehicle_id');
+        //get all the vehicle details
+        $vehicle_details = Vehicle_Details::where('id', $vehicle_id)->get();
+        // dd($vehicle_details);
+
+        //get the user booking count of booking status pending and approved with booking type purchase
+        $user_purchasebooking_count = Bookings::where('user_id', $user_id)->where('booking_status', 'pending')->orWhere('booking_status', 'approved')->where('booking_type', 'purchase')->count();
+        return view('shop.booking.booking', compact('user_booking_details', 'user_purchasebooking_count', 'vehicle_details', 'user_booking_status'));
     }
 
     /**

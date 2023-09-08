@@ -5,6 +5,7 @@
     <!-- wrapper -->
     <div class="container grid grid-cols-12 items-start pb-16 pt-4 gap-6">
 
+        {{-- Form --}}
         <div class="col-span-8 border border-gray-300 p-4 rounded">
             <h3 class="text-lg font-medium capitalize mb-4">Payment Gateway</h3>
             <form id="reservation-form" action="{{ route('purchaseprocess', $viewproduct->id) }}" method="POST"

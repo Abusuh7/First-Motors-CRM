@@ -613,7 +613,7 @@
 <!-- ./product --> --}}
 
 <!-- footer -->
-<footer class="bg-white pt-16 pb-12 border-t border-gray-100">
+{{-- <footer class="bg-white pt-16 pb-12 border-t border-gray-100">
     <div class="container grid grid-cols-1 ">
         <div class="col-span-1 space-y-4">
             <h1 id="logotextfooter">First Motors</h1>
@@ -696,7 +696,7 @@
             <img src="/images/methods.png" alt="methods" class="h-5">
         </div>
     </div>
-</div>
+</div> --}}
 
 
 
