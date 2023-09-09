@@ -6,6 +6,7 @@ use App\Models\Bookings;
 use App\Models\Notifications;
 use App\Models\Vehicle_Details;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
@@ -19,22 +20,34 @@ class BookingController extends Controller
 
     public function userBooking()
     {
-        //get the current useer
-        $user_id = auth()->user()->id;
-        //get the user booking details
-        $user_booking_details = Bookings::where('user_id', $user_id)->get();
-        //get the booking status only
-        $user_booking_status = Bookings::where('user_id', $user_id)->value('booking_status');
-        //get the vehicle id
-        $vehicle_id = Bookings::where('user_id', $user_id)->value('vehicle_id');
-        //get all the vehicle details
-        $vehicle_details = Vehicle_Details::where('id', $vehicle_id)->get();
-        // dd($vehicle_details);
+        // Get the current user's ID
+        $user_id = Auth::id();
 
-        //get the user booking count of booking status pending and approved with booking type purchase
-        $user_purchasebooking_count = Bookings::where('user_id', $user_id)->where('booking_status', 'pending')->orWhere('booking_status', 'approved')->where('booking_type', 'purchase')->count();
-        return view('shop.booking.booking', compact('user_booking_details', 'user_purchasebooking_count', 'vehicle_details', 'user_booking_status'));
+        // Retrieve all booking details of the current user with the associated vehicle information
+        $user_booking_details = Bookings::where('user_id', $user_id)
+            ->with('vehicle_details') // Eager load the vehicle details relationship
+            ->get();
+
+        // dd($user_booking_details);
+
+        return view('shop.booking.booking', compact('user_booking_details'));
     }
+
+    public function userPurchaseBookingDetails()
+    {
+        // Get the current user's ID
+        $user_id = Auth::id();
+
+        // Retrieve all booking details of the current user with the associated vehicle information
+        $user_booking_details = Bookings::where('user_id', $user_id)
+            ->with('vehicle_details') // Eager load the vehicle details relationship
+            ->get();
+
+        // dd($user_booking_details);
+
+        return view('shop.booking.purchaseBooking', compact('user_booking_details'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -51,37 +64,41 @@ class BookingController extends Controller
         // Get the current user id
         $user_id = auth()->user()->id;
 
-        // Create a new booking
-        $booking = new Bookings();
-        $booking->user_id = $user_id;
-        $booking->vehicle_id = $id;
-        $booking->booking_type = 'purchase';
-        $booking->booking_status = 'pending';
-        $booking->booking_mode = 'online';
-        $booking->booking_payment_status = 'paid';
-        $booking->booking_amount = 50000;
+        //check if the users has already done a booking and the booking status is pending or approved for purchase then return error
+        if (Bookings::where('user_id', $user_id)->where('booking_status', 'pending')->orWhere('booking_status', 'approved')->where('booking_type', 'purchase')->exists()) {
+            return response()->json(['success' => false, 'message' => 'You have already made a purchase booking.']);
+        } else {
+            // Create a new booking
+            $booking = new Bookings();
+            $booking->user_id = $user_id;
+            $booking->vehicle_id = $id;
+            $booking->booking_type = 'purchase';
+            $booking->booking_status = 'pending';
+            $booking->booking_mode = 'online';
+            $booking->booking_payment_status = 'paid';
+            $booking->booking_amount = 50000;
 
-        // Save the reservation
+            // Save the reservation
 
-        $booking->save();
+            $booking->save();
 
-        //get the vehicle name from vehicle details table
-        $vehicle_name = Vehicle_Details::find($id);
+            //get the vehicle name from vehicle details table
+            $vehicle_name = Vehicle_Details::find($id);
+
+            // Create a new notification
+            $notification = new Notifications();
+            $notification->booking_id = $booking->id;
+            $notification->notification_type = 'purchase';
+            $notification->notification_status = 'unread';
+            $notification->notification_message = 'New Purchase Request from ' . auth()->user()->name . ' for ' . $vehicle_name->vehicle_model;
+
+            // Save the notification
+            $notification->save();
 
 
-        // Create a new notification
-        $notification = new Notifications();
-        $notification->booking_id = $booking->id;
-        $notification->notification_type = 'purchase';
-        $notification->notification_status = 'unread';
-        $notification->notification_message = 'New Purchase Request from ' . auth()->user()->name . ' for ' . $vehicle_name->vehicle_model;
-
-        // Save the notification
-        $notification->save();
-
-
-        // Return a success response
-        return response()->json(['success' => true, 'message' => 'Reservation successful']);
+            // Return a success response
+            return response()->json(['success' => true, 'message' => 'Reservation successful']);
+        }
     }
 
 

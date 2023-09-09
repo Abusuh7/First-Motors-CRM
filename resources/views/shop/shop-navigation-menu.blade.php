@@ -179,38 +179,38 @@
             <!-- dropdown -->
             <div
                 class="absolute w-60 left-0 top-full bg-white shadow-md py-3 divide-y divide-gray-300 divide-dashed opacity-0 group-hover:opacity-100 transition duration-300 invisible group-hover:visible">
-                <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
+                <a href="{{ route('luxury') }}" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
                     <span class="w-5 h-5 object-contain">
                         <i class="fa-solid fa-caret-right"></i>
                     </span>
                     {{-- <img src="/images/icons/sofa.svg" alt="sofa" class="w-5 h-5 object-contain"> --}}
                     <span class="ml-6 text-gray-600 text-sm">Luxury</span>
                 </a>
-                <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
+                <a href="{{ route('sedan') }}" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
                     <span class="w-5 h-5 object-contain">
                         <i class="fa-solid fa-caret-right" style="color: #71503f"></i>
                     </span>
                     <span class="ml-6 text-gray-600 text-sm">Sedans</span>
                 </a>
-                <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
+                <a href="{{ route('convertible') }}" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
                     <span class="w-5 h-5 object-contain">
                         <i class="fa-solid fa-caret-right" style="color: #71503f"></i>
                     </span>
                     <span class="ml-6 text-gray-600 text-sm">Convertible</span>
                 </a>
-                <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
+                <a href="{{ route('jdm') }}" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
                     <span class="w-5 h-5 object-contain">
                         <i class="fa-solid fa-caret-right" style="color: #71503f"></i>
                     </span>
                     <span class="ml-6 text-gray-600 text-sm">JDM</span>
                 </a>
-                <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
+                <a href="{{ route('sports') }}" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
                     <span class="w-5 h-5 object-contain">
                         <i class="fa-solid fa-caret-right" style="color: #71503f"></i>
                     </span>
                     <span class="ml-6 text-gray-600 text-sm">Sports</span>
                 </a>
-                <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
+                <a href="{{ route('hyper') }}" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
                     <span class="w-5 h-5 object-contain">
                         <i class="fa-solid fa-caret-right" style="color: #71503f"></i>
                     </span>

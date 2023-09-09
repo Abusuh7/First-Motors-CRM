@@ -26,11 +26,11 @@ class Bookings extends Model
 
     public function users()
     {
-        return $this->belongsTo(Users::class);
+        return $this->belongsTo(Users::class, 'user_id');
     }
 
     public function vehicle_details()
     {
-        return $this->belongsTo(Vehicle_Details::class);
+        return $this->belongsTo(Vehicle_Details::class, 'vehicle_id');
     }
 }

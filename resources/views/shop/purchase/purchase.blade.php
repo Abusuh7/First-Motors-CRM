@@ -64,6 +64,11 @@
                         Payment successful, Your Reservation is being processed!
                     </div>
 
+                    <div id="error-message"
+                        class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md mb-4 hidden">
+                        You have already made a purchase booking!
+                    </div>
+
                     <button
                         class="block w-full py-3 px-4 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition font-medium"
                         :class="{ 'bg-opacity-50 cursor-not-allowed': !isChecked }"

@@ -25,11 +25,11 @@ class Sold_Vehicles extends Model
 
     public function bookings()
     {
-        return $this->belongsTo(Bookings::class);
+        return $this->belongsTo(Bookings::class, 'booking_id');
     }
 
     public function staff()
     {
-        return $this->belongsTo(Staff::class);
+        return $this->belongsTo(Staff::class, 'staff_id');
     }
 }

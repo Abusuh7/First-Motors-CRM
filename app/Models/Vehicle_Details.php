@@ -39,6 +39,6 @@ class Vehicle_Details extends Model
 
     public function previous_owner_details()
     {
-        return $this->belongsTo(Previous_Owner_Details::class);
+        return $this->belongsTo(Previous_Owner_Details::class, 'previous_owner_id');
     }
 }

@@ -19,6 +19,6 @@ class Notifications extends Model
 
     public function bookings()
     {
-        return $this->belongsTo(Bookings::class);
+        return $this->belongsTo(Bookings::class, 'booking_id');
     }
 }

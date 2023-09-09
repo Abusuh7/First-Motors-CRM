@@ -54,9 +54,7 @@ Route::get('/admin/booking', [BookingController::class, 'index'])->name('adminBo
 
 
 
-Route::get('/shop', function () {
-    return view('shop.logged-index');
-})->name('userhome');
+
 
 
 
@@ -104,12 +102,19 @@ Route::get('/admin/vehicle/{id}/view', [VehiclesController::class, 'showVehicle'
 
 
 
-//CRUD FOR USERS
+//  --------------------------CRUD FOR USERS--------------------------------
+
+//When user home is clicked
+Route::get('/shop', function () {
+    return view('shop.logged-index');
+})->name('userhome');
 
 //When user booking is clicked
 Route::get('/user/booking', [BookingController::class, 'userBooking'])->name('userBooking');
 
-//Category View
+
+
+//User Category View
 Route::get('/category/luxury', [ShowCatagoryController::class, 'luxury'])->name('luxury');
 
 Route::get('/category/sedan', [ShowCatagoryController::class, 'sedan'])->name('sedan');
@@ -131,4 +136,7 @@ Route::get('/vehicle/{id}/purchase', [BookingController::class, 'userPurchaseBoo
 
 //Process Purchase
 Route::post('/vehicle/{id}/purchase/success', [BookingController::class, 'purchaseProcess'])->name('purchaseprocess');
+
+//Purchase Booking Details
+Route::get('/user/booking/purchase-bookings', [BookingController::class, 'userPurchaseBookingDetails'])->name('purchasebookingdetails');
 

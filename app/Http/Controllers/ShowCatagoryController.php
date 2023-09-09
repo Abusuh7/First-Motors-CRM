@@ -74,3 +74,7 @@ class ShowCatagoryController extends Controller
          return view('shop.catagory.hyper', compact('data'));
     }
 }
+
+
+
+

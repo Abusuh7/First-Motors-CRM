@@ -3,6 +3,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const successMessage = document.getElementById("success-message");
     const paymentForm = document.getElementById("reservation-form");
+    const paymentFormError = document.getElementById("error-message");
 
     paymentForm.addEventListener("submit", async function (event) {
         event.preventDefault(); // Prevent the form from submitting normally
@@ -21,6 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (result.success) {
                     // Payment was successful, show the success message
                     successMessage.classList.remove("hidden");
+                }else{
+                    // Payment was unsuccessful, display the failure message
+                    paymentFormError.classList.remove("hidden");
                 }
             }
         } catch (error) {
