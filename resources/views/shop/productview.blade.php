@@ -123,7 +123,7 @@
                         class="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition">
                         <i class="fa-solid fa-bag-shopping"></i> Purchase
                     </a>
-                    <a href="#"
+                    <a href="{{ route("testdrivebooking", $viewproduct->id) }}"
                         class="border border-gray-300 text-gray-600 px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:text-primary transition">
                         <i class="fas fa-car"></i> Test Drive
                     </a>

@@ -34,6 +34,11 @@ class User extends Authenticatable
 
     //user_details_id is the foreign key of user_details table
 
+    public function user_details()
+    {
+        return $this->belongsTo(User_Details::class, 'user_details_id');
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.

@@ -134,9 +134,18 @@ Route::get('/vehicle/{id}/view', [ViewProductController::class, 'view'])->name('
 //Purchase Booking
 Route::get('/vehicle/{id}/purchase', [BookingController::class, 'userPurchaseBooking'])->name('purchasebooking');
 
+//Test Drive Booking
+Route::get('/vehicle/{id}/testdrive', [BookingController::class, 'userTestdriveBooking'])->name('testdrivebooking');
+
 //Process Purchase
 Route::post('/vehicle/{id}/purchase/success', [BookingController::class, 'purchaseProcess'])->name('purchaseprocess');
 
 //Purchase Booking Details
 Route::get('/user/booking/purchase-bookings', [BookingController::class, 'userPurchaseBookingDetails'])->name('purchasebookingdetails');
+
+//Test Drive Booking Details
+Route::get('/user/booking/testdrive-bookings', [BookingController::class, 'userTestdriveBookingDetails'])->name('testdrivebookingdetails');
+
+//Past Bookings
+Route::get('/user/booking/past-bookings', [BookingController::class, 'userPastBookingDetails'])->name('pastbookingdetails');
 

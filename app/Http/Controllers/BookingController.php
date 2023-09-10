@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Bookings;
 use App\Models\Notifications;
+use App\Models\User;
+use App\Models\User_Details;
 use App\Models\Vehicle_Details;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,8 +40,11 @@ class BookingController extends Controller
         // Get the current user's ID
         $user_id = Auth::id();
 
-        // Retrieve all booking details of the current user with the associated vehicle information
+        // Retrieve all booking details of the current user with the associated vehicle information of booking stsatus pending or approved of booking tye purchase
         $user_booking_details = Bookings::where('user_id', $user_id)
+            ->where('booking_type', 'purchase')
+            ->where('booking_status', 'pending')
+            ->orWhere('booking_status', 'approved')
             ->with('vehicle_details') // Eager load the vehicle details relationship
             ->get();
 
@@ -48,6 +53,40 @@ class BookingController extends Controller
         return view('shop.booking.purchaseBooking', compact('user_booking_details'));
     }
 
+    public function userTestdriveBookingDetails()
+    {
+        // Get the current user's ID
+        $user_id = Auth::id();
+
+        // Retrieve all booking details of the current user with the associated vehicle information of booking stsatus pending or approved of booking type testdrive
+        $user_booking_details = Bookings::where('user_id', $user_id)
+            ->where('booking_type', 'testdrive')
+            ->where('booking_status', 'pending')
+            ->orWhere('booking_status', 'approved')
+            ->with('vehicle_details') // Eager load the vehicle details relationship
+            ->get();
+
+        // dd($user_booking_details);
+
+        return view('shop.booking.testdriveBooking', compact('user_booking_details'));
+    }
+
+    public function userPastBookingDetails()
+    {
+        // Get the current user's ID
+        $user_id = Auth::id();
+
+        // Retrieve all booking details of the current user with the associated vehicle information of booking stsatus pending or approved of booking type testdrive
+        $user_booking_details = Bookings::where('user_id', $user_id)
+            ->where('booking_status', 'rejected')
+            ->orWhere('booking_status', 'completed')
+            ->with('vehicle_details') // Eager load the vehicle details relationship
+            ->get();
+
+        // dd($user_booking_details);
+
+        return view('shop.booking.pastBooking', compact('user_booking_details'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -64,7 +103,7 @@ class BookingController extends Controller
         // Get the current user id
         $user_id = auth()->user()->id;
 
-        //check if the users has already done a booking and the booking status is pending or approved for purchase then return error
+        //check if the users has already done a booking and the booking status is pending or approved for the booking type purchase show error message
         if (Bookings::where('user_id', $user_id)->where('booking_status', 'pending')->orWhere('booking_status', 'approved')->where('booking_type', 'purchase')->exists()) {
             return response()->json(['success' => false, 'message' => 'You have already made a purchase booking.']);
         } else {
@@ -104,6 +143,18 @@ class BookingController extends Controller
 
     public function userTestdriveBooking($id)
     {
+        //get the vehicle details
+        $viewproduct = Vehicle_Details::find($id);
+        //get the user id of the current user
+        $user_id = Auth::id();
+
+        $user = User::where('id', $user_id)
+            ->with('user_details') // Eager load the vehicle details relationship
+            ->get();
+
+        // dd($user);
+
+        return view('shop.testdrive.testdrive', compact('viewproduct', 'user'));
     }
 
     public function testdriveProcess($id)
