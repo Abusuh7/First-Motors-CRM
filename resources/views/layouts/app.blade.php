@@ -886,7 +886,7 @@
     </div>
 
     <x-footer />
-    
+
 
     @stack('modals')
 
@@ -897,6 +897,7 @@
 
     <script src="/js/userProductView.js"></script>
     <script src="/js/checkout.js"></script>
+    <script src="/js/testdriveCheckout.js"></script>
 </body>
 
 </html>

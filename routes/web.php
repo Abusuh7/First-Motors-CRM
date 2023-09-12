@@ -140,6 +140,9 @@ Route::get('/vehicle/{id}/testdrive', [BookingController::class, 'userTestdriveB
 //Process Purchase
 Route::post('/vehicle/{id}/purchase/success', [BookingController::class, 'purchaseProcess'])->name('purchaseprocess');
 
+//Process Test Drive
+Route::post('/vehicle/{id}/testdrive/success', [BookingController::class, 'testdriveProcess'])->name('testdriveprocess');
+
 //Purchase Booking Details
 Route::get('/user/booking/purchase-bookings', [BookingController::class, 'userPurchaseBookingDetails'])->name('purchasebookingdetails');
 

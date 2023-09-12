@@ -8,8 +8,8 @@
         {{-- Form --}}
         <div class="col-span-8 border border-gray-300 p-4 rounded">
             <h3 class="text-lg font-medium capitalize mb-4">Test Drive Formality Form</h3>
-            <form id="reservation-form" action="{{ route('purchaseprocess', $viewproduct->id) }}" method="POST"
-                id="payment-form">
+            <form id="reservation-form" action="{{ route('testdriveprocess', $viewproduct->id) }}" method="POST"
+                >
                 @csrf
                 <div class="space-y-4">
                     @if (!empty($user->user_details->first_name))
@@ -117,8 +117,8 @@
                         </div>
 
                         <div>
-                            <label for="pincode" class="text-gray-600">Pincode</label>
-                            <input type="text" name="pincode" id="pincode" class="input-box"
+                            <label for="zipcode" class="text-gray-600">Zipcode</label>
+                            <input type="text" name="zipcode" id="zipcode" class="input-box"
                              required>
                         </div>
 
@@ -170,12 +170,12 @@
                     <br>
                     <div id="success-message"
                         class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-md mb-4 hidden">
-                        Payment successful, Your Reservation is being processed!
+                        Booking successful, Your Reservation is being processed!
                     </div>
 
                     <div id="error-message"
                         class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md mb-4 hidden">
-                        You have already made a purchase booking!
+                        You have already made a test drive booking.
                     </div>
 
                     <button

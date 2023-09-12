@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (response.ok) {
                 const result = await response.json();
+                console.log(result);
 
                 if (result.success) {
                     // Payment was successful, show the success message
@@ -32,6 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+
 
 
 
