@@ -149,8 +149,8 @@ class BookingController extends Controller
         $user_id = Auth::id();
 
         $user = User::where('id', $user_id)
-            ->with('user_details') // Eager load the vehicle details relationship
-            ->get();
+            ->with('user_details') // Eager load the user_details relationship
+            ->first(); // Retrieve the first matching user
 
         // dd($user);
 
