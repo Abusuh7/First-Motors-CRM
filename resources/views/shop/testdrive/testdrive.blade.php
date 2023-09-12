@@ -15,7 +15,7 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label for="first_name" class="text-gray-600">First Name <span class="text-primary">*</span></label>
-                            <input type="text" name="first_name" id="first_name" class="input-box" value="{{ $user->user_details->last_name }}" required>
+                            <input type="text" name="first_name" id="first_name" class="input-box"  required>
                             <div class="error-message" id="first-name-error"></div>
                         </div>
                         <div>
