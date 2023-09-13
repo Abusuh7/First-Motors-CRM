@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             const response = await fetch(paymentForm.action, {
                 method: "POST",
-
                 body: new FormData(paymentForm),
             });
 

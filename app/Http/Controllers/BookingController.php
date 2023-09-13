@@ -9,6 +9,7 @@ use App\Models\User_Details;
 use App\Models\Vehicle_Details;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class BookingController extends Controller
 {
@@ -157,92 +158,68 @@ class BookingController extends Controller
         return view('shop.testdrive.testdrive', compact('viewproduct', 'user'));
     }
 
-    public function testdriveProcess(Request $request, $id)
+    public function testdriveProcess($id)
     {
-
         // Get the current user id
         $user_id = Auth::id();
 
         // Validate the request data
-        $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'occupation' => 'required|string|max:255',
-            'dob' => 'required|date',
-            'contact_number' => 'required|string|regex:/[0-9]{10}/',
-            'address' => 'nullable|string|max:255',
-            'test_drive_date' => 'required|date',
-            'test_drive_time' => 'required|string|in:9:00 AM,10:00 AM,11:00 AM,12:00 PM,1:00 PM,2:00 PM,3:00 PM,4:00 PM,5:00 PM',
-        ]);
+        // $request->validate([
+        //     'first_name' => 'required|string|max:255',
+        //     'last_name' => 'required|string|max:255',
+        //     'email' => 'required|email|max:255',
+        //     'occupation' => 'required|string|max:255',
+        //     'dob' => 'required|date',
+        //     'contact_number' => 'required|string|regex:/[0-9]{10}/',
+        //     'address' => 'nullable|string|max:255',
+        //     'city' => 'nullable|string|max:255',
+        //     'state' => 'nullable|string|max:255',
+        //     'zipcode' => 'nullable|string|max:255',
+        //     'country' => 'nullable|string|max:255',
+        //     'test_drive_date' => 'required|date',
+        //     // 'test_drive_time' => 'required|string|in:9:00 AM,10:00 AM,11:00 AM,12:00 PM,1:00 PM,2:00 PM,3:00 PM,4:00 PM,5:00 PM',
+        // ]);
 
-        // Check if the user has already made a test drive booking
+        //check if the users has already done a booking and the booking status is pending or approved for the booking type testdrive show error message
         if (Bookings::where('user_id', $user_id)
-            ->whereIn('booking_status', ['pending', 'approved'])
-            ->where('booking_type', 'test_drive')
-            ->exists()
+            ->where('booking_type', 'test_drive')->where('booking_status', 'pending')->orWhere('booking_status', 'approved')->exists()
         ) {
             return response()->json(['success' => false, 'message' => 'You have already made a test drive booking.']);
+
+            // dd($request->all());
+        } else {
+            // Create a new booking
+            $booking = new Bookings();
+            $booking->user_id = $user_id;
+            $booking->vehicle_id = $id;
+            $booking->booking_type = 'test_drive';
+            $booking->booking_status = 'pending';
+            $booking->booking_mode = 'online';
+            $booking->booking_payment_status = 'paid';
+            $booking->booking_amount = 0;
+            //date
+            // $booking->test_drive_date = $request->input('test_drive_date');
+
+            // Save the reservation
+
+            $booking->save();
+
+            //get the vehicle name from vehicle details table
+            $vehicle_name = Vehicle_Details::find($id);
+
+            // Create a new notification
+            $notification = new Notifications();
+            $notification->booking_id = $booking->id;
+            $notification->notification_type = 'test_drive';
+            $notification->notification_status = 'unread';
+            $notification->notification_message = 'New Test Drive Request from ' . auth()->user()->name . ' for ' . $vehicle_name->vehicle_model;
+
+            // Save the notification
+            $notification->save();
+
+            // Return a success response
+            return response()->json(['success' => true, 'message' => 'Reservation successful']);
         }
-
-        // Get user details id from the users table
-        $user_details_id = User::where('id', $user_id)->value('user_details_id');
-
-        // Create a new user details if it doesn't exist
-        if ($user_details_id == null) {
-            $user_details = new User_Details();
-            $user_details->first_name = $request->input('first_name');
-            $user_details->last_name = $request->input('last_name');
-            $user_details->email = $request->input('email');
-            $user_details->occupation = $request->input('occupation');
-            $user_details->dob = $request->input('dob');
-            $user_details->age = date_diff(date_create($request->input('dob')), date_create('today'))->y;
-            $user_details->address = $request->input('address');
-            $user_details->city = $request->input('city');
-            $user_details->state = $request->input('state');
-            $user_details->zip_code = $request->input('zipcode');
-            $user_details->country = $request->input('country');
-            $user_details->contact_number = $request->input('contact_number');
-
-            // Save the user details
-            $user_details->save();
-        }
-
-        // Update user's user_details_id in the users table
-        $user = User::find($user_id);
-        $user->user_details_id = $user_details->id;
-        $user->save();
-
-        // Create a new booking
-        $booking = new Bookings();
-        $booking->user_id = $user_id;
-        $booking->vehicle_id = $id;
-        $booking->booking_type = 'testdrive';
-        $booking->booking_status = 'pending';
-        $booking->booking_mode = 'online';
-        $booking->booking_payment_status = 'paid';
-        $booking->booking_amount = 0;
-        $booking->booking_date = $request->input('test_drive_date');
-        $booking->booking_time = $request->input('test_drive_time');
-
-        // Save the reservation
-        $booking->save();
-
-        // Get the vehicle name from vehicle details table
-        $vehicle_name = Vehicle_Details::find($id);
-
-        // Create a new notification
-        $notification = new Notifications();
-        $notification->booking_id = $booking->id;
-        $notification->notification_type = 'testdrive';
-        $notification->notification_status = 'unread';
-        $notification->notification_message = 'New Test Drive Request from ' . auth()->user()->name . ' for ' . $vehicle_name->vehicle_model;
-
-        // Save the notification
-        $notification->save();
-
-        // Return a success response
-        return response()->json(['success' => true, 'message' => 'Reservation successful']);
     }
 
     /**
