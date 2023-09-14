@@ -62,7 +62,7 @@ class BookingController extends Controller
 
         // Retrieve all booking details of the current user with the associated vehicle information of booking stsatus pending or approved of booking type testdrive
         $user_booking_details = Bookings::where('user_id', $user_id)
-            ->where('booking_type', 'testdrive')
+            ->where('booking_type', 'test_drive')
             ->where('booking_status', 'pending')
             ->orWhere('booking_status', 'approved')
             ->with('vehicle_details') // Eager load the vehicle details relationship
@@ -107,7 +107,14 @@ class BookingController extends Controller
         $user_id = auth()->user()->id;
 
         //check if the users has already done a booking and the booking status is pending or approved for the booking type purchase show error message
-        if (Bookings::where('user_id', $user_id)->where('booking_status', 'pending')->orWhere('booking_status', 'approved')->where('booking_type', 'purchase')->exists()) {
+        if (Bookings::where('user_id', $user_id)
+            ->where(function ($query) {
+                $query->where('booking_status', 'pending')
+                    ->orWhere('booking_status', 'approved');
+            })
+            ->where('booking_type', 'purchase')
+            ->exists()
+        ) {
             return response()->json(['success' => false, 'message' => 'You have already made a purchase booking.']);
         } else {
             // Create a new booking
@@ -158,42 +165,73 @@ class BookingController extends Controller
         // dd($user);
 
 
-
-        auth()->user()->notify(new BookingConfirmationNotification());
+        //NOTIFICATIONS
+        // auth()->user()->notify(new BookingConfirmationNotification());+
 
         return view('shop.testdrive.testdrive', compact('viewproduct', 'user'));
     }
 
-    public function testdriveProcess($id)
+    public function testdriveProcess(Request $request, $id)
     {
         // Get the current user id
         $user_id = Auth::id();
 
-        // Validate the request data
-        // $request->validate([
-        //     'first_name' => 'required|string|max:255',
-        //     'last_name' => 'required|string|max:255',
-        //     'email' => 'required|email|max:255',
-        //     'occupation' => 'required|string|max:255',
-        //     'dob' => 'required|date',
-        //     'contact_number' => 'required|string|regex:/[0-9]{10}/',
-        //     'address' => 'nullable|string|max:255',
-        //     'city' => 'nullable|string|max:255',
-        //     'state' => 'nullable|string|max:255',
-        //     'zipcode' => 'nullable|string|max:255',
-        //     'country' => 'nullable|string|max:255',
-        //     'test_drive_date' => 'required|date',
-        //     // 'test_drive_time' => 'required|string|in:9:00 AM,10:00 AM,11:00 AM,12:00 PM,1:00 PM,2:00 PM,3:00 PM,4:00 PM,5:00 PM',
-        // ]);
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'contact_number' => 'required|string|regex:/[0-9]{10}/',
+            'dob' => 'required|date',
+            'occupation' => 'required|string|max:255',
+            'address' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'state' => 'nullable|string|max:255',
+            'zipcode' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:255',
+            // 'test_drive_date' => 'required|date',
+            // 'test_drive_time' => 'required|string|in:9:00 AM,10:00 AM,11:00 AM,12:00 PM,1:00 PM,2:00 PM,3:00 PM,4:00 PM,5:00 PM',
+        ]);
 
         //check if the users has already done a booking and the booking status is pending or approved for the booking type testdrive show error message
+        //check if the users has already done a booking and the booking status is pending or approved for the booking type purchase show error message
         if (Bookings::where('user_id', $user_id)
-            ->where('booking_type', 'test_drive')->where('booking_status', 'pending')->orWhere('booking_status', 'approved')->exists()
+            ->where(function ($query) {
+                $query->where('booking_status', 'pending')
+                    ->orWhere('booking_status', 'approved');
+            })
+            ->where('booking_type', 'test_drive')
+            ->exists()
         ) {
             return response()->json(['success' => false, 'message' => 'You have already made a test drive booking.']);
 
             // dd($request->all());
         } else {
+
+            // Create a new user details if there is no user details
+            // if (!User_Details::where('user_id', $user_id)->exists()) {
+            //     $user_details = new User_Details();
+            //     $user_details->user_id = $user_id;
+            //     $user_details->first_name = $request->input('first_name');
+            //     $user_details->last_name = $request->input('last_name');
+            //     $user_details->email = $request->input('email');
+            //     $user_details->phone_number = $request->input('contact_number');
+            //     $user_details->dob = $request->input('dob');
+            //     $user_details->occupation = $request->input('occupation');
+            //     $user_details->address = $request->input('address');
+            //     $user_details->city = $request->input('city');
+            //     $user_details->state = $request->input('state');
+            //     $user_details->zip_code = $request->input('zipcode');
+            //     $user_details->country = $request->input('country');
+
+            //     // Save the user details
+            //     $user_details->save();
+
+            //     //save the user details id to the user table
+            //     $user = User::find($user_id);
+            //     $user->user_details_id = $user_details->id;
+            //     $user->save();
+            // }
+
             // Create a new booking
             $booking = new Bookings();
             $booking->user_id = $user_id;
@@ -223,6 +261,7 @@ class BookingController extends Controller
             // Save the notification
             $notification->save();
 
+            //Nofication
             auth()->user()->notify(new BookingConfirmationNotification());
 
             // Return a success response

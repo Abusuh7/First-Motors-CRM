@@ -8,10 +8,43 @@
         {{-- Form --}}
         <div class="col-span-8 border border-gray-300 p-4 rounded">
             <h3 class="text-lg font-medium capitalize mb-4">Test Drive Formality Form</h3>
-            <form id="reservation-form1" action="{{ route('testdriveprocess', $viewproduct->id) }}" method="POST" 
-                >
+            <form id="reservation-form1" action="{{ route('testdriveprocess', $viewproduct->id) }}" method="POST">
                 @csrf
                 <div class="space-y-4">
+                    @if (!empty($user->user_details->first_name))
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="first_name" class="text-gray-600">First Name <span
+                                        class="text-primary">*</span></label>
+                                <input type="text" name="first_name" id="first_name" class="input-box"
+                                    value="{{ $user->user_details->first_name }}" required>
+                                <div class="error-message" id="first-name-error"></div>
+                            </div>
+                            <div>
+                                <label for="last_name" class="text-gray-600">Last Name <span
+                                        class="text-primary">*</span></label>
+                                <input type="text" name="last_name" id="last_name" class="input-box"
+                                    value="{{ $user->user_details->last_name }}" required>
+                                <div class="error-message" id="last-name-error"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="email" class="text-gray-600">Email address</label>
+                            <input type="email" name="email" id="email" class="input-box"
+                                value="{{ $user->email }}" required>
+                            <div class="error-message" id="email-error"></div>
+                        </div>
+
+                        <div>
+                            <label for="contact_number" class="text-gray-600">Contact Number <span
+                                    class="text-primary">*</span></label>
+                            <input type="text" name="contact_number" id="contact_number"
+                                class="input-box number-input" value="{{ $user->user_details->contact_number }}"
+                                required pattern="[0-9]{10}" maxlength="10">
+                            <div class="error-message" id="contact-number-error"></div>
+                        </div>
+                    @else
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label for="first_name" class="text-gray-600">First Name <span
@@ -43,15 +76,13 @@
 
                         <div>
                             <label for="dob" class="text-gray-600">Date of Birth</label>
-                            <input type="date" name="dob" id="dob" class="input-box"
-                             required>
+                            <input type="date" name="dob" id="dob" class="input-box" required>
                         </div>
 
 
                         <div>
                             <label for="occupation" class="text-gray-600">Occupation</label>
-                            <input type="text" name="occupation" id="occupation" class="input-box"
-                             required>
+                            <input type="text" name="occupation" id="occupation" class="input-box" required>
                         </div>
 
                         <div>
@@ -62,27 +93,26 @@
 
                         <div>
                             <label for="city" class="text-gray-600">City</label>
-                            <input type="text" name="city" id="city" class="input-box"
-                             required>
+                            <input type="text" name="city" id="city" class="input-box" required>
                         </div>
 
                         <div>
                             <label for="state" class="text-gray-600">State</label>
-                            <input type="text" name="state" id="state" class="input-box"
-                             required>
+                            <input type="text" name="state" id="state" class="input-box" required>
                         </div>
 
                         <div>
                             <label for="zipcode" class="text-gray-600">Zipcode</label>
-                            <input type="text" name="zipcode" id="zipcode" class="input-box"
-                             required>
+                            <input type="text" name="zipcode" id="zipcode" class="input-box" required>
                         </div>
 
                         <div>
                             <label for="country" class="text-gray-600">Country</label>
-                            <input type="text" name="country" id="country" class="input-box"
-                             required>
+                            <input type="text" name="country" id="country" class="input-box" required>
                         </div>
+
+                    @endif
+
                     {{-- @endif --}}
 
 
@@ -145,7 +175,7 @@
             </form>
 
         </div>
-
+        {{-- @livewire('test1'); --}}
         {{-- Preview Order --}}
         <div class="col-span-4 border border-gray-300 p-4 rounded">
             <h4 class="text-gray-800 text-lg mb-4 font-medium uppercase">Order Summary Preview</h4>

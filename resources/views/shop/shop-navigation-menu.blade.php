@@ -226,16 +226,24 @@
                 <a href=""><button id=""
                         class="text-gray-200 hover:text-white transition font-semibold">Shop</button></a>
 
-                <a href="{{ route('userBooking') }}"><button id="" class="relative text-gray-200 hover:text-white transition font-semibold">
-                    Bookings
-                    <span
-                        class="absolute top-0 right-0  transform translate-x-2 -translate-y-2 inline-flex items-center justify-center w-4 h-4 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
-                        {{ $user_booking_count }}
-                    </span>
-                </button></a>
+                <a href="{{ route('userBooking') }}"><button id=""
+                        class="relative text-gray-200 hover:text-white transition font-semibold">
+                        Bookings
+                        @if ($user_booking_count > 0)
+                        <span
+                            class="absolute top-0 right-0  transform translate-x-2 -translate-y-2 inline-flex items-center justify-center w-4 h-4 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
 
-               <a href=""> <button id="" class="text-gray-200 hover:text-white transition font-semibold">Contact
-                    us</button></a>
+                                {{ $user_booking_count }}
+
+                        </span>
+                        @else
+
+                        @endif
+                    </button></a>
+
+                <a href=""> <button id=""
+                        class="text-gray-200 hover:text-white transition font-semibold">Contact
+                        us</button></a>
             </div>
 
         </div>
@@ -342,5 +350,3 @@
         </div>
     </div> --}}
 </nav>
-
-
