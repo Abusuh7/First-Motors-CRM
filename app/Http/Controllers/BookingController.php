@@ -7,6 +7,7 @@ use App\Models\Notifications;
 use App\Models\User;
 use App\Models\User_Details;
 use App\Models\Vehicle_Details;
+use App\Notifications\BookingConfirmationNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -96,6 +97,7 @@ class BookingController extends Controller
     {
         //get the vehicle details
         $viewproduct = Vehicle_Details::find($id);
+
         return view('shop.purchase.purchase', compact('viewproduct'));
     }
 
@@ -154,6 +156,10 @@ class BookingController extends Controller
             ->first(); // Retrieve the first matching user
 
         // dd($user);
+
+
+
+        auth()->user()->notify(new BookingConfirmationNotification());
 
         return view('shop.testdrive.testdrive', compact('viewproduct', 'user'));
     }
@@ -216,6 +222,8 @@ class BookingController extends Controller
 
             // Save the notification
             $notification->save();
+
+            auth()->user()->notify(new BookingConfirmationNotification());
 
             // Return a success response
             return response()->json(['success' => true, 'message' => 'Reservation successful']);
