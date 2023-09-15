@@ -8,7 +8,7 @@
         {{-- Form --}}
         <div class="col-span-8 border border-gray-300 p-4 rounded">
             <h3 class="text-lg font-medium capitalize mb-4">Test Drive Formality Form</h3>
-            <form id="reservation-form1" action="{{ route('testdriveprocess', $viewproduct->id) }}" method="POST">
+            <form id="reservation-form1" action="{{ route('testdriveprocess', $viewproduct->id) }}" method="POST" >
                 @csrf
                 <div class="space-y-4">
                     @if (!empty($user->user_details->first_name))
@@ -17,14 +17,14 @@
                                 <label for="first_name" class="text-gray-600">First Name <span
                                         class="text-primary">*</span></label>
                                 <input type="text" name="first_name" id="first_name" class="input-box"
-                                    value="{{ $user->user_details->first_name }}" required>
+                                    value="{{ $user->user_details->first_name }}" readonly>
                                 <div class="error-message" id="first-name-error"></div>
                             </div>
                             <div>
                                 <label for="last_name" class="text-gray-600">Last Name <span
                                         class="text-primary">*</span></label>
                                 <input type="text" name="last_name" id="last_name" class="input-box"
-                                    value="{{ $user->user_details->last_name }}" required>
+                                    value="{{ $user->user_details->last_name }}" readonly>
                                 <div class="error-message" id="last-name-error"></div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                         <div>
                             <label for="email" class="text-gray-600">Email address</label>
                             <input type="email" name="email" id="email" class="input-box"
-                                value="{{ $user->email }}" required>
+                                value="{{ $user->email }}" readonly>
                             <div class="error-message" id="email-error"></div>
                         </div>
 
@@ -40,7 +40,7 @@
                             <label for="contact_number" class="text-gray-600">Contact Number <span
                                     class="text-primary">*</span></label>
                             <input type="text" name="contact_number" id="contact_number"
-                                class="input-box number-input" value="{{ $user->user_details->contact_number }}"
+                                class="input-box number-input" value="{{ $user->user_details->phone_number }}" readonly
                                 required pattern="[0-9]{10}" maxlength="10">
                             <div class="error-message" id="contact-number-error"></div>
                         </div>
@@ -67,9 +67,23 @@
                         </div>
 
                         <div>
-                            <label for="contact_number" class="text-gray-600">Contact Number <span
+                            <label for="gender" class="text-gray-600">Gender <span
                                     class="text-primary">*</span></label>
-                            <input type="text" name="contact_number" id="contact_number"
+                            <select name="gender" id="gender" class="input-box" required>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+
+                            </select>
+                            <div class="error-message" id="gender-error"></div>
+                        </div>
+
+
+
+
+                        <div>
+                            <label for="phone_number" class="text-gray-600">Contact Number <span
+                                    class="text-primary">*</span></label>
+                            <input type="text" name="phone_number" id="phone_number"
                                 class="input-box number-input" required pattern="[0-9]{10}" maxlength="10">
                             <div class="error-message" id="contact-number-error"></div>
                         </div>
@@ -102,8 +116,8 @@
                         </div>
 
                         <div>
-                            <label for="zipcode" class="text-gray-600">Zipcode</label>
-                            <input type="text" name="zipcode" id="zipcode" class="input-box" required>
+                            <label for="zip_code" class="text-gray-600">Zipcode</label>
+                            <input type="text" name="zip_code" id="zip_code" class="input-box" required>
                         </div>
 
                         <div>

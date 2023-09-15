@@ -176,21 +176,22 @@ class BookingController extends Controller
         // Get the current user id
         $user_id = Auth::id();
 
-        $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'contact_number' => 'required|string|regex:/[0-9]{10}/',
-            'dob' => 'required|date',
-            'occupation' => 'required|string|max:255',
-            'address' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:255',
-            'state' => 'nullable|string|max:255',
-            'zipcode' => 'nullable|string|max:255',
-            'country' => 'nullable|string|max:255',
-            // 'test_drive_date' => 'required|date',
-            // 'test_drive_time' => 'required|string|in:9:00 AM,10:00 AM,11:00 AM,12:00 PM,1:00 PM,2:00 PM,3:00 PM,4:00 PM,5:00 PM',
-        ]);
+        // $request->validate([
+        //     'first_name' => 'required|string|max:255',
+        //     'last_name' => 'required|string|max:255',
+        //     'email' => 'required|email|max:255',
+        //     'phone_number' => 'required|string|regex:/[0-9]{10}/',
+        //     'gender' => 'required',
+        //     'dob' => 'required|date',
+        //     'occupation' => 'required|string|max:255',
+        //     'address' => 'nullable|string|max:255',
+        //     'city' => 'nullable|string|max:255',
+        //     'state' => 'nullable|string|max:255',
+        //     'zip_code' => 'nullable|string|max:255',
+        //     'country' => 'nullable|string|max:255',
+        //     // 'test_drive_date' => 'required|date',
+        //     // 'test_drive_time' => 'required|string|in:9:00 AM,10:00 AM,11:00 AM,12:00 PM,1:00 PM,2:00 PM,3:00 PM,4:00 PM,5:00 PM',
+        // ]);
 
         //check if the users has already done a booking and the booking status is pending or approved for the booking type testdrive show error message
         //check if the users has already done a booking and the booking status is pending or approved for the booking type purchase show error message
@@ -207,30 +208,33 @@ class BookingController extends Controller
             // dd($request->all());
         } else {
 
-            // Create a new user details if there is no user details
-            // if (!User_Details::where('user_id', $user_id)->exists()) {
-            //     $user_details = new User_Details();
-            //     $user_details->user_id = $user_id;
-            //     $user_details->first_name = $request->input('first_name');
-            //     $user_details->last_name = $request->input('last_name');
-            //     $user_details->email = $request->input('email');
-            //     $user_details->phone_number = $request->input('contact_number');
-            //     $user_details->dob = $request->input('dob');
-            //     $user_details->occupation = $request->input('occupation');
-            //     $user_details->address = $request->input('address');
-            //     $user_details->city = $request->input('city');
-            //     $user_details->state = $request->input('state');
-            //     $user_details->zip_code = $request->input('zipcode');
-            //     $user_details->country = $request->input('country');
+            // Create a new user details id if user details id does not exist in the user table
+            if (auth()->user()->user_details_id == null) {
+                $user_details = new User_Details();
+                // $user_details->user_id = $user_id;
+                $user_details->first_name = $request->input('first_name');
+                $user_details->last_name = $request->input('last_name');
+                $user_details->email = $request->input('email');
+                $user_details->phone_number = $request->input('phone_number');
+                $user_details->gender = $request->input('gender');
+                $user_details->dob = $request->input('dob');
+                //calculate age from dob
+                $user_details->age = date_diff(date_create($request->input('dob')), date_create('today'))->y;
+                $user_details->occupation = $request->input('occupation');
+                $user_details->address = $request->input('address');
+                $user_details->city = $request->input('city');
+                $user_details->state = $request->input('state');
+                $user_details->zip_code = $request->input('zip_code');
+                $user_details->country = $request->input('country');
 
-            //     // Save the user details
-            //     $user_details->save();
+                // Save the user details
+                $user_details->save();
 
-            //     //save the user details id to the user table
-            //     $user = User::find($user_id);
-            //     $user->user_details_id = $user_details->id;
-            //     $user->save();
-            // }
+                //save the user details id to the user table
+                $user = User::find($user_id);
+                $user->user_details_id = $user_details->id;
+                $user->save();
+            }
 
             // Create a new booking
             $booking = new Bookings();
@@ -262,7 +266,7 @@ class BookingController extends Controller
             $notification->save();
 
             //Nofication
-            auth()->user()->notify(new BookingConfirmationNotification());
+            // auth()->user()->notify(new BookingConfirmationNotification());
 
             // Return a success response
             return response()->json(['success' => true, 'message' => 'Reservation successful']);
