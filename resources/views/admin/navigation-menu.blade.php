@@ -25,13 +25,19 @@
                         {{ __('Booking') }}
                         @if ($user_booking_count > 0)
                             <span
-                                class="absolute top-0 right-0  transform translate-x-2 -translate-y-2 inline-flex items-center justify-center w-4 h-4 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
+                                class="absolute  right-0  transform translate-x-2 -translate-y-2 inline-flex items-center justify-center w-4 h-4 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
 
                                 {{ $user_booking_count }}
 
                             </span>
                         @else
                         @endif
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('adminVehiclesDashboard') }}" :active="request()->routeIs('adminVehiclesDashboard')">
+                        {{ __('Notifications') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('adminSellVehicle') }}" :active="request()->routeIs('adminSellVehicle')">
+                        {{ __('Sell Vehicle') }}
                     </x-nav-link>
                 </div>
             </div>

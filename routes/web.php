@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SellingController;
 use App\Http\Controllers\ShowCatagoryController;
 use App\Http\Controllers\ShowUserController;
 use App\Http\Controllers\ShowProductController;
@@ -36,7 +37,7 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('redirects','App\Http\Controllers\HomeController@index');
+Route::get('redirects', 'App\Http\Controllers\HomeController@index');
 
 //VIEW WHEN ADMIN HOME/DASHBOARD CLICKED
 Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('adminHome');
@@ -52,7 +53,8 @@ Route::get('/admin/vehicles', [VehiclesController::class, 'adminVehicles'])->nam
 //VIEW WHEN ADMIN BOOKINGS CLICKED
 Route::get('/admin/booking', [BookingController::class, 'index'])->name('adminBookingDashboard');
 
-
+//VIEW WHEN ADMIN SELL VEHICLE IS CLICKED
+Route::get('/admin/sell/vehicle', [SellingController::class, 'adminSellVehicle'])->name('adminSellVehicle');
 
 
 
@@ -98,6 +100,15 @@ Route::get('/admin/vehicle/{id}/edit', [VehiclesController::class, 'edit'])->nam
 
 //Vehicle Info
 Route::get('/admin/vehicle/{id}/view', [VehiclesController::class, 'showVehicle'])->name('viewvehicle');
+
+
+
+
+
+//CURD FOR SELLING VEHICLES
+Route::get('/admin/sell/vehicle/{id}/preview', [SellingController::class, 'sellingpreview'])->name('previewVehicleDetails');
+
+
 
 
 
@@ -151,4 +162,3 @@ Route::get('/user/booking/testdrive-bookings', [BookingController::class, 'userT
 
 //Past Bookings
 Route::get('/user/booking/past-bookings', [BookingController::class, 'userPastBookingDetails'])->name('pastbookingdetails');
-
