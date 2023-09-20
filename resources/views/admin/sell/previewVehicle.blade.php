@@ -8,7 +8,7 @@
         {{-- Form --}}
         <div class="col-span-8 border border-gray-300 p-4 rounded">
             <h3 class="text-lg font-medium capitalize mb-4">Showroom Checkout</h3>
-            <form id="reservation-form1" action="{{ route('testdriveprocess', $viewproduct->id) }}" method="POST" >
+            <form id="reservation-form1" action="{{ route('sellVehicle', $viewproduct->id) }}" method="POST" >
                 @csrf
                 <div class="space-y-4">
                     {{-- @if (!empty($user->user_details->first_name))
@@ -47,29 +47,29 @@
                     @else --}}
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label for="first_name" class="text-gray-600">First Name <span
+                                <label for="buyer_fname" class="text-gray-600">First Name <span
                                         class="text-primary">*</span></label>
-                                <input type="text" name="first_name" id="first_name" class="input-box" required>
-                                <div class="error-message" id="first-name-error"></div>
+                                <input type="text" name="buyer_fname" id="buyer_fname" class="input-box" required>
+                                <div class="error-message" id="buyer_fname-error"></div>
                             </div>
                             <div>
-                                <label for="last_name" class="text-gray-600">Last Name <span
+                                <label for="buyer_lname" class="text-gray-600">Last Name <span
                                         class="text-primary">*</span></label>
-                                <input type="text" name="last_name" id="last_name" class="input-box" required>
-                                <div class="error-message" id="last-name-error"></div>
+                                <input type="text" name="buyer_lname" id="buyer_lname" class="input-box" required>
+                                <div class="error-message" id="buyer_lname-error"></div>
                             </div>
                         </div>
 
                         <div>
-                            <label for="email" class="text-gray-600">Email address</label>
-                            <input type="email" name="email" id="email" class="input-box" required>
-                            <div class="error-message" id="email-error"></div>
+                            <label for="buyer_email" class="text-gray-600">Email address</label>
+                            <input type="email" name="buyer_email" id="buyer_email" class="input-box" required>
+                            <div class="error-message" id="buyer_email-error"></div>
                         </div>
 
                         <div>
-                            <label for="gender" class="text-gray-600">Gender <span
+                            <label for="buyer_gender" class="text-gray-600">Gender <span
                                     class="text-primary">*</span></label>
-                            <select name="gender" id="gender" class="input-box" required>
+                            <select name="buyer_gender" id="buyer_gender" class="input-box" required>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
 
@@ -77,84 +77,47 @@
                             <div class="error-message" id="gender-error"></div>
                         </div>
 
-
-
-
                         <div>
-                            <label for="phone_number" class="text-gray-600">Contact Number <span
+                            <label for="buyer_phone" class="text-gray-600">Contact Number <span
                                     class="text-primary">*</span></label>
-                            <input type="text" name="phone_number" id="phone_number"
+                            <input type="text" name="buyer_phone" id="buyer_phone"
                                 class="input-box number-input" required pattern="[0-9]{10}" maxlength="10">
-                            <div class="error-message" id="contact-number-error"></div>
-                        </div>
-
-                        <div>
-                            <label for="dob" class="text-gray-600">Date of Birth</label>
-                            <input type="date" name="dob" id="dob" class="input-box" required>
-                        </div>
-
-
-                        <div>
-                            <label for="occupation" class="text-gray-600">Occupation</label>
-                            <input type="text" name="occupation" id="occupation" class="input-box" required>
-                        </div>
-
-                        <div>
-                            <label for="address" class="text-gray-600">Address</label>
-                            <input type="text" name="address" id="address" class="input-box">
-                        </div>
-
-
-                        <div>
-                            <label for="city" class="text-gray-600">City</label>
-                            <input type="text" name="city" id="city" class="input-box" required>
-                        </div>
-
-                        <div>
-                            <label for="state" class="text-gray-600">State</label>
-                            <input type="text" name="state" id="state" class="input-box" required>
-                        </div>
-
-                        <div>
-                            <label for="zip_code" class="text-gray-600">Zipcode</label>
-                            <input type="text" name="zip_code" id="zip_code" class="input-box" required>
-                        </div>
-
-                        <div>
-                            <label for="country" class="text-gray-600">Country</label>
-                            <input type="text" name="country" id="country" class="input-box" required>
+                            <div class="error-message" id="buyer_phone-error"></div>
                         </div>
 
                     {{-- @endif --}}
 
                     {{-- @endif --}}
-
-
 
                     <div>
-                        <label for="test_drive_date" class="text-gray-600">Test Drive Date <span
+                        <label for="sold_date" class="text-gray-600">Sold Date <span
                                 class="text-primary">*</span></label>
-                        <input type="date" name="test_drive_date" id="test_drive_date" class="input-box"
+                        <input type="date" name="sold_date" id="sold_date" class="input-box"
                             required>
-                        <div class="error-message" id="test-drive-date-error"></div>
+                        <div class="error-message" id="sold_date-error"></div>
                     </div>
 
                     <div>
-                        <label for="test_drive_time" class="text-gray-600">Test Drive Time <span
+                        <label for="delivery_date" class="text-gray-600">Sold Date <span
                                 class="text-primary">*</span></label>
-                        <select name="test_drive_time" id="test_drive_time" class="input-box" required>
-                            <option value="9:00 AM">9:00 AM</option>
-                            <option value="10:00 AM">10:00 AM</option>
-                            <option value="11:00 AM">11:00 AM</option>
-                            <option value="12:00 PM">12:00 PM</option>
-                            <option value="1:00 PM">1:00 PM</option>
-                            <option value="2:00 PM">2:00 PM</option>
-                            <option value="3:00 PM">3:00 PM</option>
-                            <option value="4:00 PM">4:00 PM</option>
-                            <option value="5:00 PM">5:00 PM</option>
-                        </select>
-                        <div class="error-message" id="test-drive-time-error"></div>
+                        <input type="date" name="delivery_date" id="delivery_date" class="input-box"
+                            required>
+                        <div class="error-message" id="delivery_date-error"></div>
                     </div>
+
+                    <div>
+                        <label for="staff_id" class="text-gray-600">Salesperson <span
+                                class="text-primary">*</span></label>
+                        <select name="staff_id" id="staff_id" class="input-box" required>
+                            @foreach ($staffs as $staff)
+                                <option value="{{ $staff->id }}">{{ $staff->users->name }}
+                                </option>
+                            @endforeach
+
+                        </select>
+                        <div class="error-message" id="gender-error"></div>
+                    </div>
+
                 </div>
 
 
@@ -170,12 +133,12 @@
                     <br>
                     <div id="success-message1"
                         class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-md mb-4 hidden">
-                        Booking successful, Your Reservation is being processed!
+                        Purchase Successful, thank you for your purchase!
                     </div>
 
                     <div id="error-message1"
                         class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md mb-4 hidden">
-                        You have already made a test drive booking.
+                        Vehicle Already Sold
                     </div>
 
                     <button

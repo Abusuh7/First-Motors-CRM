@@ -29,6 +29,8 @@ class VehiclesController extends Controller
         return view('admin.vehicle.viewVehicle', compact('vehicles', 'previousOwners'));
     }
 
+    
+
     /**
      * Show the form for creating a new resource.
      */

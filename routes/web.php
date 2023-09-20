@@ -108,6 +108,8 @@ Route::get('/admin/vehicle/{id}/view', [VehiclesController::class, 'showVehicle'
 //CURD FOR SELLING VEHICLES
 Route::get('/admin/sell/vehicle/{id}/preview', [SellingController::class, 'sellingpreview'])->name('previewVehicleDetails');
 
+Route::post('/admin/sell/vehicle/{id}/sell', [SellingController::class, 'sellvehicle'])->name('sellVehicle');
+
 
 
 

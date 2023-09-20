@@ -319,15 +319,54 @@
 
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 py-5">
-            <div>
-                <canvas id="mylineChart"></canvas>
+
+        {{-- CHART --}}
+        <div class="bg-gray-200 p-5 rounded-lg shadow-md my-5" x-data="{ selectedOption: 'Last 7 Days' }">
+            <div class="flex justify-center space-x-4">
+                <div class="relative">
+                    <select
+                        x-model="selectedOption"
+                        class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300">
+                        <option>Last 7 Days</option>
+                        <option>Last Month</option>
+                        <option>Last Year</option>
+                    </select>
+                </div>
             </div>
 
-            <div>
-                <canvas id="mybarChart"></canvas>
+            {{-- Display chart based on selected option --}}
+            <div x-show="selectedOption === 'Last 7 Days'" class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
+                <div>
+                    <canvas id="mylineChart"></canvas>
+                </div>
+
+                <div>
+                    <canvas id="mybarChart"></canvas>
+                </div>
+            </div>
+
+            <div x-show="selectedOption === 'Last Month'" class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
+                <div>
+                    <canvas id="mylineChart1"></canvas>
+                </div>
+
+                <div>
+                    <canvas id="mybarChart1"></canvas>
+                </div>
+            </div>
+
+            <div x-show="selectedOption === 'Last Year'" class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
+                <div>
+                    <canvas id="mylineChart2"></canvas>
+                </div>
+
+                <div>
+                    <canvas id="mybarChart2"></canvas>
+                </div>
             </div>
         </div>
+        {{-- CHART --}}
+
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <!-- Sales Performance -->
@@ -337,7 +376,7 @@
                 </div>
                 <div>
                     <h2 class="text-lg font-semibold mb-2">Total Revenue</h2>
-                    <p>Total Sales Revenue: Rs</p>
+                    <p class=" text-lg"><b>Rs {{ number_format($totalRevenue) }}</b></p>
                     <!-- Add more sales metrics here -->
                 </div>
             </div>
@@ -388,7 +427,7 @@
                 </div>
             </div>
 
-            
+
 
             <!-- Total Admins -->
             <div class="bg-white rounded-lg shadow-md p-4 flex items-center">
@@ -470,15 +509,30 @@
     </div>
 
     <script>
-        const ctx = document.getElementById("mylineChart").getContext("2d");
+        //-------------------line chart--------------------------
+        const linectx = document.getElementById("mylineChart").getContext("2d");
+        const linectx2 = document.getElementById("mylineChart1").getContext("2d");
+        const linectx3 = document.getElementById("mylineChart2").getContext("2d");
 
-        new Chart(ctx, {
+
+        const value = @json($totalRevenueLastSevenDays);
+        const dates = @json($lastSevenDays);
+
+        const value1 = @json($totalRevenueLastThirtyDays);
+        const dates1 = @json($lastThirtyDates);
+
+        const value2 = @json($totalRevenueLastYearMonths);
+        const dates2 = @json($lastYearMonths);
+
+
+        //7 days back
+        new Chart(linectx, {
             type: "line",
             data: {
-                labels: ["Mam", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                labels: dates,
                 datasets: [{
                     label: "Revenue Points",
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: value,
                     borderWidth: 2,
                     fill: true,
                     backgroundColor: ["rgba(75, 192, 192, 0.3)"],
@@ -513,19 +567,161 @@
             },
         });
 
-        //bar chart
+        //30 days back
+        new Chart(linectx2, {
+            type: "line",
+            data: {
+                labels: dates1,
+                datasets: [{
+                    label: "Revenue Points",
+                    data: value1,
+                    borderWidth: 2,
+                    fill: true,
+                    backgroundColor: ["rgba(75, 192, 192, 0.3)"],
+                    borderColor: ["rgba(75, 192, 192, 1)"],
+                    pointBackgroundColor: "rgba(75, 192, 192, 1)",
+                    pointRaduis: 3,
 
-        const ctx2 = document.getElementById("mybarChart");
+                }, ],
+            },
+            options: {
+                Responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    },
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            display: false,
+                        },
+                    },
+                },
+                elements: {
+                    line: {
+                        tension: 0.4,
+                    },
+                },
+                Legend: {
+                    display: true,
+                    position: "top",
+                },
+            },
+        });
 
-        const userAreaPoints = @json($cityCount)
+        //1 year back
+        new Chart(linectx3, {
+            type: "line",
+            data: {
+                labels: dates2,
+                datasets: [{
+                    label: "Revenue Points",
+                    data: value2,
+                    borderWidth: 2,
+                    fill: true,
+                    backgroundColor: ["rgba(75, 192, 192, 0.3)"],
+                    borderColor: ["rgba(75, 192, 192, 1)"],
+                    pointBackgroundColor: "rgba(75, 192, 192, 1)",
+                    pointRaduis: 3,
 
-        new Chart(ctx2, {
+                }, ],
+            },
+            options: {
+                Responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    },
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            display: false,
+                        },
+                    },
+                },
+                elements: {
+                    line: {
+                        tension: 0.4,
+                    },
+                },
+                Legend: {
+                    display: true,
+                    position: "top",
+                },
+            },
+        });
+
+        //------------------Bar chart-------------------------
+
+        const barctx = document.getElementById("mybarChart");
+        const barctx2 = document.getElementById("mybarChart1");
+        const barctx3 = document.getElementById("mybarChart2");
+
+        const userAreaPoints = @json($cityCount);
+        const userAreaPoints1 = @json($cityCount1);
+        const userAreaPoints2 = @json($cityCount2);
+
+
+        //7 days back
+        new Chart(barctx, {
             type: "bar",
             data: {
                 labels: ["Colombo", "Kalutara", "Galle", "Anuradhapura", "Kandy", "Other"],
                 datasets: [{
                     label: "User Area Points",
                     data: userAreaPoints,
+                    borderWidth: 2,
+                    fill: true,
+                    backgroundColor: ["rgba(75, 192, 192, 0.3)"],
+                    borderColor: ["rgba(75, 192, 192, 1)"],
+                    pointBackgroundColor: "rgba(75, 192, 192, 1)",
+                }, ],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        stepSize: 1, // Set the step size to 1
+
+                    },
+                },
+            },
+        });
+
+        //30 days back
+        new Chart(barctx2, {
+            type: "bar",
+            data: {
+                labels: ["Colombo", "Kalutara", "Galle", "Anuradhapura", "Kandy", "Other"],
+                datasets: [{
+                    label: "User Area Points",
+                    data: userAreaPoints1,
+                    borderWidth: 2,
+                    fill: true,
+                    backgroundColor: ["rgba(75, 192, 192, 0.3)"],
+                    borderColor: ["rgba(75, 192, 192, 1)"],
+                    pointBackgroundColor: "rgba(75, 192, 192, 1)",
+                }, ],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        stepSize: 1, // Set the step size to 1
+
+                    },
+                },
+            },
+        });
+
+        //1 year back
+        new Chart(barctx3, {
+            type: "bar",
+            data: {
+                labels: ["Colombo", "Kalutara", "Galle", "Anuradhapura", "Kandy", "Other"],
+                datasets: [{
+                    label: "User Area Points",
+                    data: userAreaPoints2,
                     borderWidth: 2,
                     fill: true,
                     backgroundColor: ["rgba(75, 192, 192, 0.3)"],
