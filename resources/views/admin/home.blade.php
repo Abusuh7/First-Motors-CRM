@@ -264,108 +264,285 @@
         </div>
     </div> --}}
 
+
+
     <div class="container mx-auto p-4">
+
+        <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4 py-5">
+            <!-- New Test Drive Notifications -->
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center">
+                <div class="mr-4">
+                    <i class="fas fa-bell text-4xl text-yellow-500"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">New Test Drive Notifications</h2>
+                    <p>Notification:
+                        <span
+                            class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">{{ $testDriveCount }}</span>
+                    </p>
+
+                    <!-- Add more notification metrics here -->
+                </div>
+            </div>
+
+            <!-- New Purchase Notifications -->
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center">
+                <div class="mr-4">
+                    <i class="fas fa-bell text-4xl text-pink-500"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">New Purchase Notifications</h2>
+                    <p>Notification:
+                        <span
+                            class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">{{ $purchaseCount }}</span>
+                    </p>
+
+                    <!-- Add more notification metrics here -->
+                </div>
+            </div>
+
+            <!-- New Users -->
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center">
+                <div class="mr-4">
+                    <i class="fas fa-user-plus text-4xl text-orange-500"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">New Users</h2>
+                    <p>New Users:
+                        <span
+                            class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">{{ $newUsersCount }}</span>
+                    </p>
+
+                    <!-- Add more user metrics here -->
+                </div>
+            </div>
+
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 py-5">
+            <div>
+                <canvas id="mylineChart"></canvas>
+            </div>
+
+            <div>
+                <canvas id="mybarChart"></canvas>
+            </div>
+        </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <!-- Sales Performance -->
-            <div class="bg-white rounded-lg shadow-md p-4">
-                <h2 class="text-lg font-semibold mb-2">Total Revenue</h2>
-                <p>Total Sales Revenue: Rs </p>
-                {{-- <p>Total Vehicles Sold: </p> --}}
-                <!-- Add more sales metrics here -->
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center">
+                <div class="mr-4">
+                    <i class="fas fa-chart-line text-4xl text-blue-500"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">Total Revenue</h2>
+                    <p>Total Sales Revenue: Rs</p>
+                    <!-- Add more sales metrics here -->
+                </div>
             </div>
 
-            <!-- Lead Management -->
-            <div class="bg-white rounded-lg shadow-md p-4">
-                <h2 class="text-lg font-semibold mb-2">Total Users</h2>
-                {{-- <p>Total Users: {{ $usersCount }}</p> --}}
-                <span class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">
-                    {{ $usersCount }}
-                  </span>
-                <!-- Add more lead metrics here -->
+            <!-- Total Users -->
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center">
+                <div class="mr-4">
+                    <i class="fas fa-users text-4xl text-green-500"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">Total Users</h2>
+                    <p>Users:
+                        <span
+                            class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">{{ $usersCount }}</span>
+                    </p>
+
+                    <!-- Add more user metrics here -->
+                </div>
             </div>
 
-            <!-- Customer Analytics -->
-            <div class="bg-white rounded-lg shadow-md p-4">
-                <h2 class="text-lg font-semibold mb-2">New Users</h2>
-                {{-- <p>New Users: {{ $newUsersCount }}</p> --}}
-                <span class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">
-                    {{ $newUsersCount }}
-                  </span>
-                <!-- Add more customer metrics here -->
-            </div>
+
 
             <!-- Purchase Bookings -->
-            <div class="bg-white rounded-lg shadow-md p-4">
-                <h2 class="text-lg font-semibold mb-2">Purchase Bookings</h2>
-                <p>Bookings: </p>
-                <!-- Add more customer metrics here -->
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center">
+                <div class="mr-4">
+                    <i class="fas fa-shopping-cart text-4xl text-red-500"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">Purchase Bookings</h2>
+                    <p>Bookings: <span
+                            class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">{{ $purchaseTotalCount }}</span>
+                    </p>
+                    <!-- Add more booking metrics here -->
+                </div>
             </div>
 
             <!-- Test-Drive Bookings -->
-            <div class="bg-white rounded-lg shadow-md p-4">
-                <h2 class="text-lg font-semibold mb-2">Test-Drive Bookings</h2>
-                <p>Bookings: </p>
-                <!-- Add more customer metrics here -->
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center">
+                <div class="mr-4">
+                    <i class="fas fa-car text-4xl text-purple-500"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">Test-Drive Bookings</h2>
+                    <p>Bookings: <span
+                            class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">{{ $testDriveTotalCount }}</span>
+                    </p>
+                    <!-- Add more booking metrics here -->
+                </div>
             </div>
 
-            <!-- Test-Drive Bookings -->
-            <div class="bg-white rounded-lg shadow-md p-4">
-                <h2 class="text-lg font-semibold mb-2">Notifications</h2>
-                {{-- <p>Notifications: </p> --}}
-                <span class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">
-                    2
-                  </span>
-                <!-- Add more customer metrics here -->
+            
+
+            <!-- Total Admins -->
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center">
+                <div class="mr-4">
+                    <i class="fas fa-user-shield text-4xl text-indigo-500"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">Total Admins</h2>
+                    <p>Admin:
+                        <span
+                            class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">{{ $adminCount }}</span>
+                    </p>
+
+                    <!-- Add more admin metrics here -->
+                </div>
             </div>
 
-            {{-- Total Admins --}}
-            <div class="bg-white rounded-lg shadow-md p-4">
-                <h2 class="text-lg font-semibold mb-2">Total Admins</h2>
-                {{-- <p>Total Admins: {{ $adminCount }}</p> --}}
-                <span class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">
-                    {{ $adminCount }}
-                  </span>
-                <!-- Add more customer metrics here -->
+            <!-- Total Customers -->
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center">
+                <div class="mr-4">
+                    <i class="fas fa-user-friends text-4xl text-teal-500"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">Total Customers</h2>
+                    <p>Customers:
+                        <span
+                            class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">{{ $customerCount }}</span>
+                    </p>
+
+                    <!-- Add more customer metrics here -->
+                </div>
             </div>
 
-            {{-- Total Customers --}}
-            <div class="bg-white rounded-lg shadow-md p-4">
-                <h2 class="text-lg font-semibold mb-2">Total Customers</h2>
-                {{-- <p>Total Customers: {{ $customerCount }}</p> --}}
-                <span class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">
-                    {{ $customerCount }}
-                  </span>
-                <!-- Add more customer metrics here -->
+            <!-- Total Staffs -->
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center">
+                <div class="mr-4">
+                    <i class="fas fa-user-tie text-4xl text-gray-500"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">Total Staffs</h2>
+                    <p>Staffs:
+                        <span
+                            class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">{{ $staffCount }}</span>
+                    </p>
+
+                    <!-- Add more staff metrics here -->
+                </div>
             </div>
 
-            {{-- Total Staffs --}}
-            <div class="bg-white rounded-lg shadow-md p-4">
-                <h2 class="text-lg font-semibold mb-2">Total Staffs</h2>
-                {{-- <p>Total Staffs: {{ $staffCount }}</p> --}}
-                <span class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">
-                    {{ $staffCount }}
-                  </span>
-                <!-- Add more customer metrics here -->
+            <!-- Total Vehicles Sold -->
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center">
+                <div class="mr-4">
+                    <i class="fas fa-car-side text-4xl text-brown-500"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">Total Vehicles Sold</h2>
+                    <p>Sold: <span
+                            class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">{{ $soldVehiclesCount }}</span>
+                    </p>
+                    <!-- Add more vehicle metrics here -->
+                </div>
             </div>
 
-            {{-- Total Vehicles Sold --}}
-            <div class="bg-white rounded-lg shadow-md p-4">
-                <h2 class="text-lg font-semibold mb-2">Total Vehicles Sold</h2>
-                <p>Sold: </p>
-                <!-- Add more customer metrics here -->
+            <!-- Total Vehicles In-Stock -->
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center">
+                <div class="mr-4">
+                    <i class="fas fa-car text-4xl text-gray-800"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">Total Vehicles In-Stock</h2>
+                    <p>In-Stock: <span
+                            class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">{{ $vehiclesCount }}</span>
+                    </p>
+                    <!-- Add more vehicle metrics here -->
+                </div>
             </div>
-
-            {{-- Total Vehicles in sold --}}
-            <div class="bg-white rounded-lg shadow-md p-4">
-                <h2 class="text-lg font-semibold mb-2">Total Vehicles In-Stock</h2>
-                <p>In-Stock: </p>
-                <!-- Add more customer metrics here -->
-            </div>
-
-
             <!-- Add more sections for other analytics here -->
         </div>
     </div>
+
+    <script>
+        const ctx = document.getElementById("mylineChart").getContext("2d");
+
+        new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: ["Mam", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                datasets: [{
+                    label: "Revenue Points",
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 2,
+                    fill: true,
+                    backgroundColor: ["rgba(75, 192, 192, 0.3)"],
+                    borderColor: ["rgba(75, 192, 192, 1)"],
+                    pointBackgroundColor: "rgba(75, 192, 192, 1)",
+                    pointRaduis: 3,
+
+                }, ],
+            },
+            options: {
+                Responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    },
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            display: false,
+                        },
+                    },
+                },
+                elements: {
+                    line: {
+                        tension: 0.4,
+                    },
+                },
+                Legend: {
+                    display: true,
+                    position: "top",
+                },
+            },
+        });
+
+        //bar chart
+
+        const ctx2 = document.getElementById("mybarChart");
+
+        const userAreaPoints = @json($cityCount)
+
+        new Chart(ctx2, {
+            type: "bar",
+            data: {
+                labels: ["Colombo", "Kalutara", "Galle", "Anuradhapura", "Kandy", "Other"],
+                datasets: [{
+                    label: "User Area Points",
+                    data: userAreaPoints,
+                    borderWidth: 2,
+                    fill: true,
+                    backgroundColor: ["rgba(75, 192, 192, 0.3)"],
+                    borderColor: ["rgba(75, 192, 192, 1)"],
+                    pointBackgroundColor: "rgba(75, 192, 192, 1)",
+                }, ],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        stepSize: 1, // Set the step size to 1
+
+                    },
+                },
+            },
+        });
+    </script>
 
 </x-app-layout>

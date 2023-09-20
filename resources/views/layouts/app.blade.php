@@ -852,6 +852,8 @@
     <!-- Scripts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script src="/js/loggeduser.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -898,6 +900,7 @@
     <script src="/js/userProductView.js"></script>
     <script src="/js/checkout.js"></script>
     <script src="/js/testdriveCheckout.js"></script>
+    {{-- <script src="/js/chart.js"></script> --}}
 </body>
 
 </html>
