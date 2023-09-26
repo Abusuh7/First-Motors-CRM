@@ -273,6 +273,37 @@ class BookingController extends Controller
         }
     }
 
+
+    public function adminPurchaseBookingDetails()
+    {
+        // Retrieve all booking details of the current user with the associated vehicle information of booking stsatus pending or approved of booking tye purchase
+        $user_booking_details = Bookings::where('booking_type', 'purchase')
+            ->where('booking_status', 'pending')
+            ->orWhere('booking_status', 'approved')
+            // Eager load the vehicle details and user relationship
+            ->with('vehicle_details', 'users')
+            ->paginate(5);
+
+        // dd($user_booking_details);
+
+        return view('admin.booking.purchaseBooking', compact('user_booking_details'));
+    }
+
+    public function adminTestdriveBookingDetails()
+    {
+        // Retrieve all booking details of the current user with the associated vehicle information of booking stsatus pending or approved of booking type testdrive
+        $user_booking_details = Bookings::where('booking_type', 'test_drive')
+            ->where('booking_status', 'pending')
+            ->orWhere('booking_status', 'approved')
+            // Eager load the vehicle details and user relationship
+            ->with('vehicle_details', 'users')
+            ->paginate(5);
+
+        // dd($user_booking_details);
+
+        return view('admin.booking.testdriveBooking', compact('user_booking_details'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */

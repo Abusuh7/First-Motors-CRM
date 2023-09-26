@@ -105,6 +105,17 @@ Route::get('/admin/vehicle/{id}/view', [VehiclesController::class, 'showVehicle'
 
 
 
+
+//CRUD FOR BOOKING MANAGEMENT ADMIN
+Route::get('/admin/purchasebookings', [BookingController::class, 'adminPurchaseBookingDetails'])->name('adminPurchaseBooking');
+
+Route::get('/admin/testdrivebookings', [BookingController::class, 'adminTestdriveBookingDetails'])->name('adminTestdriveBooking');
+
+
+
+
+
+
 //CURD FOR SELLING VEHICLES
 Route::get('/admin/sell/vehicle/{id}/preview', [SellingController::class, 'sellingpreview'])->name('previewVehicleDetails');
 
