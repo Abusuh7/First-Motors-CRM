@@ -23,8 +23,9 @@
                             <th class="border p-2">Model</th>
                             <th class="border p-2">Color</th>
                             <th class="border p-2">YOM</th>
-                            <th class="border p-2">Ownership</th>
+                            {{-- <th class="border p-2">Ownership</th> --}}
                             <th class="border p-2">Availability</th>
+                            <th class="border p-2">Booking Status</th>
                             <th class="border p-2">Actions</th>
                         </tr>
                     </thead>
@@ -36,15 +37,15 @@
                             <!-- Example data: replace this with actual vehicle data -->
                             <tr>
                                 <td class="border">
-                                    <img src="{{ asset('storage/' . $vehicle->vehicle_details->vehicle_thumbnail) }}" alt="Thumbnail"
-                                        class=" w-full h-48">
+                                    <img src="{{ asset('storage/' . $vehicle->vehicle_details->vehicle_thumbnail) }}"
+                                        alt="Thumbnail" class=" w-full h-48">
                                 </td>
                                 <td class="border p-2">{{ ucwords($vehicle->vehicle_details->vehicle_make) }}</td>
                                 <td class="border p-2">{{ ucwords($vehicle->vehicle_details->vehicle_model) }}</td>
                                 <td class="border p-2">{{ ucwords($vehicle->vehicle_details->vehicle_color) }}</td>
                                 <td class="border p-2">{{ $vehicle->vehicle_details->vehicle_year_manufactured }}</td>
 
-                                <td class="border p-2">
+                                {{-- <td class="border p-2">
                                     @if ($vehicle->vehicle_details->vehicle_ownership === 'new')
                                         Brand New
                                     @elseif ($vehicle->vehicle_details->vehicle_ownership === 'first')
@@ -58,11 +59,28 @@
                                     @else
                                         {{ $vehicle->vehicle_details->vehicle_ownership }} <!-- Handle other cases as needed -->
                                     @endif
-                                </td>
+                                </td> --}}
 
 
                                 {{-- <td class="border p-2">1</td> --}}
-                                <td class="border p-2">{{ ucwords($vehicle->vehicle_details->availability) }}</td>
+                                <td class="border p-2">
+                                    {{ ucwords($vehicle->vehicle_details->availability) }}
+                                </td>
+                                <td class="border p-2">
+                                    {{-- {{ ucwords($vehicle->booking_status) }} --}}
+                                    @if ($vehicle->booking_status === 'pending')
+                                        <b><span
+                                                class="text-yellow-600">{{ ucwords($vehicle->booking_status) }}</span></b>
+                                    @elseif ($vehicle->booking_status === 'accepted')
+                                        <b><span
+                                                class="text-green-500">{{ ucwords($vehicle->booking_status) }}</span></b>
+                                    @elseif ($vehicle->booking_status === 'rejected')
+                                        <b><span class="text-red-500">{{ ucwords($vehicle->booking_status) }}</span></b>
+                                    @else
+                                        <b><span
+                                                class="text-green-700">{{ ucwords($vehicle->booking_status) }}</span></b>
+                                    @endif
+                                </td>
                                 <td class="border p-2">
                                     <a href="{{ route('previewVehicleDetails', $vehicle->vehicle_details->id) }}">
                                         <button
@@ -70,7 +88,8 @@
                                     </a>
                                     <a href="{{ route('previewVehicleDetails', $vehicle->vehicle_details->id) }}">
                                         <button
-                                            class="text-white bg-red-500 px-4 py-2 rounded-full hover:bg-red-600 transition duration-200">Reject  </button>
+                                            class="text-white bg-red-500 px-4 py-2 rounded-full hover:bg-red-600 transition duration-200">Reject
+                                        </button>
                                     </a>
 
 
