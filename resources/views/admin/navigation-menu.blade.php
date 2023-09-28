@@ -240,8 +240,8 @@
                         @endif
                     </button></a>
 
-                <a href="{{ route('adminVehiclesDashboard') }}"> <button id=""
-                        class="text-gray-200 hover:text-white transition font-semibold">Notifications</button></a>
+                {{-- <a href="{{ route('adminVehiclesDashboard') }}"> <button id=""
+                        class="text-gray-200 hover:text-white transition font-semibold">Notifications</button></a> --}}
 
                 <a href="{{ route('adminSellVehicle') }}"> <button id=""
                         class="text-gray-200 hover:text-white transition font-semibold">Sell Vehicle</button></a>

@@ -47,11 +47,11 @@ class HomeController extends Controller
             $newUsers = User::whereDate('created_at', date('Y-m-d'))->get();
             $newUsersCount = $newUsers->count();
 
-            //get the test drive notification count where status is pending or approved
-            $testDriveCount = Notifications::where('notification_type', 'test_drive')->get()->count();
+            //get the test drive notification count where notifcation_staus is unread
+            $testDriveCount = Notifications::where('notification_type', 'test_drive')->where('notification_status', 'unread')->get()->count();
 
-            //get the purchase notification count where status is pending or approved
-            $purchaseCount = Notifications::where('notification_type', 'purchase')->get()->count();
+            //get the purchase notification count where notifcation_staus is unread
+            $purchaseCount = Notifications::where('notification_type', 'purchase')->where('notification_status', 'unread')->get()->count();
 
             //get the total count of vehicles where status is available
             $vehiclesCount = Vehicle_Details::where('availability', 'available')->get()->count();
@@ -64,6 +64,9 @@ class HomeController extends Controller
 
             //get all the purchase bookings count
             $purchaseTotalCount = Bookings::where('booking_type', 'purchase')->get()->count();
+
+
+
 
 
             //------------------------------GRAPH DATA--------------------------------
@@ -282,6 +285,7 @@ class HomeController extends Controller
                         $totalRevenueLastSevenDays[$i] += $soldVehicle->vehicle_selling_price;
                     }
                 }
+
             }
 
             //-----------------------LAST 30 DAYS--------------------------
@@ -435,11 +439,11 @@ class HomeController extends Controller
         $newUsers = User::whereDate('created_at', date('Y-m-d'))->get();
         $newUsersCount = $newUsers->count();
 
-        //get the test drive notification count where status is pending or approved
-        $testDriveCount = Notifications::where('notification_type', 'test_drive')->get()->count();
+        //get the test drive notification count where notifcation_staus is unread
+        $testDriveCount = Notifications::where('notification_type', 'test_drive')->where('notification_status', 'unread')->get()->count();
 
-        //get the purchase notification count where status is pending or approved
-        $purchaseCount = Notifications::where('notification_type', 'purchase')->get()->count();
+        //get the purchase notification count where notifcation_staus is unread
+        $purchaseCount = Notifications::where('notification_type', 'purchase')->where('notification_status', 'unread')->get()->count();
 
         //get the total count of vehicles where status is available
         $vehiclesCount = Vehicle_Details::where('availability', 'available')->get()->count();

@@ -14,7 +14,7 @@
         </div> --}}
 
         <div class="overflow-x-auto">
-            @if (count($user_booking_details) > 0)
+            @if (count($user_booking_details1) > 0)
                 <table class="w-full border border-collapse">
                     <thead>
                         <tr>
@@ -29,7 +29,7 @@
                             <th class="border p-2">Actions</th>
                         </tr>
                     </thead>
-                    @foreach ($user_booking_details->chunk(5) as $chunk)
+                    @foreach ($user_booking_details1->chunk(5) as $chunk)
                         <tbody>
                             @foreach ($chunk as $vehicle)
                         <tbody>
@@ -112,7 +112,7 @@
                     </tbody>
             @endforeach
             </table>
-            {{ $user_booking_details->links() }} <!-- Pagination links -->
+            {{ $user_booking_details1->links() }} <!-- Pagination links -->
         @else
             <div class=" border p-4 mx-auto max-w-sm text-center">
                 <p class="text-xl">No test drive booking available.0</p>

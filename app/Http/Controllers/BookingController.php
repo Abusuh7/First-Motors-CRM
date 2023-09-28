@@ -19,6 +19,7 @@ class BookingController extends Controller
      */
     public function index()
     {
+
         return view('admin.booking.bookingDashboard');
     }
 
@@ -44,9 +45,6 @@ class BookingController extends Controller
 
         // Retrieve all booking details of the current user with the associated vehicle information of booking stsatus pending or approved of booking tye purchase
         $user_booking_details = Bookings::where('user_id', $user_id)
-            ->where('booking_type', 'purchase')
-            ->where('booking_status', 'pending')
-            ->orWhere('booking_status', 'approved')
             ->with('vehicle_details') // Eager load the vehicle details relationship
             ->get();
 
@@ -62,9 +60,6 @@ class BookingController extends Controller
 
         // Retrieve all booking details of the current user with the associated vehicle information of booking stsatus pending or approved of booking type testdrive
         $user_booking_details = Bookings::where('user_id', $user_id)
-            ->where('booking_type', 'test_drive')
-            ->where('booking_status', 'pending')
-            ->orWhere('booking_status', 'approved')
             ->with('vehicle_details') // Eager load the vehicle details relationship
             ->get();
 
@@ -266,7 +261,7 @@ class BookingController extends Controller
             $notification->save();
 
             //Nofication
-            // auth()->user()->notify(new BookingConfirmationNotification());
+            auth()->user()->notify(new BookingConfirmationNotification());
 
             // Return a success response
             return response()->json(['success' => true, 'message' => 'Reservation successful']);
@@ -278,37 +273,59 @@ class BookingController extends Controller
     public function adminPurchaseBookingDetails()
     {
         // Retrieve all booking details of the current user with the associated vehicle information of booking stsatus pending or approved of booking tye purchase
-        $user_booking_details = Bookings::where('booking_type', 'purchase')
+        $user_booking_details1 = Bookings::where('booking_type', 'purchase')
             ->where('booking_status', 'pending')
             ->orWhere('booking_status', 'approved')
             // Eager load the vehicle details and user relationship
             ->with('vehicle_details', 'users')
             ->paginate(5);
 
+        //get the notification with notification_type purchase and chnage the notification status to read
+        $notification = Notifications::where('notification_type', 'purchase')
+            ->where('notification_status', 'unread')
+            ->get();
+
+        // make the notification status to read after the user click on the notification
+        foreach ($notification as $notification) {
+            $notification->notification_status = 'read';
+            $notification->save();
+        }
+
         // dd($user_booking_details);
 
-        return view('admin.booking.purchaseBooking', compact('user_booking_details'));
+        return view('admin.booking.purchaseBooking', compact('user_booking_details1'));
     }
 
     public function adminTestdriveBookingDetails()
     {
         // Retrieve all booking details of the current user with the associated vehicle information of booking stsatus pending or approved of booking type testdrive
-        $user_booking_details = Bookings::where('booking_type', 'test_drive')
+        $user_booking_details2 = Bookings::where('booking_type', 'test_drive')
             ->where('booking_status', 'pending')
             ->orWhere('booking_status', 'approved')
             // Eager load the vehicle details and user relationship
             ->with('vehicle_details', 'users')
             ->paginate(5);
 
+        //get the notification with notification_type purchase and chnage the notification status to read
+        $notification = Notifications::where('notification_type', 'test_drive')
+            ->where('notification_status', 'unread')
+            ->get();
+
+        // make the notification status to read after the user click on the notification
+        foreach ($notification as $notification) {
+            $notification->notification_status = 'read';
+            $notification->save();
+        }
+
         // dd($user_booking_details);
 
-        return view('admin.booking.testdriveBooking', compact('user_booking_details'));
+        return view('admin.booking.testdriveBooking', compact('user_booking_details2'));
     }
 
     public function adminPastBookingDetails()
     {
         // Retrieve all booking details of the current user with the associated vehicle information of booking stsatus pending or approved of booking type testdrive
-        $user_booking_details = Bookings::where('booking_status', 'rejected')
+        $user_booking_details3 = Bookings::where('booking_status', 'rejected')
             ->orWhere('booking_status', 'completed')
             // Eager load the vehicle details and user relationship
             ->with('vehicle_details', 'users')
@@ -316,7 +333,7 @@ class BookingController extends Controller
 
         // dd($user_booking_details);
 
-        return view('admin.booking.pastBooking', compact('user_booking_details'));
+        return view('admin.booking.pastBooking', compact('user_booking_details3'));
     }
 
     public function adminBookingRestore($id)

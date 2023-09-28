@@ -276,10 +276,17 @@
                 </div>
                 <div>
                     <h2 class="text-lg font-semibold mb-2">New Test Drive Notifications</h2>
-                    <p>Notification:
-                        <span
-                            class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">{{ $testDriveCount }}</span>
-                    </p>
+                    @if ($testDriveCount == 0)
+                        <b>
+                            <p class="text-blue-800">No New Notifications</p>
+                        </b>
+                    @else
+                        <p>Notification:
+                            <span
+                                class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">{{ $testDriveCount }}</span>
+                        </p>
+                    @endif
+
 
                     <!-- Add more notification metrics here -->
                 </div>
@@ -292,10 +299,16 @@
                 </div>
                 <div>
                     <h2 class="text-lg font-semibold mb-2">New Purchase Notifications</h2>
-                    <p>Notification:
-                        <span
-                            class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">{{ $purchaseCount }}</span>
-                    </p>
+                    @if ($purchaseCount == 0)
+                        <b>
+                            <p class="text-blue-800">No New Notifications</p>
+                        </b>
+                    @else
+                        <p>Notification:
+                            <span
+                                class="inline-flex items-center justify-center w-8 h-7 ml-2 text-l font-semibold text-blue-800 bg-blue-200 rounded-full">{{ $purchaseCount }}</span>
+                        </p>
+                    @endif
 
                     <!-- Add more notification metrics here -->
                 </div>
@@ -324,8 +337,7 @@
         <div class="bg-gray-200 p-5 rounded-lg shadow-md my-5" x-data="{ selectedOption: 'Last 7 Days' }">
             <div class="flex justify-center space-x-4">
                 <div class="relative">
-                    <select
-                        x-model="selectedOption"
+                    <select x-model="selectedOption"
                         class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300">
                         <option>Last 7 Days</option>
                         <option>Last Month</option>
@@ -335,7 +347,8 @@
             </div>
 
             {{-- Display chart based on selected option --}}
-            <div x-show="selectedOption === 'Last 7 Days'" class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
+            <div x-show="selectedOption === 'Last 7 Days'"
+                class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
                 <div>
                     <canvas id="mylineChart"></canvas>
                 </div>
@@ -345,7 +358,8 @@
                 </div>
             </div>
 
-            <div x-show="selectedOption === 'Last Month'" class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
+            <div x-show="selectedOption === 'Last Month'"
+                class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
                 <div>
                     <canvas id="mylineChart1"></canvas>
                 </div>
@@ -355,7 +369,8 @@
                 </div>
             </div>
 
-            <div x-show="selectedOption === 'Last Year'" class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
+            <div x-show="selectedOption === 'Last Year'"
+                class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
                 <div>
                     <canvas id="mylineChart2"></canvas>
                 </div>
@@ -366,7 +381,7 @@
             </div>
         </div>
 
-         
+
         {{-- CHART --}}
 
 
@@ -519,12 +534,19 @@
 
         const value = @json($totalRevenueLastSevenDays);
         const dates = @json($lastSevenDays);
+        dates.reverse();
+        value.reverse();
 
         const value1 = @json($totalRevenueLastThirtyDays);
         const dates1 = @json($lastThirtyDates);
+        dates1.reverse();
+        value1.reverse();
+
 
         const value2 = @json($totalRevenueLastYearMonths);
         const dates2 = @json($lastYearMonths);
+        dates2.reverse();
+        value2.reverse();
 
 
         //7 days back

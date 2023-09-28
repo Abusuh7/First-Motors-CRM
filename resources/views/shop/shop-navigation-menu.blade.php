@@ -223,7 +223,7 @@
             <div class="flex items-center space-x-6 capitalize">
                 <a href="/shop"><button id=""
                         class="text-gray-200 hover:text-white transition font-semibold">Home</button></a>
-                <a href=""><button id=""
+                <a href="#navigateShop"><button id=""
                         class="text-gray-200 hover:text-white transition font-semibold">Shop</button></a>
 
                 <a href="{{ route('userBooking') }}"><button id=""
