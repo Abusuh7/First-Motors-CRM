@@ -217,6 +217,9 @@
             <div class="flex items-center space-x-6 capitalize">
                 <a href="{{ route('adminHome') }}"><button id=""
                         class="text-gray-200 hover:text-white transition font-semibold">Dashboard</button></a>
+                <a href="{{ route('staffAnalyticsDashboard') }}"><button id=""
+                        class="text-gray-200 hover:text-white transition font-semibold">Staff Analytics</button></a>
+
                 <a href="{{ route('users') }}"><button id=""
                         class="text-gray-200 hover:text-white transition font-semibold">Users</button></a>
 

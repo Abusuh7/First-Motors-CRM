@@ -6,6 +6,7 @@ use App\Http\Controllers\SellingController;
 use App\Http\Controllers\ShowCatagoryController;
 use App\Http\Controllers\ShowUserController;
 use App\Http\Controllers\ShowProductController;
+use App\Http\Controllers\StaffAnalyticsController;
 use App\Http\Controllers\VehiclesController;
 use App\Http\Controllers\ViewProductController;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,9 @@ Route::get('/admin/booking', [BookingController::class, 'index'])->name('adminBo
 
 //VIEW WHEN ADMIN SELL VEHICLE IS CLICKED
 Route::get('/admin/sell/vehicle', [SellingController::class, 'adminSellVehicle'])->name('adminSellVehicle');
+
+//VIEW WHEN ADMIN STAFF ANALYTICS IS CLICKED
+Route::get('admin/staffAnalytics', [StaffAnalyticsController::class, 'index'])->name('staffAnalyticsDashboard');
 
 
 
@@ -111,6 +115,16 @@ Route::get('/admin/purchasebookings', [BookingController::class, 'adminPurchaseB
 
 Route::get('/admin/testdrivebookings', [BookingController::class, 'adminTestdriveBookingDetails'])->name('adminTestdriveBooking');
 
+Route::get('/admin/pastbookings', [BookingController::class, 'adminPastBookingDetails'])->name('adminPastBooking');
+
+//admin accept booking
+Route::get('/admin/purchasebookings/{id}/accept', [BookingController::class, 'adminBookingAccept'])->name('acceptPurchaseBooking');
+
+//reject booking
+Route::get('/admin/purchasebookings/{id}/reject', [BookingController::class, 'adminBookingReject'])->name('rejectPurchaseBooking');
+
+//admin restore booking
+Route::get('/admin/pastbookings/{id}/restore', [BookingController::class, 'adminBookingRestore'])->name('restorePastBooking');
 
 
 

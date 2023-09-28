@@ -274,6 +274,7 @@ class BookingController extends Controller
     }
 
 
+    // ----------------------AMIDN BOOKING--------------------------
     public function adminPurchaseBookingDetails()
     {
         // Retrieve all booking details of the current user with the associated vehicle information of booking stsatus pending or approved of booking tye purchase
@@ -302,6 +303,61 @@ class BookingController extends Controller
         // dd($user_booking_details);
 
         return view('admin.booking.testdriveBooking', compact('user_booking_details'));
+    }
+
+    public function adminPastBookingDetails()
+    {
+        // Retrieve all booking details of the current user with the associated vehicle information of booking stsatus pending or approved of booking type testdrive
+        $user_booking_details = Bookings::where('booking_status', 'rejected')
+            ->orWhere('booking_status', 'completed')
+            // Eager load the vehicle details and user relationship
+            ->with('vehicle_details', 'users')
+            ->paginate(5);
+
+        // dd($user_booking_details);
+
+        return view('admin.booking.pastBooking', compact('user_booking_details'));
+    }
+
+    public function adminBookingRestore($id)
+    {
+        $booking = Bookings::find($id);
+        $booking->booking_status = 'pending';
+        $booking->save();
+
+        return redirect()->back();
+    }
+
+    //Admin booking accept and reject
+    public function adminBookingAccept($id)
+    {
+        //get the booking id using the id
+        $booking = Bookings::find($id);
+
+        //update the booking status to approved
+        $booking->booking_status = 'approved';
+
+        //save the booking status
+        $booking->save();
+
+        //redirect to the same page
+        return redirect()->back();
+    }
+
+    //Admin booking accept and reject
+    public function adminBookingReject($id)
+    {
+        //get the booking id using the id
+        $booking = Bookings::find($id);
+
+        //update the booking status to rejected
+        $booking->booking_status = 'rejected';
+
+        //save the booking status
+        $booking->save();
+
+        //redirect to the same page
+        return redirect()->back();
     }
 
     /**

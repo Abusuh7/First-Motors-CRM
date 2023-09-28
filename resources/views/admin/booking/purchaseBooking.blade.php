@@ -9,9 +9,9 @@
     <div class="max-w-7xl mx-auto py-8">
         {{-- @if (empty($vehiclesSearch)) --}}
 
-        <div class="flex flex-row justify-between">
+        {{-- <div class="flex flex-row justify-between">
             <h2 class="text-xl font-semibold mb-4">Purchase Booking</h2>
-        </div>
+        </div> --}}
 
         <div class="overflow-x-auto">
             @if (count($user_booking_details) > 0)
@@ -64,7 +64,13 @@
 
                                 {{-- <td class="border p-2">1</td> --}}
                                 <td class="border p-2">
-                                    {{ ucwords($vehicle->vehicle_details->availability) }}</td>
+                                    @if ($vehicle->vehicle_details->availability === 'available')
+                                        <b><span
+                                                class="text-green-500">{{ ucwords($vehicle->vehicle_details->availability) }}</span></b>
+                                    @else
+                                        <b><span
+                                                class="text-red-500">{{ ucwords($vehicle->vehicle_details->availability) }}</span></b>
+                                    @endif
                                 <td class="border p-2">
                                     {{-- {{ ucwords($vehicle->booking_status) }} --}}
                                     @if ($vehicle->booking_status === 'pending')
@@ -81,11 +87,11 @@
                                     @endif
                                 </td>
                                 <td class="border p-2">
-                                    <a href="{{ route('previewVehicleDetails', $vehicle->vehicle_details->id) }}">
+                                    <a href="{{ route('acceptPurchaseBooking', $vehicle->id) }}">
                                         <button
                                             class="text-white bg-blue-500 px-4 py-2 rounded-full hover:bg-blue-600 transition duration-200">Accept</button>
                                     </a>
-                                    <a href="{{ route('previewVehicleDetails', $vehicle->vehicle_details->id) }}">
+                                    <a href="{{ route('rejectPurchaseBooking', $vehicle->id) }}">
                                         <button
                                             class="text-white bg-red-500 px-4 py-2 rounded-full hover:bg-red-600 transition duration-200">Reject
                                         </button>
@@ -109,7 +115,7 @@
             {{ $user_booking_details->links() }} <!-- Pagination links -->
         @else
             <div class=" border p-4 mx-auto max-w-sm text-center">
-                <p class="text-xl">No vehicles available.</p>
+                <p class="text-xl">No test drive booking available.0</p>
             </div>
             @endif
         </div>
