@@ -45,6 +45,8 @@ class BookingController extends Controller
 
         // Retrieve all booking details of the current user with the associated vehicle information of booking stsatus pending or approved of booking tye purchase
         $user_booking_details = Bookings::where('user_id', $user_id)
+            ->where('booking_status', 'pending')
+            ->orWhere('booking_status', 'approved')
             ->with('vehicle_details') // Eager load the vehicle details relationship
             ->get();
 
@@ -60,6 +62,8 @@ class BookingController extends Controller
 
         // Retrieve all booking details of the current user with the associated vehicle information of booking stsatus pending or approved of booking type testdrive
         $user_booking_details = Bookings::where('user_id', $user_id)
+            ->where('booking_status', 'pending')
+            ->orWhere('booking_status', 'approved')
             ->with('vehicle_details') // Eager load the vehicle details relationship
             ->get();
 
