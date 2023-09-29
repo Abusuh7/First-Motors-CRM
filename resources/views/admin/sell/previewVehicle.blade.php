@@ -98,7 +98,7 @@
                     </div>
 
                     <div>
-                        <label for="delivery_date" class="text-gray-600">Sold Date <span
+                        <label for="delivery_date" class="text-gray-600">Delivery Date <span
                                 class="text-primary">*</span></label>
                         <input type="date" name="delivery_date" id="delivery_date" class="input-box"
                             required>

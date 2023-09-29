@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Sell') }}
+            {{ __('Sell Vehicles') }}
         </h2>
     </x-slot>
 
@@ -64,11 +64,26 @@
                                 {{-- <td class="border p-2">1</td> --}}
                                 <td class="border p-2">{{ ucwords($vehicle->availability) }}</td>
                                 <td class="border p-2">
-                                    <a href="{{ route('previewVehicleDetails', $vehicle->id) }}">
+                                    {{-- <a href="{{ route('previewVehicleDetails', $vehicle->id) }}">
                                         <button
                                             class="text-white bg-blue-500 px-4 py-2 rounded-full hover:bg-blue-600 transition duration-200">Sell
                                             Now</button>
-                                    </a>
+                                    </a> --}}
+
+
+                                    @if ($vehicle->availability === 'available')
+                                        <a href="{{ route('previewVehicleDetails', $vehicle->id) }}">
+                                            <button
+                                                class="text-white bg-blue-500 px-4 py-2 rounded-full hover:bg-blue-600 transition duration-200">Sell
+                                                Now</button>
+                                        </a>
+                                    @else
+                                        <button
+                                            class="text-white bg-red-500 px-4 py-2 rounded-full hover:bg-red-600 transition duration-200"
+                                            disabled>Not Available</button>
+                                    @endif
+
+
                                     {{-- <a href="{{ route('editvehicle', $vehicle->id) }}"><button
                                             class="text-green-500 mr-2">Edit</button></a>
                                     <form action="{{ route('deletevehicle', $vehicle->id) }}" method="POST">
