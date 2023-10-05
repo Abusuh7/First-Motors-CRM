@@ -13,6 +13,8 @@
         <div class="flex flex-col items-center">
             <h1 class="text-center mb-4 bg-slate-700 text-white w-full">Leaderboard</h1>
             <div class="w-full">
+
+
                 <table class="w-full">
                     <thead>
                         <tr>
@@ -26,6 +28,12 @@
                     <tbody class="text-center">
 
                         <tr class="bg-gray-300">
+                            @if (empty($staffLeaderboard1))
+                                <td>1st</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            @endif
                             <td>1st</td>
                             <td>{{ $staffLeaderboard1->users->name }}</td>
                             <td>{{ $staffLeaderboard1Count }}</td>
@@ -33,6 +41,12 @@
                         </tr>
 
                         <tr class="bg-gray-400">
+                            @if (empty($staffLeaderboard2))
+                                <td>2nd</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            @endif
                             <td>2nd</td>
                             <td>{{ $staffLeaderboard2->users->name }}</td>
                             <td>{{ $staffLeaderboard2Count }}</td>
@@ -40,6 +54,12 @@
                         </tr>
 
                         <tr class="bg-gray-500">
+                            @if (empty($staffLeaderboard3))
+                                <td>3rd</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            @endif
                             <td>3rd</td>
                             <td>{{ $staffLeaderboard3->users->name }}</td>
                             <td>{{ $staffLeaderboard3Count }}</td>

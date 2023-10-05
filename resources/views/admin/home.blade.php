@@ -379,6 +379,48 @@
                     <canvas id="mybarChart2"></canvas>
                 </div>
             </div>
+
+
+            <div x-show="selectedOption === 'Last 7 Days'" class="flex justify-center mt-6">
+                <div class="bg-white w-1/3 rounded-lg shadow-md p-4 flex items-center">
+                    <div class="mr-4">
+                        <i class="fas fa-chart-line text-4xl text-blue-500"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-semibold mb-2">Profits</h2>
+                        <p class="text-lg"><b>Rs {{ number_format($profitLastSevenDays) }}</b></p>
+                        <!-- Add more sales metrics here -->
+                    </div>
+                </div>
+            </div>
+
+            <div x-show="selectedOption === 'Last Month'" class="flex justify-center mt-6">
+                <div class="bg-white w-1/3 rounded-lg shadow-md p-4 flex items-center">
+                    <div class="mr-4">
+                        <i class="fas fa-chart-line text-4xl text-blue-500"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-semibold mb-2">Profits</h2>
+                        <p class="text-lg"><b>Rs {{ number_format($profitLastThirtyDays) }}</b></p>
+                        <!-- Add more sales metrics here -->
+                    </div>
+                </div>
+            </div>
+
+            <div x-show="selectedOption === 'Last Year'" class="flex justify-center mt-6">
+                <div class="bg-white w-1/3 rounded-lg shadow-md p-4 flex items-center">
+                    <div class="mr-4">
+                        <i class="fas fa-chart-line text-4xl text-blue-500"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-semibold mb-2">Profits</h2>
+                        <p class="text-lg"><b>Rs {{ number_format($profitLastYear) }}</b></p>
+                        <!-- Add more sales metrics here -->
+                    </div>
+                </div>
+            </div>
+
+
         </div>
 
 

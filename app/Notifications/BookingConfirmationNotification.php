@@ -38,7 +38,7 @@ class BookingConfirmationNotification extends Notification
         ->greeting('Hello!')
         ->line('Your booking has been confirmed.')
                     ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+                    ->action('View Booking', url('/'))
                     ->line('Thank you for using our application!');
     }
 

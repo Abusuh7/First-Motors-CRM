@@ -1,6 +1,17 @@
 <x-app-layout>
 
 
+    <div>
+        <h2 class="my-6 ml-2 text-3xl font-semibold text-gray-700 dark:text-gray-800">
+            Past Bookings
+        </h2>
+    </div>
+
+    {{-- @if (empty($user_booking_detail))
+        <div class="flex justify-center items-center h-screen">
+            <p class="font-bold text-lg text-red-600">No past bookings at the moment.</p>
+        </div>
+    @endif --}}
 
     <!-- Purchase Bookings -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-4 mx-3">

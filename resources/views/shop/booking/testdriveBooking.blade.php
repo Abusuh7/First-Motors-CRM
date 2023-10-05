@@ -1,9 +1,21 @@
 <x-app-layout>
 
+    <div>
+        <h2 class="my-6 ml-2 text-3xl font-semibold text-gray-700 dark:text-gray-800">
+            Test-Drive Bookings
+        </h2>
+    </div>
 
+    {{-- @if (empty($user_booking_detail))
+        <div class="flex justify-center items-center h-screen">
+            <p class="font-bold text-lg text-red-600">No test drive bookings at the moment.</p>
+        </div>
+    @endif --}}
 
     <!-- Purchase Bookings -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-4 mx-3">
+
+
 
         @foreach ($user_booking_details as $booking)
             <div class="bg-white shadow rounded overflow-hidden h-full flex flex-col">

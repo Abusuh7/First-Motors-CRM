@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\Storage;
 
 class VehiclesController extends Controller
 {
+    //Show the last 4 vehicles added to the database from the vehicle details table only the last 4 vehicle
+    public function indexView()
+    {
+        // $vehicles = Vehicle_Details::all()->paginate(5); // Retrieve all vehicles from the database
+        // retrive the last 4 vehicles data which was added to the database
+        $vehicles = Vehicle_Details::orderBy('created_at', 'desc')->take(4)->get();
+        return view('shop.index', compact('vehicles'));
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -29,7 +38,7 @@ class VehiclesController extends Controller
         return view('admin.vehicle.viewVehicle', compact('vehicles', 'previousOwners'));
     }
 
-    
+
 
     /**
      * Show the form for creating a new resource.

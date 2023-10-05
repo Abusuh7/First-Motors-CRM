@@ -112,7 +112,7 @@ class SellingController extends Controller
 
             // Return a success response
             return response()->json(['success' => true, 'message' => 'Purchase Successful']);
-            
+
         // } catch (\Exception $e) {
         //     // Return an error response
         //     return response()->json(['success' => false, 'message' => "Purchase Failed: {$e->getMessage()}"]);

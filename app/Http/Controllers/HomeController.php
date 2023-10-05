@@ -65,6 +65,24 @@ class HomeController extends Controller
             //get all the purchase bookings count
             $purchaseTotalCount = Bookings::where('booking_type', 'purchase')->get()->count();
 
+            //get the profit of the last 7 days
+            $profitLastSevenDays = 0;
+            $profitLastSevenDays = Vehicle_Details::where('availability', 'sold')
+                ->where('updated_at', '>=', now()->subDays(7))
+                ->sum('profit');
+
+            //get the profit of the last 30 days
+            $profitLastThirtyDays = 0;
+            $profitLastThirtyDays = Vehicle_Details::where('availability', 'sold')
+                ->where('updated_at', '>=', now()->subDays(30))
+                ->sum('profit');
+
+            //get the profit of the last 365 days
+            $profitLastYear = 0;
+            $profitLastYear = Vehicle_Details::where('availability', 'sold')
+                ->where('updated_at', '>=', now()->subDays(365))
+                ->sum('profit');
+
 
 
 
@@ -285,7 +303,6 @@ class HomeController extends Controller
                         $totalRevenueLastSevenDays[$i] += $soldVehicle->vehicle_selling_price;
                     }
                 }
-
             }
 
             //-----------------------LAST 30 DAYS--------------------------
@@ -395,6 +412,10 @@ class HomeController extends Controller
                 'purchaseTotalCount',
                 //REVENUE
                 'totalRevenue',
+                //PROFIT
+                'profitLastSevenDays',
+                'profitLastThirtyDays',
+                'profitLastYear',
                 //LAST 7 DAYS
                 'cityCount',
                 'lastSevenDates',
@@ -414,7 +435,12 @@ class HomeController extends Controller
         } elseif ($role == "staff") {
             return view('dashboard');
         } else {
-            return view('shop.logged-index');
+
+            // retrive the last 4 vehicles data which was added to the database
+            $vehicles = Vehicle_Details::orderBy('created_at', 'desc')->take(4)->get();
+
+
+            return view('shop.logged-index', compact('vehicles'));
         }
     }
 
@@ -456,6 +482,24 @@ class HomeController extends Controller
 
         //get all the purchase bookings count
         $purchaseTotalCount = Bookings::where('booking_type', 'purchase')->get()->count();
+
+        //get the profit of the last 7 days
+        $profitLastSevenDays = 0;
+        $profitLastSevenDays = Vehicle_Details::where('availability', 'sold')
+            ->where('updated_at', '>=', now()->subDays(7))
+            ->sum('profit');
+
+        //get the profit of the last 30 days
+        $profitLastThirtyDays = 0;
+        $profitLastThirtyDays = Vehicle_Details::where('availability', 'sold')
+            ->where('updated_at', '>=', now()->subDays(30))
+            ->sum('profit');
+
+        //get the profit of the last 365 days
+        $profitLastYear = 0;
+        $profitLastYear = Vehicle_Details::where('availability', 'sold')
+            ->where('updated_at', '>=', now()->subDays(365))
+            ->sum('profit');
 
 
         //------------------------------GRAPH DATA--------------------------------
@@ -783,6 +827,10 @@ class HomeController extends Controller
             'purchaseTotalCount',
             //REVENUE
             'totalRevenue',
+            //PROFIT
+            'profitLastSevenDays',
+            'profitLastThirtyDays',
+            'profitLastYear',
             //LAST 7 DAYS
             'cityCount',
             'lastSevenDates',
@@ -799,5 +847,13 @@ class HomeController extends Controller
             'totalRevenueLastYearMonths'
 
         ));
+    }
+
+    public function custommer()
+    {
+        $vehicles = Vehicle_Details::orderBy('created_at', 'desc')->take(4)->get();
+
+
+        return view('shop.logged-index', compact('vehicles'));
     }
 }

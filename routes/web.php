@@ -28,6 +28,8 @@ Route::get('/', function () {
     // return view('welcome');
 });
 
+Route::get('/', [VehiclesController::class, 'indexView']);
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -143,9 +145,11 @@ Route::post('/admin/sell/vehicle/{id}/sell', [SellingController::class, 'sellveh
 //  --------------------------CRUD FOR USERS--------------------------------
 
 //When user home is clicked
-Route::get('/shop', function () {
-    return view('shop.logged-index');
-})->name('userhome');
+// Route::get('/shop', function () {
+//     return view('shop.logged-index');
+// })->name('userhome');
+
+Route::get('/shop', [HomeController::class, 'custommer'])->name('userhome');
 
 //When user booking is clicked
 Route::get('/user/booking', [BookingController::class, 'userBooking'])->name('userBooking');

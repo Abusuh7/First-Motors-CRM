@@ -40,7 +40,7 @@ class StaffAnalyticsController extends Controller
             ->take(PHP_INT_MAX) // Take all remaining records
             ->get();
 
-        
+
 
 
 
