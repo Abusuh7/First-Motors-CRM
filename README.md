@@ -6,11 +6,15 @@
 
 ## SignedIn Page
 
-![Landing Page](https://github.com/Abusuh7/First-Motors-CRM/blob/main/ss_images/Logged.png)
+![SignedIn Page](https://github.com/Abusuh7/First-Motors-CRM/blob/main/ss_images/Logged.png)
 
-## CRM DASHBOARD
+## CRM ANALYTICS DASHBOARD
 
+![CRM Dashboard](https://github.com/Abusuh7/First-Motors-CRM/blob/main/ss_images/CRM_MAIN.png)
 
+## CRM STAFF ANALYTICS DASHBOARD
+
+![Staff Analytics](https://github.com/Abusuh7/First-Motors-CRM/blob/main/ss_images/CRM_STAFF.png)
 
 ## Table of Contents
 
