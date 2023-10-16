@@ -123,9 +123,8 @@ For the CRM System:
    npm run dev
 
 3. Create a database and import the database dump file
-```bash
-mysql -u username -p database_name < database_dump.sql
-```
+
+   [SQL DUMP.sql](https://github.com/Abusuh7/First-Motors-CRM/blob/main/laravel.sql)
 
 4. Create a `.env` file and add the following environment variables
 ```bash
