@@ -1,6 +1,16 @@
 # Vehicle Dealership Website with Integrated CRM System
 
-![Project Image](https://github.com/Abusuh7/First-Motors-CRM/blob/main/ss_images/Landing.png)
+## Landing Page
+  
+![Landing Page](https://github.com/Abusuh7/First-Motors-CRM/blob/main/ss_images/Landing.png)
+
+## SignedIn Page
+
+![Landing Page](https://github.com/Abusuh7/First-Motors-CRM/blob/main/ss_images/Logged.png)
+
+## CRM DASHBOARD
+
+
 
 ## Table of Contents
 
@@ -9,9 +19,11 @@
 - [Project Document](#project-document)
 - [Technologies Used](#technologies-used)
 - [Getting Started](#getting-started)
-  - [Prerequisites](#prerequities)
+  - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [License](#license)
+- [Credits](#credits)
+- [Contact](#contact)
+- [Licence](#licence)
 
 ## Introduction
 
@@ -121,6 +133,28 @@ For the CRM System:
    composer install
    npm install
    npm run dev
+
+3. Create a database and import the database dump file
+
+   [SQL DUMP.sql](https://github.com/Abusuh7/First-Motors-CRM/blob/main/laravel.sql)
+
+4. Create a `.env` file and add the following environment variables
+```bash
+DB_CONNECTION=mysql
+DB_HOST=
+DB_PORT=
+DB_DATABASE=laravel
+DB_USERNAME=
+DB_PASSWORD=
+```
+
+## Credits
+
+- [Abdullah Suhail]()
+
+## Contact
+
+- [Dhanish Ithhaf](mailto:abdullahsuhail2003@outlook.com)
 
 ## Licence
 
