@@ -162,7 +162,7 @@ DB_PASSWORD=
 
 ## Contact
 
-- [Dhanish Ithhaf](mailto:abdullahsuhail2003@outlook.com)
+- [Abdullah Suhail](mailto:abdullahsuhail2003@outlook.com)
 
 ## Licence
 
