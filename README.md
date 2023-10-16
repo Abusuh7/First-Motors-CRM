@@ -90,7 +90,7 @@ For the CRM System:
 
 ## Project Document
 
-[SSP2 DOC.docx](https://github.com/Ravishka7/Aroma_Boutique_WebApp/files/12913663/SSP2.DOC.docx)
+[FIRST MOTORS DOC.docx](https://github.com/Abusuh7/First-Motors-CRM/blob/main/2ns%20Sem%20Doc%20Submission.pdf)
 
 ## Technologies Used
 
